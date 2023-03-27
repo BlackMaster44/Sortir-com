@@ -1,7 +1,35 @@
 body {
+    max-width: 1200px;
+    margin: 20px auto;
     font-family: "Roboto Light", sans-serif;
+    color: #383838;
+    background: #eee;
+}
+
+#app {
+    background: white;
+    box-shadow: 0px 60px 25px rgba(63, 67, 77, 0.20);
+    min-height: 100vh;
+    padding: 30px;
+    margin-top: -25px;
+}
+
+a {
+    text-decoration: none;
+    color: #383838;
+}
+
+a:hover {
+    color: #5b5b5b;
 }
 
 h1 {
     font-size: 3.5rem;
+
+}
+
+nav ul {
+    display: flex;
+    list-style: none;
+    padding-left: 0;
 }

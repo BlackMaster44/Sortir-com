@@ -15,13 +15,15 @@
 </head>
 <body>
 
-    <h1>Projet Serie</h1>
+    <div id="app">
+        <h1>Sortir.com</h1>
 
-    {% include 'inc/nav.html.twig' %}
+        {% include 'inc/nav.html.twig' %}
 
-    <main id="app">
-        {% block body %}{% endblock %}
-    </main>
+        <main>
+            {% block body %}{% endblock %}
+        </main>
+    </div>
 
 </body>
 </html>
