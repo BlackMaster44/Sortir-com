@@ -18,6 +18,15 @@ class HangoutController extends AbstractController
         ]);
     }
 
+    #[Route('/list', name: 'list')]
+    public function list(HangoutRepository $hr) {
+        $hangouts = $hr->findAll();
+
+        return $this->render('hangout/list.html.twig', [
+           'hangouts' => $hangouts
+        ]);
+    }
+
     #[Route('details/{id}', name: 'details')]
     public function details(int $id, HangoutRepository $hr): Response
     {
