@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Repository\HangoutRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 #[Route('hangout', name:'hangout_')]
@@ -19,7 +20,8 @@ class HangoutController extends AbstractController
     }
 
     #[Route('/list', name: 'list')]
-    public function list(HangoutRepository $hr) {
+    public function list(HangoutRepository $hr): Response
+    {
         $hangouts = $hr->findAll();
 
         return $this->render('hangout/list.html.twig', [
@@ -45,7 +47,8 @@ class HangoutController extends AbstractController
     }
 
     #[Route('/notGoingAnymore', name: 'notGoingAnymore')]
-    public function notGoingAnymore () {
+    public function notGoingAnymore (): RedirectResponse
+    {
 
         return $this->redirectToRoute('hangout_list', []);
     }

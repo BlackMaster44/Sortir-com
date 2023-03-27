@@ -6,7 +6,7 @@
         {% for hangout in hangouts %}
             <div>
                 <p>{{ hangout.name }} - {{ hangout.startTimestamp | date('d/m/y H:i') }} -
-                {{ hangout.lastRegisterDate }} - GoingTo/{{ hangout.maxSlots }} - {{ hangout.creator }}</p>
+                {{ hangout.lastRegisterDate | date('d/m/y H:i') }} - GoingTo/{{ hangout.maxSlots }} - {{ hangout.creator.userIdentifier }}</p>
             </div>
         {% endfor %}
     </section>

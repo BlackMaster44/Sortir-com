@@ -32,7 +32,7 @@ class Place
 
     #[ORM\ManyToOne(inversedBy: 'places')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?City $cities = null;
+    private ?City $city = null;
 
     public function __construct()
     {
@@ -122,14 +122,14 @@ class Place
         return $this;
     }
 
-    public function getCities(): ?City
+    public function getCity(): ?City
     {
-        return $this->cities;
+        return $this->city;
     }
 
-    public function setCities(?City $cities): self
+    public function setCity(?City $city): self
     {
-        $this->cities = $cities;
+        $this->city = $city;
 
         return $this;
     }
