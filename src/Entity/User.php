@@ -29,22 +29,22 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?string $password = null;
 
-
-    #[ORM\ManyToMany(targetEntity: Hangout::class, inversedBy: 'users')]
-    private Collection $goingTo;
-
-    #[ORM\OneToMany(mappedBy: 'creator', targetEntity: Hangout::class)]
-    private Collection $created;
-
     #[ORM\ManyToOne(inversedBy: 'users')]
     #[ORM\JoinColumn(nullable: false)]
     private ?School $site = null;
+
+    #[ORM\ManyToMany(targetEntity: Hangout::class, inversedBy: 'participants')]
+    private Collection $goingTo;
+
+    #[ORM\OneToMany(mappedBy: 'creator', targetEntity: Hangout::class)]
+    private Collection $createdHangouts;
+
 
     public function __construct()
     {
 
         $this->goingTo = new ArrayCollection();
-        $this->created = new ArrayCollection();
+        $this->createdHangouts = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -149,22 +149,22 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     public function getCreated(): Collection
     {
-        return $this->created;
+        return $this->createdHangouts;
     }
 
-    public function addCreator(Hangout $created): self
+    public function addCreated(Hangout $created): self
     {
-        if (!$this->created->contains($created)) {
-            $this->created->add($created);
+        if (!$this->createdHangouts->contains($created)) {
+            $this->createdHangouts->add($created);
             $created->setCreator($this);
         }
 
         return $this;
     }
 
-    public function removeCreator(Hangout $created): self
+    public function removeCreatec(Hangout $created): self
     {
-        if ($this->created->removeElement($created)) {
+        if ($this->createdHangouts->removeElement($created)) {
             // set the owning side to null (unless already changed)
             if ($created->getCreator() === $this) {
                 $created->setCreator(null);
@@ -182,6 +182,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setSite(?School $site): self
     {
         $this->site = $site;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Hangout>
+     */
+    public function getCreatedHangouts(): Collection
+    {
+        return $this->createdHangouts;
+    }
+
+    public function addCreatedHangout(Hangout $createdHangout): self
+    {
+        if (!$this->createdHangouts->contains($createdHangout)) {
+            $this->createdHangouts->add($createdHangout);
+            $createdHangout->setCreator($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCreatedHangout(Hangout $createdHangout): self
+    {
+        if ($this->createdHangouts->removeElement($createdHangout)) {
+            // set the owning side to null (unless already changed)
+            if ($createdHangout->getCreator() === $this) {
+                $createdHangout->setCreator(null);
+            }
+        }
 
         return $this;
     }

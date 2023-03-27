@@ -21,7 +21,7 @@ class City
     #[ORM\Column(length: 5)]
     private ?string $postcode = null;
 
-    #[ORM\OneToMany(mappedBy: 'cities', targetEntity: Place::class)]
+    #[ORM\OneToMany(mappedBy: 'city', targetEntity: Place::class)]
     private Collection $places;
 
     public function __construct()
@@ -70,7 +70,7 @@ class City
     {
         if (!$this->places->contains($place)) {
             $this->places->add($place);
-            $place->setCities($this);
+            $place->setCity($this);
         }
 
         return $this;
@@ -80,8 +80,8 @@ class City
     {
         if ($this->places->removeElement($place)) {
             // set the owning side to null (unless already changed)
-            if ($place->getCities() === $this) {
-                $place->setCities(null);
+            if ($place->getCity() === $this) {
+                $place->setCity(null);
             }
         }
 

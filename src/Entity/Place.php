@@ -27,12 +27,12 @@ class Place
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $longitude = null;
 
-    #[ORM\OneToMany(mappedBy: 'places', targetEntity: Hangout::class)]
-    private Collection $hangouts;
-
     #[ORM\ManyToOne(inversedBy: 'places')]
     #[ORM\JoinColumn(nullable: false)]
     private ?City $city = null;
+
+    #[ORM\OneToMany(mappedBy: 'place', targetEntity: Hangout::class)]
+    private Collection $hangouts;
 
     public function __construct()
     {
@@ -91,6 +91,17 @@ class Place
 
         return $this;
     }
+    public function getCity(): ?City
+    {
+        return $this->city;
+    }
+
+    public function setCity(?City $city): self
+    {
+        $this->city = $city;
+
+        return $this;
+    }
 
     /**
      * @return Collection<int, Hangout>
@@ -104,7 +115,7 @@ class Place
     {
         if (!$this->hangouts->contains($hangout)) {
             $this->hangouts->add($hangout);
-            $hangout->setPlaces($this);
+            $hangout->setPlace($this);
         }
 
         return $this;
@@ -114,22 +125,10 @@ class Place
     {
         if ($this->hangouts->removeElement($hangout)) {
             // set the owning side to null (unless already changed)
-            if ($hangout->getPlaces() === $this) {
-                $hangout->setPlaces(null);
+            if ($hangout->getPlace() === $this) {
+                $hangout->setPlace(null);
             }
         }
-
-        return $this;
-    }
-
-    public function getCity(): ?City
-    {
-        return $this->city;
-    }
-
-    public function setCity(?City $city): self
-    {
-        $this->city = $city;
 
         return $this;
     }

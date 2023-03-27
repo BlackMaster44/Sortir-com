@@ -34,27 +34,25 @@ class Hangout
     #[ORM\Column(length: 3000)]
     private ?string $informations = null;
 
-    #[ORM\ManyToOne(inversedBy: 'created')]
+    #[ORM\ManyToMany(targetEntity: User::class, mappedBy: 'goingTo')]
+    private Collection $participants;
+
+    #[ORM\ManyToOne(inversedBy: 'createdHangouts')]
     #[ORM\JoinColumn(nullable: false)]
     private ?User $creator = null;
 
-    #[ORM\ManyToOne(inversedBy: 'hangout')]
+    #[ORM\ManyToOne(inversedBy: 'hostedHangouts')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?School $schools = null;
+    private ?School $school = null;
 
     #[ORM\ManyToOne(inversedBy: 'hangouts')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?Place $places = null;
-
-    #[ORM\ManyToMany(targetEntity: User::class, mappedBy: 'user')]
-    private Collection $user;
-
-
+    private ?Place $place = null;
 
 
     public function __construct()
     {
-
+        $this->participants = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -146,58 +144,54 @@ class Hangout
         return $this;
     }
 
-    public function getSchools(): ?School
-    {
-        return $this->schools;
-    }
-
-    public function setSchools(?School $schools): self
-    {
-        $this->schools = $schools;
-
-        return $this;
-    }
-
-    public function getPlaces(): ?Place
-    {
-        return $this->places;
-    }
-
-    public function setPlaces(?Place $places): self
-    {
-        $this->places = $places;
-
-        return $this;
-    }
-
     /**
-     * @return Collection<int, Hangout>
+     * @return Collection<int, User>
      */
-    public function getUsers(): Collection
+    public function getParticipants(): Collection
     {
-        return $this->user;
+        return $this->participants;
     }
 
-    public function addCreator(Hangout $user): self
+    public function addParticipant(User $participant): self
     {
-        if (!$this->user->contains($user)) {
-            $this->user->add($user);
-            $user->sethangout($this);
+        if (!$this->participants->contains($participant)) {
+            $this->participants->add($participant);
+            $participant->addGoingTo($this);
         }
 
         return $this;
     }
 
-    public function removeCreator(Hangout $user): self
+    public function removeParticipant(User $participant): self
     {
-        if ($this->user->removeElement($user)) {
-            // set the owning side to null (unless already changed)
-            if ($user->getHangout() === $this) {
-                $user->setHangout(null);
-            }
+        if ($this->participants->removeElement($participant)) {
+            $participant->removeGoingTo($this);
         }
 
         return $this;
     }
 
+    public function getSchool(): ?School
+    {
+        return $this->school;
+    }
+
+    public function setSchool(?School $school): self
+    {
+        $this->school = $school;
+
+        return $this;
+    }
+
+    public function getPlace(): ?Place
+    {
+        return $this->place;
+    }
+
+    public function setPlace(?Place $place): self
+    {
+        $this->place = $place;
+
+        return $this;
+    }
 }

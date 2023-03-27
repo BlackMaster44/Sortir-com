@@ -24,10 +24,14 @@ class School
     #[ORM\OneToMany(mappedBy: 'schools', targetEntity: Hangout::class)]
     private Collection $hangout;
 
+    #[ORM\OneToMany(mappedBy: 'school', targetEntity: Hangout::class)]
+    private Collection $hostedHangouts;
+
     public function __construct()
     {
         $this->users = new ArrayCollection();
         $this->hangout = new ArrayCollection();
+        $this->hostedHangouts = new ArrayCollection();
     }
 
 
@@ -90,7 +94,7 @@ class School
     {
         if (!$this->hangout->contains($hangout)) {
             $this->hangout->add($hangout);
-            $hangout->setSchools($this);
+            $hangout->setSchool($this);
         }
 
         return $this;
@@ -100,8 +104,38 @@ class School
     {
         if ($this->hangout->removeElement($hangout)) {
             // set the owning side to null (unless already changed)
-            if ($hangout->getSchools() === $this) {
-                $hangout->setSchools(null);
+            if ($hangout->getSchool() === $this) {
+                $hangout->setSchool(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Hangout>
+     */
+    public function getHostedHangouts(): Collection
+    {
+        return $this->hostedHangouts;
+    }
+
+    public function addHostedHangout(Hangout $hostedHangout): self
+    {
+        if (!$this->hostedHangouts->contains($hostedHangout)) {
+            $this->hostedHangouts->add($hostedHangout);
+            $hostedHangout->setSchool($this);
+        }
+
+        return $this;
+    }
+
+    public function removeHostedHangout(Hangout $hostedHangout): self
+    {
+        if ($this->hostedHangouts->removeElement($hostedHangout)) {
+            // set the owning side to null (unless already changed)
+            if ($hostedHangout->getSchool() === $this) {
+                $hostedHangout->setSchool(null);
             }
         }
 
