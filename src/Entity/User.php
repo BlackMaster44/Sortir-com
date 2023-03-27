@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -26,6 +28,24 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     #[ORM\Column]
     private ?string $password = null;
+
+
+    #[ORM\ManyToMany(targetEntity: Hangout::class, inversedBy: 'users')]
+    private Collection $goingTo;
+
+    #[ORM\OneToMany(mappedBy: 'creator', targetEntity: Hangout::class)]
+    private Collection $created;
+
+    #[ORM\ManyToOne(inversedBy: 'users')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?School $site = null;
+
+    public function __construct()
+    {
+
+        $this->goingTo = new ArrayCollection();
+        $this->created = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -95,5 +115,74 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
+    }
+
+
+
+
+    /**
+     * @return Collection<int, Hangout>
+     */
+    public function getGoingTo(): Collection
+    {
+        return $this->goingTo;
+    }
+
+    public function addGoingTo(Hangout $goingTo): self
+    {
+        if (!$this->goingTo->contains($goingTo)) {
+            $this->goingTo->add($goingTo);
+        }
+
+        return $this;
+    }
+
+    public function removeGoingTo(Hangout $goingTo): self
+    {
+        $this->goingTo->removeElement($goingTo);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Hangout>
+     */
+    public function getCreated(): Collection
+    {
+        return $this->created;
+    }
+
+    public function addCreator(Hangout $created): self
+    {
+        if (!$this->created->contains($created)) {
+            $this->created->add($created);
+            $created->setCreator($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCreator(Hangout $created): self
+    {
+        if ($this->created->removeElement($created)) {
+            // set the owning side to null (unless already changed)
+            if ($created->getCreator() === $this) {
+                $created->setCreator(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getSite(): ?School
+    {
+        return $this->site;
+    }
+
+    public function setSite(?School $site): self
+    {
+        $this->site = $site;
+
+        return $this;
     }
 }

@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\SchoolRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: SchoolRepository::class)]
@@ -15,6 +17,19 @@ class School
 
     #[ORM\Column(length: 255)]
     private ?string $name = null;
+
+    #[ORM\OneToMany(mappedBy: 'site', targetEntity: User::class)]
+    private Collection $users;
+
+    #[ORM\OneToMany(mappedBy: 'schools', targetEntity: Hangout::class)]
+    private Collection $hangout;
+
+    public function __construct()
+    {
+        $this->users = new ArrayCollection();
+        $this->hangout = new ArrayCollection();
+    }
+
 
     public function getId(): ?int
     {
@@ -32,4 +47,66 @@ class School
 
         return $this;
     }
+
+    /**
+     * @return Collection<int, User>
+     */
+    public function getUsers(): Collection
+    {
+        return $this->users;
+    }
+
+    public function addUser(User $user): self
+    {
+        if (!$this->users->contains($user)) {
+            $this->users->add($user);
+            $user->setSite($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUser(User $user): self
+    {
+        if ($this->users->removeElement($user)) {
+            // set the owning side to null (unless already changed)
+            if ($user->getSite() === $this) {
+                $user->setSite(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Hangout>
+     */
+    public function getHangout(): Collection
+    {
+        return $this->hangout;
+    }
+
+    public function addHangout(Hangout $hangout): self
+    {
+        if (!$this->hangout->contains($hangout)) {
+            $this->hangout->add($hangout);
+            $hangout->setSchools($this);
+        }
+
+        return $this;
+    }
+
+    public function removeHangout(Hangout $hangout): self
+    {
+        if ($this->hangout->removeElement($hangout)) {
+            // set the owning side to null (unless already changed)
+            if ($hangout->getSchools() === $this) {
+                $hangout->setSchools(null);
+            }
+        }
+
+        return $this;
+    }
+
+
 }

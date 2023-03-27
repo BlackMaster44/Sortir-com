@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\HangoutRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -31,6 +33,26 @@ class Hangout
 
     #[ORM\Column(length: 3000)]
     private ?string $informations = null;
+
+    #[ORM\ManyToOne(inversedBy: 'created')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?User $creator = null;
+
+    #[ORM\ManyToOne(inversedBy: 'hangout')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?School $schools = null;
+
+    #[ORM\ManyToOne(inversedBy: 'hangouts')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Place $places = null;
+
+
+
+
+    public function __construct()
+    {
+
+    }
 
     public function getId(): ?int
     {
@@ -108,4 +130,41 @@ class Hangout
 
         return $this;
     }
+
+    public function getCreator(): ?User
+    {
+        return $this->creator;
+    }
+
+    public function setCreator(?User $creator): self
+    {
+        $this->creator = $creator;
+
+        return $this;
+    }
+
+    public function getSchools(): ?School
+    {
+        return $this->schools;
+    }
+
+    public function setSchools(?School $schools): self
+    {
+        $this->schools = $schools;
+
+        return $this;
+    }
+
+    public function getPlaces(): ?Place
+    {
+        return $this->places;
+    }
+
+    public function setPlaces(?Place $places): self
+    {
+        $this->places = $places;
+
+        return $this;
+    }
+
 }
