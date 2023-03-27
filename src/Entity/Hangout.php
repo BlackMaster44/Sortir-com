@@ -46,6 +46,9 @@ class Hangout
     #[ORM\JoinColumn(nullable: false)]
     private ?Place $places = null;
 
+    #[ORM\ManyToMany(targetEntity: User::class, mappedBy: 'user')]
+    private Collection $user;
+
 
 
 
@@ -163,6 +166,36 @@ class Hangout
     public function setPlaces(?Place $places): self
     {
         $this->places = $places;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Hangout>
+     */
+    public function getUsers(): Collection
+    {
+        return $this->user;
+    }
+
+    public function addCreator(Hangout $user): self
+    {
+        if (!$this->user->contains($user)) {
+            $this->user->add($user);
+            $user->sethangout($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCreator(Hangout $user): self
+    {
+        if ($this->user->removeElement($user)) {
+            // set the owning side to null (unless already changed)
+            if ($user->getHangout() === $this) {
+                $user->setHangout(null);
+            }
+        }
 
         return $this;
     }
