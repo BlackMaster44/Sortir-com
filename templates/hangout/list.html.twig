@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h2>List de tous les hangouts !</h2>
+    <section>
+        {% for hangout in hangouts %}
+
+        {% endfor %}
+    </section>
+{% endblock %}
+
+{% block title %}
+{{ parent() }} | hangout list
+{% endblock %}
+
