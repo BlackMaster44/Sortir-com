@@ -22,8 +22,7 @@ class HangoutController extends AbstractController
     }
 
     #[Route('details/{id}', name: 'details')]
-    public function details(int $id,
-                            getHangoutRepositoryService $hr): Response
+    public function details(int $id, HangoutRepository $hr): Response
     {
 
         $hangout = $hr->find($id);
