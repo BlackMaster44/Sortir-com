@@ -4,7 +4,10 @@
     <h2>List de tous les hangouts !</h2>
     <section>
         {% for hangout in hangouts %}
-
+            <div>
+                <p>{{ hangout.name }} - {{ hangout.startTimestamp | date('d/m/y H:i') }} -
+                {{ hangout.lastRegisterDate }} - GoingTo/{{ hangout.maxSlots }} - {{ hangout.creator }}</p>
+            </div>
         {% endfor %}
     </section>
 {% endblock %}
