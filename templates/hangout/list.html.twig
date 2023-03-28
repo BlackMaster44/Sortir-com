@@ -1,14 +1,12 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h2>List de tous les hangouts !</h2>
+    <h2>Join Us for a Hangout !</h2>
     <section>
         {% for hangout in hangouts %}
-            <div>
-                <p>{{ hangout.name }} - {{ hangout.startTimestamp | date('d/m/y H:i') }} -
-                {{ hangout.lastRegisterDate | date('d/m/y H:i') }} - GoingTo/{{ hangout.maxSlots }} - {{ hangout.creator.userIdentifier }}</p>
-            </div>
+            <div></div>
         {% endfor %}
+        <button class="createHangoutButton"><a href="{{ path('hangout_create') }}">Create</a></button>
     </section>
 {% endblock %}
 

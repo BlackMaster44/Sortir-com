@@ -14,9 +14,7 @@ class HangoutController extends AbstractController
     public function createHangout(): Response
     {
 
-        return $this->render('hangout/index.html.twig', [
-            'controller_name' => 'HangoutController',
-        ]);
+        return $this->render('hangout/create.html.twig', []);
     }
 
     #[Route('/list', name: 'list')]
