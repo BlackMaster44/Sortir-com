@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
@@ -17,6 +18,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?int $id = null;
 
+    #[Assert\Unique]
     #[ORM\Column(length: 180, unique: true)]
     private ?string $email = null;
 
@@ -49,16 +51,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $phone = null;
 
     #[ORM\Column]
-    private ?bool $active = null;
+    private ?bool $active = true;
 
     #[ORM\Column]
-    private ?bool $administrator = null;
+    private ?bool $administrator = false;
+    #[Assert\Unique]
+    #[ORM\Column(length: 50, unique: true)]
+    private ?string $username = null;
 
 
     public function __construct()
     {
-        $this->administrator = false;
-        $this->active = true;
         $this->goingTo = new ArrayCollection();
         $this->createdHangouts = new ArrayCollection();
     }
@@ -288,6 +291,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setAdministrator(bool $administrator): self
     {
         $this->administrator = $administrator;
+
+        return $this;
+    }
+
+    public function getUsername(): ?string
+    {
+        return $this->username;
+    }
+
+    public function setUsername(string $username): self
+    {
+        $this->username = $username;
 
         return $this;
     }

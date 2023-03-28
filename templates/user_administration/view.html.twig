@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div>
+        <div>Email: {{ app.user.email }}</div>
+        <div>First Name: {{ app.user.firstName }}</div>
+        <div>Last Name: {{ app.user.lastName }}</div>
+        <div>Phone n°: {{ app.user.phone }}</div>
+        <div>Site: {{ app.user.site.name }}</div>
+        <a href="{{ path('user_modify') }}"><button>Modifier</button></a>
+        <a href="{{ path('user_password') }}"><button>Modifier mot de passe...</button></a>
+    </div>
+{% endblock %}
+
+{% block title %}
+{{ app.user.firstname }}
+{% endblock %}
+
