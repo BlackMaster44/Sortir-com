@@ -4,7 +4,12 @@
     <h2>{{ hangout.name }}</h2>
 
     <div class="hangoutDetails">
-
+        <p>{{ hangout.informations }}</p>
+        <p>Creator : {{ hangout.creator.email }}</p>
+        <p>Site : {{ hangout.site.name }}</p>
+        <p>Place : {{ hangout.place.name }}</p>
+        <p>{{ hangout.startTimestamp | date('d/m/y H:i') }}</p>
+        <p>Max number of participants : {{ hangout.maxSlots }}</p>
     </div>
 {% endblock %}
 

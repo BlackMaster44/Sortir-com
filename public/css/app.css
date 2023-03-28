@@ -23,8 +23,7 @@ nav li {
 }
 
 nav li a:hover {
-    color: #85DCB5FF;
-
+    color: #afcec4;
 }
 
 a {
@@ -51,6 +50,28 @@ h2 {
     font-size: 2rem;
 }
 
+.hangoutContainer {
+    padding: 15px 10px;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-gap: 5px;
+    justify-items: center;
+}
+
+.hangout {
+    text-align: center;
+    margin: 0;
+    background: #c0c0c0;
+    border-radius: 5px;
+    height: 200px;
+    width: 180px;
+}
+
+.hangout:hover {
+    cursor: pointer;
+    background: #e3e3e3;
+}
+
 footer {
     padding: 20px;
     margin-bottom: -25px;
@@ -60,6 +81,8 @@ footer {
 }
 
 .createHangoutButton {
+    margin-top: 20px;
+    margin-left: -75px;
     border: none;
     padding: 15px 20px;
     border-radius: 5px;
