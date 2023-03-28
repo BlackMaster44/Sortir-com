@@ -66,13 +66,12 @@ class AppFixtures extends Fixture
         $user->setFirstName('Jean');
         $user->setLastName('Bonbeurre');
         $user->setPhone('0000000000');
+        $user->setUsername('test');
         $manager->persist($user);
         $manager->flush();
         $places = $manager->getRepository(Place::class)->findAll();
         $populator->addEntity(User::class, 10, [
             'password' => 'password',
-            'active' => true,
-            'administrator' => false,
             'site' => function() use ($nantes, $rennes) {
                 return rand(1,2) % 2 ? $nantes : $rennes;
             }

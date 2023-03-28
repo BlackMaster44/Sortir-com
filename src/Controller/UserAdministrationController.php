@@ -3,17 +3,49 @@
 namespace App\Controller;
 
 use App\Form\UserModifyType;
+use App\Form\UserPasswordChangeType;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-
+#[Route('/user/admin', name: 'user')]
 class UserAdministrationController extends AbstractController
 {
-    #[Route('/user/admin', name: 'user_administration')]
-    public function index(): Response
+    #[Route('/', name: '_view')]
+    public function view():Response
+    {
+        return $this->render('user_administration/view.html.twig');
+    }
+    #[Route('/modify', name: '_modify')]
+    public function modify(Request $request, EntityManagerInterface $em): Response
     {
         $user = $this->getUser();
         $form = $this->createForm(UserModifyType::class, $user);
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid()){
+            $user = $form->getData();
+            $em->persist($user);
+            $em->flush();
+            return $this->redirectToRoute('user_view');
+        }
         return $this->render('user_administration/index.html.twig', ['form'=>$form]);
+    }
+    #[Route('/modify/password', name: '_password')]
+    public function changePassword(Request $request, EntityManagerInterface $em): Response
+    {
+        $user = $this->getUser();
+        $form = $this->createForm(UserPasswordChangeType::class, $user);
+        $form->handleRequest($request);
+        if($form->isSubmitted()){
+            $isEqual = $form->get('password')->getData() === $form->get('passwordValidation')->getData();
+            if ($isEqual && $form->isValid()){
+                $user = $form->getData();
+                $em->persist($user);
+                $em->flush();
+                return $this->redirectToRoute('user_view');
+            }
+        }
+        return $this->render('user_administration/password.html.twig', ['form'=>$form]);
     }
 }
