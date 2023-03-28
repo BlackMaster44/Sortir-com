@@ -16,14 +16,16 @@
 <body>
 
     <div id="app">
-        <h1>Sortir.com</h1>
-
-        {% include 'inc/nav.html.twig' %}
+        <header>
+            <a href="{{ path('hangout_list') }}"><h1>Sortir.com</h1></a>
+            {% include 'inc/nav.html.twig' %}
+        </header>
 
         <main>
             {% block body %}{% endblock %}
         </main>
     </div>
+    {% include 'inc/footer.html.twig' %}
 
 </body>
 </html>

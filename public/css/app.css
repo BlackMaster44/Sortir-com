@@ -1,17 +1,24 @@
 body {
-    max-width: 1200px;
+    max-width: 1000px;
     margin: 20px auto;
     font-family: "Roboto Light", sans-serif;
     color: #383838;
     background: #eee;
 }
 
-#app {
-    background: white;
-    box-shadow: 0px 60px 25px rgba(63, 67, 77, 0.20);
-    min-height: 100vh;
-    padding: 30px;
-    margin-top: -25px;
+header {
+    margin-bottom: 50px;
+}
+
+nav ul {
+    display: flex;
+    list-style: none;
+    padding-left: 0;
+    margin-left: 40vw;
+}
+
+nav li {
+    margin: 0 5px;
 }
 
 a {
@@ -23,13 +30,26 @@ a:hover {
     color: #5b5b5b;
 }
 
-h1 {
-    font-size: 3.5rem;
-
+#app {
+    background: white;
+    box-shadow: 0px 60px 25px rgba(63, 67, 77, 0.20);
+    min-height: 100vh;
+    padding: 30px;
+    margin-top: -25px;
 }
 
-nav ul {
-    display: flex;
-    list-style: none;
-    padding-left: 0;
+h1 {
+    font-size: 3.5rem;
+}
+
+h2 {
+    text-align: center;
+}
+
+footer {
+    padding: 20px;
+    margin-bottom: -25px;
+    color: #eee;
+    background: #383838;
+    text-align: center;
 }
