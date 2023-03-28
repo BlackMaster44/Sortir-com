@@ -1,11 +1,19 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-    {{ parent() }} | hangout creation
+
 {% endblock %}
 
 {% block body %}
-    <h2>Suggest your own Hangout idea !</h2>
-{#    {{ form_start() }}#}
+    {{ form_start(hangoutForm) }}
+
+    {{ form_widget(hangoutForm) }}
+
+    <button>Enregistrer</button>
+    <button>Publier</button>
+    <button>Annuler</button>
+
+    {{ form_end((hangoutForm)) }}
+
 {% endblock %}
 
