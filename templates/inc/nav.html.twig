@@ -4,6 +4,11 @@
         <li><a href="#">Sites</a></li>|
         <li><a href="{{ path('hangout_list') }}">Home</a></li>|
         <li><a href="#">Profile</a></li>|
-        <li><a href="#">Logout</a></li>
+        {% if app.user %}
+            <li><a href="{{ path('app_logout') }}">Logout</a></li>
+        {% else %}
+            <li><a href="{{ path('app_login') }}">Login</a></li>|
+            <li><a href="#">Register</a></li>
+        {% endif %}
     </ul>
 </nav>
