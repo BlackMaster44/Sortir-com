@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h2>Sites list </h2>
+
+    <div class="sitesContainer">
+        {% for site in sites %}
+            <div class="site">
+                <h4>{{ site.name }}</h4>
+                <a href="#"><button>Edit</button></a>
+                <a href="{{ path('site_deleteSite', {'id': site.id}) }}"><button>Delete</button></a>
+            </div>
+        {% endfor %}
+    </div>
+
+    <a href="#"><button>ADD</button></a>
+{% endblock %}
+
+{% block title %}
+    {{ parent() }} | sites list
+{% endblock %}
+

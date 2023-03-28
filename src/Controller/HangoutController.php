@@ -46,7 +46,13 @@ class HangoutController extends AbstractController
         ]);
     }
 
-#[Route('details/{id}', name: 'details')]
+    #[Route('/filter', name: 'filter')]
+    public function filter(): Response {
+
+        return $this->redirectToRoute('hangout_list', []);
+    }
+
+    #[Route('details/{id}', name: 'details')]
     public function details(int $id, HangoutRepository $hr): Response
 {
 

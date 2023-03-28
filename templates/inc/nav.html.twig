@@ -1,7 +1,7 @@
 <nav>
     <ul>
-        <li><a href="#">Cities</a></li>|
-        <li><a href="#">Sites</a></li>|
+        <li><a href="{{ path('place_list') }}">Places</a></li>|
+        <li><a href="{{ path('site_list') }}">Sites</a></li>|
         <li><a href="{{ path('hangout_list') }}">Home</a></li>|
         <li><a href="#">Profile</a></li>|
         {% if app.user %}
