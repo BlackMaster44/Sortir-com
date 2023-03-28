@@ -14,7 +14,7 @@ use Doctrine\Persistence\ManagerRegistry;
  * @method Site[]    findAll()
  * @method Site[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class SchoolRepository extends ServiceEntityRepository
+class SiteRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
@@ -40,7 +40,7 @@ class SchoolRepository extends ServiceEntityRepository
     }
 
 //    /**
-//     * @return School[] Returns an array of School objects
+//     * @return Site[] Returns an array of Site objects
 //     */
 //    public function findByExampleField($value): array
 //    {
@@ -54,7 +54,7 @@ class SchoolRepository extends ServiceEntityRepository
 //        ;
 //    }
 
-//    public function findOneBySomeField($value): ?School
+//    public function findOneBySomeField($value): ?Site
 //    {
 //        return $this->createQueryBuilder('s')
 //            ->andWhere('s.exampleField = :val')

@@ -2,12 +2,12 @@
 
 namespace App\Entity;
 
-use App\Repository\SchoolRepository;
+use App\Repository\SiteRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: SchoolRepository::class)]
+#[ORM\Entity(repositoryClass: SiteRepository::class)]
 class Site
 {
     #[ORM\Id]
@@ -20,7 +20,7 @@ class Site
 
     #[ORM\OneToMany(mappedBy: 'site', targetEntity: User::class)]
     private Collection $users;
-    #[ORM\OneToMany(mappedBy: 'school', targetEntity: Hangout::class)]
+    #[ORM\OneToMany(mappedBy: 'site', targetEntity: Hangout::class)]
     private Collection $hostedHangouts;
 
     public function __construct()
@@ -120,7 +120,7 @@ class Site
     {
         if (!$this->hostedHangouts->contains($hostedHangout)) {
             $this->hostedHangouts->add($hostedHangout);
-            $hostedHangout->setSchool($this);
+            $hostedHangout->setSite($this);
         }
 
         return $this;
@@ -130,8 +130,8 @@ class Site
     {
         if ($this->hostedHangouts->removeElement($hostedHangout)) {
             // set the owning side to null (unless already changed)
-            if ($hostedHangout->getSchool() === $this) {
-                $hostedHangout->setSchool(null);
+            if ($hostedHangout->getSite() === $this) {
+                $hostedHangout->setSite(null);
             }
         }
 

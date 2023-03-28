@@ -43,7 +43,7 @@ class Hangout
 
     #[ORM\ManyToOne(inversedBy: 'hostedHangouts')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?Site $school = null;
+    private ?Site $site = null;
 
     #[ORM\ManyToOne(inversedBy: 'hangouts')]
     #[ORM\JoinColumn(nullable: false)]
@@ -175,14 +175,14 @@ class Hangout
         return $this;
     }
 
-    public function getSchool(): ?Site
+    public function getSite(): ?Site
     {
-        return $this->school;
+        return $this->site;
     }
 
-    public function setSchool(?Site $school): self
+    public function setSite(?Site $site): self
     {
-        $this->school = $school;
+        $this->site = $site;
 
         return $this;
     }

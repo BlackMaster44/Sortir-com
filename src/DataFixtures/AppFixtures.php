@@ -18,7 +18,8 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class AppFixtures extends Fixture
 {
-    private UserPasswordHasherInterface $hasher;/**
+    private UserPasswordHasherInterface $hasher;
+    /**
      * @param UserPasswordHasherInterface $hasher
      */
     public function __construct(UserPasswordHasherInterface $hasher)
@@ -45,13 +46,16 @@ class AppFixtures extends Fixture
         $manager->persist($rennes);
         for($i = 0; $i < sizeof(StateConstraints::wordingState); $i++){
             $state = new State();
+            $state->setWording(StateConstraints::wordingState[$i]);
+            $manager->persist($state);
         }
+        $manager->flush();
         $populator->addEntity(City::class, 10, ['name'=>function() use ($generator){ return $generator->city();}]);
         $populator->execute();
-        $manager->flush();
-        $populator->addEntity(Place::class, 50, [
-            'city'=>function() use($manager){
-            return $manager->getRepository(City::class)->find(rand(1,10));
+        $cities = $manager->getRepository(City::class)->findAll();
+        $populator->addEntity(Place::class, 50,[], [
+            function(Place $place) use ($cities){
+                $place->setCity($cities[rand(0,9)]);
             }
         ]);
         $places = $manager->getRepository(Place::class)->findAll();
@@ -66,11 +70,14 @@ class AppFixtures extends Fixture
         $populator->execute();
         $manager->flush();
         $users = $manager->getRepository(User::class)->findAll();
+        $states = $manager->getRepository(State::class)->findAll();
         $populator->addEntity(Hangout::class, 50, [
             'creator' => $users[rand(0,9)],
             'duration'=> new \DateInterval(sprintf('PT%sH%sM', rand(1,3), rand(1,60))),
-            'users'=> new ArrayCollection([$users[rand(0,9)],$users[rand(0,9)]]),
-            'schools'=> rand(1,2)%2 ? $nantes : $rennes
+            'participants'=> new ArrayCollection([$users[rand(0,9)],$users[rand(0,9)]]),
+            'site'=> rand(1,2)%2 ? $nantes : $rennes,
+            'state'=>function() use($states) { return $states[rand(0, sizeof(StateConstraints::wordingState)-1)];},
+            'name'=>function() use($generator) {return implode(" ",$generator->words(3));}
         ],
 //            [
 //            function (Hangout $hangout) use ($manager){
