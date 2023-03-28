@@ -5,8 +5,10 @@ namespace App\DataFixtures;
 use App\Entity\City;
 use App\Entity\Hangout;
 use App\Entity\Place;
-use App\Entity\School;
+use App\Entity\Site;
+use App\Entity\State;
 use App\Entity\User;
+use App\TypeConstraints\StateConstraints;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Persistence\ObjectManager;
@@ -35,17 +37,20 @@ class AppFixtures extends Fixture
         // $product = new Product();
         // $manager->persist($product);
 
-        $nantes = new School();
+        $nantes = new Site();
         $nantes->setName('Nantes');
         $manager->persist($nantes);
-        $rennes = new School();
+        $rennes = new Site();
         $rennes->setName('Rennes');
         $manager->persist($rennes);
+        for($i = 0; $i < sizeof(StateConstraints::wordingState); $i++){
+            $state = new State();
+        }
         $populator->addEntity(City::class, 10, ['name'=>function() use ($generator){ return $generator->city();}]);
         $populator->execute();
         $manager->flush();
         $populator->addEntity(Place::class, 50, [
-            'cities'=>function() use($manager){
+            'city'=>function() use($manager){
             return $manager->getRepository(City::class)->find(rand(1,10));
             }
         ]);

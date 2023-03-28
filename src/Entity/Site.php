@@ -8,7 +8,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: SchoolRepository::class)]
-class School
+class Site
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -20,10 +20,6 @@ class School
 
     #[ORM\OneToMany(mappedBy: 'site', targetEntity: User::class)]
     private Collection $users;
-
-    #[ORM\OneToMany(mappedBy: 'schools', targetEntity: Hangout::class)]
-    private Collection $hangout;
-
     #[ORM\OneToMany(mappedBy: 'school', targetEntity: Hangout::class)]
     private Collection $hostedHangouts;
 

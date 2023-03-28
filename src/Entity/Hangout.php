@@ -43,11 +43,15 @@ class Hangout
 
     #[ORM\ManyToOne(inversedBy: 'hostedHangouts')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?School $school = null;
+    private ?Site $school = null;
 
     #[ORM\ManyToOne(inversedBy: 'hangouts')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Place $place = null;
+
+    #[ORM\ManyToOne(inversedBy: 'hangouts')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?State $state = null;
 
 
     public function __construct()
@@ -171,12 +175,12 @@ class Hangout
         return $this;
     }
 
-    public function getSchool(): ?School
+    public function getSchool(): ?Site
     {
         return $this->school;
     }
 
-    public function setSchool(?School $school): self
+    public function setSchool(?Site $school): self
     {
         $this->school = $school;
 
@@ -191,6 +195,18 @@ class Hangout
     public function setPlace(?Place $place): self
     {
         $this->place = $place;
+
+        return $this;
+    }
+
+    public function getState(): ?State
+    {
+        return $this->state;
+    }
+
+    public function setState(?State $state): self
+    {
+        $this->state = $state;
 
         return $this;
     }

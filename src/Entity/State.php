@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\StateRepository;
+use App\TypeConstraints\StateConstraints;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -11,7 +12,6 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ORM\Entity(repositoryClass: StateRepository::class)]
 class State
 {
-    private const wordingState = ['created', 'reg_open', 'reg_closed', 'in_progress', 'done', 'canceled'];
 
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -19,19 +19,15 @@ class State
     private ?int $id = null;
 
     #[ORM\Column(length: 15)]
-    #[Assert\Choice(choices: State::wordingState, message: 'select a valid state')]
+    #[Assert\Choice(choices: StateConstraints::wordingState, message: 'select a valid state')]
     private ?string $wording = null;
 
-    #[ORM\ManyToOne(targetEntity: self::class, inversedBy: 'states')]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?self $hangouts = null;
-
-    #[ORM\OneToMany(mappedBy: 'hangouts', targetEntity: self::class)]
-    private Collection $states;
+    #[ORM\OneToMany(mappedBy: 'state', targetEntity: Hangout::class)]
+    private Collection $hangouts;
 
     public function __construct()
     {
-        $this->states = new ArrayCollection();
+        $this->hangouts = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -51,42 +47,30 @@ class State
         return $this;
     }
 
-    public function getHangouts(): ?self
+    /**
+     * @return Collection<int, Hangout>
+     */
+    public function getHangouts(): Collection
     {
         return $this->hangouts;
     }
 
-    public function setHangouts(?self $hangouts): self
+    public function addHangout(Hangout $hangout): self
     {
-        $this->hangouts = $hangouts;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, self>
-     */
-    public function getStates(): Collection
-    {
-        return $this->states;
-    }
-
-    public function addState(self $state): self
-    {
-        if (!$this->states->contains($state)) {
-            $this->states->add($state);
-            $state->setHangouts($this);
+        if (!$this->hangouts->contains($hangout)) {
+            $this->hangouts->add($hangout);
+            $hangout->setState($this);
         }
 
         return $this;
     }
 
-    public function removeState(self $state): self
+    public function removeHangout(Hangout $hangout): self
     {
-        if ($this->states->removeElement($state)) {
+        if ($this->hangouts->removeElement($hangout)) {
             // set the owning side to null (unless already changed)
-            if ($state->getHangouts() === $this) {
-                $state->setHangouts(null);
+            if ($hangout->getState() === $this) {
+                $hangout->setState(null);
             }
         }
 

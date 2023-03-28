@@ -31,7 +31,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\ManyToOne(inversedBy: 'users')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?School $site = null;
+    private ?Site $site = null;
 
     #[ORM\ManyToMany(targetEntity: Hangout::class, inversedBy: 'participants')]
     private Collection $goingTo;
@@ -174,12 +174,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getSite(): ?School
+    public function getSite(): ?Site
     {
         return $this->site;
     }
 
-    public function setSite(?School $site): self
+    public function setSite(?Site $site): self
     {
         $this->site = $site;
 
