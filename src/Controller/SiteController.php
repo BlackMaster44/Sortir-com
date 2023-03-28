@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Entity\Site;
+use App\Form\CreateSiteType;
 use App\Repository\SiteRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -19,6 +21,27 @@ class SiteController extends AbstractController
 
         return $this->render('site/list.html.twig', [
             'sites' => $sites,
+        ]);
+    }
+
+    #[Route('/create', name: 'create')]
+    public function createSite(Request $request, EntityManagerInterface $emi): Response {
+
+        $site = new Site();
+        $siteForm = $this->createForm(CreateSiteType::class, $site);
+        $siteForm->handleRequest($request);
+
+        if($siteForm->isSubmitted() && $siteForm->isValid()) {
+            $emi->persist($site);
+            $emi->flush();
+
+            $this->addFlash('success', 'Site added');
+
+            return $this->redirectToRoute('site_list');
+        }
+
+        return $this->render('site/create.html.twig', [
+            'siteForm'=> $siteForm->createView()
         ]);
     }
 
