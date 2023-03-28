@@ -55,33 +55,98 @@ h2 {
     font-size: 2rem;
 }
 
+h3 {
+    color: #6e6c6c;
+    font-size: 1.1rem;
+    text-transform: uppercase;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
 .filters {
-    background: #85dcb5;
-    margin: 10px auto;
+    border-bottom: 1px solid #ddd;
+    border-top: 1px solid #ddd;
+    margin: 20px auto;
     height: 200px;
     width: 900px;
-    padding: 10px;
+    padding: 15px 0px 105px 0px;
     display: grid;
     grid-template-columns: repeat(5, 1fr);
     grid-template-rows: 1fr 1fr 1fr 1fr;
     grid-gap: 3px;
 }
 
+label {
+    color: #6e6c6c;
+    margin: 25px 0 15px;
+    font-size: 0.6rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: bold;
+}
+
 .siteFilter {
     grid-row: 2/3;
     grid-column: span 2;
+    justify-self: center;
+    align-self: center;
+}
+.siteFilter input, select {
+    padding: 10px 85px;
+    width: 100%;
+    border: none;
+    border-bottom: 1px solid #ddd;
 }
 .nameFilter {
     grid-row: 3/4;
     grid-column: span 2;
+    justify-self: center;
+    align-self: center;
+}
+.nameFilter input {
+    border: none;
+    padding: 10px 6px;
+    width: 100%;
+    border-bottom: 1px solid #ddd;
+    color: #555;
 }
 .dateFilter {
     grid-row: 4/5;
     grid-column: span 2;
+    justify-self: center;
+    align-self: center;
 }
+.dateFilter input {
+    border: none;
+    padding: 10px 0px;
+    width: 100%;
+    border-bottom: 1px solid #ddd;
+    color: #555;
+}
+
 .checkFilters {
     grid-column: 3/5;
     grid-row: span 4;
+    justify-self: center;
+    align-self: center;
+}
+.check {
+    margin: 0.5px 0;
+}
+.filterButton {
+    grid-row: span 4;
+    align-self: center;
+    justify-self: center;
+}
+
+.filterButton button {
+    border: none;
+    padding: 15px 20px;
+    border-radius: 5px;
+}
+
+.filterButton button:hover {
+    cursor: pointer;
 }
 
 .hangoutContainer {

@@ -4,10 +4,33 @@
     <h2>Join Us for a Hangout !</h2>
     <div class="filters">
         <h3>Filter</h3>
-        <div style="background: #B0413E" class="siteFilter">site</div>
-        <div style="background: #B0413E" class="nameFilter">name</div>
-        <div style="background: #B0413E" class="dateFilter">date</div>
-        <div style="background: #B0413E" class="checkFilters">checkFilters</div>
+        <div class="siteFilter">
+            <label for="">Site</label>
+            <select name="" id="">
+                <option value="">option A</option>
+                <option value="">option B</option>
+            </select>
+        </div>
+        <div class="nameFilter">
+            <label for="inputSearch">Search name</label>
+            <input type="search">
+        </div>
+        <div class="dateFilter">
+            <label for="">dates</label>
+            <input type="date"> <input type="date">
+        </div>
+        <div class="checkFilters">
+            <div class="check"><input type="checkbox"><label for="">Sorties dont je suis l'organisateur</label></div>
+            <br>
+            <div class="check"><input type="checkbox"><label for="">Sorties auxquelles je suis inscrit</label></div>
+            <br>
+            <div class="check"><input type="checkbox"><label for="">Sorties auxquelles je en suis pas inscrit</label></div>
+            <br>
+            <div class="check"><input type="checkbox"><label for="">Sorties passées</label></div>
+        </div>
+        <div class="filterButton">
+            <a href="#"><button>filterButton</button></a>
+        </div>
     </div>
     <section class="hangoutContainer">
         {% for hangout in hangouts %}
