@@ -2,6 +2,13 @@
 
 {% block body %}
     <h2>Join Us for a Hangout !</h2>
+    <div class="filters">
+        <h3>Filter</h3>
+        <div style="background: #B0413E" class="siteFilter">site</div>
+        <div style="background: #B0413E" class="nameFilter">name</div>
+        <div style="background: #B0413E" class="dateFilter">date</div>
+        <div style="background: #B0413E" class="checkFilters">checkFilters</div>
+    </div>
     <section class="hangoutContainer">
         {% for hangout in hangouts %}
             <div class="hangout">

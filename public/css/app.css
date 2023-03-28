@@ -7,6 +7,11 @@ body {
     font-size: 1rem;
 }
 
+.greetings {
+    display: flex;
+    margin-left: 43vw;
+}
+
 header {
     margin-bottom: 50px;
 }
@@ -48,6 +53,35 @@ h1 {
 h2 {
     text-align: center;
     font-size: 2rem;
+}
+
+.filters {
+    background: #85dcb5;
+    margin: 10px auto;
+    height: 200px;
+    width: 900px;
+    padding: 10px;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: 1fr 1fr 1fr 1fr;
+    grid-gap: 3px;
+}
+
+.siteFilter {
+    grid-row: 2/3;
+    grid-column: span 2;
+}
+.nameFilter {
+    grid-row: 3/4;
+    grid-column: span 2;
+}
+.dateFilter {
+    grid-row: 4/5;
+    grid-column: span 2;
+}
+.checkFilters {
+    grid-column: 3/5;
+    grid-row: span 4;
 }
 
 .hangoutContainer {
