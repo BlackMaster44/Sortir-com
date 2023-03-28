@@ -2,12 +2,14 @@
 
 namespace App\Controller;
 
+use App\Entity\User;
 use App\Form\UserModifyType;
 use App\Form\UserPasswordChangeType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 #[Route('/user/admin', name: 'user')]
 class UserAdministrationController extends AbstractController
@@ -32,15 +34,15 @@ class UserAdministrationController extends AbstractController
         return $this->render('user_administration/index.html.twig', ['form'=>$form]);
     }
     #[Route('/modify/password', name: '_password')]
-    public function changePassword(Request $request, EntityManagerInterface $em): Response
+    public function changePassword(Request $request, EntityManagerInterface $em, UserPasswordHasherInterface $hasher): Response
     {
-        $user = $this->getUser();
+        $user = $em->getRepository(User::class)->findOneBy(['email'=>$this->getUser()->getUserIdentifier()]);
         $form = $this->createForm(UserPasswordChangeType::class, $user);
         $form->handleRequest($request);
         if($form->isSubmitted()){
             $isEqual = $form->get('password')->getData() === $form->get('passwordValidation')->getData();
             if ($isEqual && $form->isValid()){
-                $user = $form->getData();
+                $user->setPassword($hasher->hashPassword($user, $user->getPassword()));
                 $em->persist($user);
                 $em->flush();
                 return $this->redirectToRoute('user_view');
