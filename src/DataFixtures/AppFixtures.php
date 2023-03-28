@@ -58,6 +58,12 @@ class AppFixtures extends Fixture
                 $place->setCity($cities[rand(0,9)]);
             }
         ]);
+        $user = new User();
+        $user->setSite($nantes);
+        $user->setEmail('test@test.test');
+        $user->setPassword($this->hasher->hashPassword($user, 'password'));
+        $manager->persist($user);
+        $manager->flush();
         $places = $manager->getRepository(Place::class)->findAll();
         $populator->addEntity(User::class, 10, [
             'site' => function() use ($nantes, $rennes) {
