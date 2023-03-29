@@ -3,7 +3,7 @@
         <li><a href="{{ path('place_list') }}">Places</a></li>|
         <li><a href="{{ path('site_list') }}">Sites</a></li>|
         <li><a href="{{ path('hangout_list') }}">Home</a></li>|
-        <li><a href="#">Profile</a></li>|
+        <li><a href="{{ path('user_view') }}">Profile</a></li>|
         {% if app.user %}
             <li><a href="{{ path('app_logout') }}">Logout</a></li>
         {% else %}

@@ -5,7 +5,7 @@
 
     <div class="hangoutDetails">
         <p>{{ hangout.informations }}</p>
-        <p>Creator : {{ hangout.creator.firstName }}</p>
+        <p>Creator : <a href="{{ path('user_profile', {'id': hangout.creator.id}) }}">{{ hangout.creator.firstName }}</a></p>
         <p>Site : {{ hangout.site.name }}</p>
         <p>Place : {{ hangout.place.name }}</p>
         <p>{{ hangout.startTimestamp | date('d/m/y H:i') }}</p>
@@ -17,7 +17,7 @@
         </div>
     </div>
 
-    {% if (hangout.startTimestamp | date('Y-m-d') > "now" | date('Y-m-d')) %}
+    {% if (hangout.startTimestamp | date('U') > "now" | date('U')) %}
         <div class="hangout-details-participation-buttons">
             <a href="{{ path('hangout_goingTo', {'idHangout': hangout.id}) }}">
                 <button>Participate</button>
