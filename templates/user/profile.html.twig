@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="user-display">
+        <div>
+            <div>Email:</div><div>{{ user.email }}</div>
+        </div>
+        <div>
+            <div>First Name:</div><div>{{ user.firstName }}</div>
+        </div>
+        <div>
+            <div>Last Name:</div><div>{{ user.lastName }}</div>
+        </div>
+        <div>
+            <div>Phone n°:</div><div>{{ user.phone }}</div>
+        </div>
+        <div>
+            <div>Site:</div><div>{{ user.site.name }}</div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block title %}
+    {{ parent() }} | user profile
+{% endblock %}
+
