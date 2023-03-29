@@ -4,26 +4,33 @@ namespace App\Controller;
 
 use App\Entity\Hangout;
 
+use App\Entity\Place;
 use App\Form\CreateHangoutType;
 
+use App\Form\PlaceType;
 use App\Repository\HangoutRepository;
+use App\Repository\PlaceRepository;
 use Doctrine\ORM\EntityManagerInterface;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use function PHPUnit\Framework\isEmpty;
+
 #[Route('hangout', name:'hangout_')]
 class HangoutController extends AbstractController
 {
     #[Route('/create', name: 'create')]
-    public function createHangout(Request $request, EntityManagerInterface $entityManager): Response
+    public function createHangout(Request $request, EntityManagerInterface $entityManager,PlaceRepository $placeRepository): Response
     {
         $hangout = new Hangout();
         $hangoutForm = $this->createForm(CreateHangoutType::class, $hangout);
         $hangoutForm->handleRequest($request);
 
+
         if($hangoutForm->isSubmitted() && $hangoutForm->isValid()) {
+
 
             $entityManager->persist($hangout);
             $entityManager->flush();
@@ -35,7 +42,18 @@ class HangoutController extends AbstractController
         }
         return $this->render('hangout/create.html.twig',[
             'hangoutForm'=>$hangoutForm,
+
+
         ]);
+
+
+
+
+
+
+
+
+
     }
     #[Route('/list', name: 'list')]
     public function list(HangoutRepository $hr) {
