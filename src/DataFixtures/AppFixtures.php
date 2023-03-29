@@ -50,7 +50,9 @@ class AppFixtures extends Fixture
             $manager->persist($state);
         }
         $manager->flush();
-        $populator->addEntity(City::class, 10, ['name'=>function() use ($generator){ return $generator->city();}]);
+        $populator->addEntity(City::class, 10, [
+            'name'=>function() use ($generator){ return $generator->city();}
+        ]);
         $populator->execute();
         $cities = $manager->getRepository(City::class)->findAll();
         $populator->addEntity(Place::class, 50,[], [
@@ -89,21 +91,17 @@ class AppFixtures extends Fixture
             'participants'=> new ArrayCollection([$users[rand(0,9)],$users[rand(0,9)]]),
             'site'=> rand(1,2)%2 ? $nantes : $rennes,
             'state'=>function() use($states) { return $states[rand(0, sizeof(StateConstraints::wordingState)-1)];},
-            'name'=>function() use($generator) {return implode(" ",$generator->words(3));}
+            'name'=>function() use($generator) {return $generator->realText(50, 1);}
         ],
-//            [
-//            function (Hangout $hangout) use ($manager){
-//                $users = [];
-//                for($i = 1; $i < 3; $i++) {
-//                    $users[] = $manager->getRepository(User::class)->findOneBy(['id'=>rand(1, 10)]);
-//                }
-//                foreach ($users as $user) {
-//                    var_dump($user);
-//                    die();
-//                    $hangout->addUser($user);
-//                }
-//            }
-//        ]
+            [
+            function (Hangout $hangout) use ($manager){
+                $users = [];
+                for($i = 1; $i < 3; $i++) {
+                    $users[] = $manager->getRepository(User::class)->findOneBy(['id'=>rand(1, 10)]);
+                }
+                $hangout->setParticipants(new ArrayCollection($users));
+            }
+        ]
         );
         $populator->execute();
         $manager->flush();

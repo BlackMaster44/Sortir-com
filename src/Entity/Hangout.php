@@ -176,6 +176,12 @@ class Hangout
         return $this;
     }
 
+    public function setParticipants(ArrayCollection $participants): self
+    {
+        $this->participants = $participants;
+        return $this;
+    }
+
     public function getSite(): ?Site
     {
         return $this->site;
