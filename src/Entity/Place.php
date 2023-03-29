@@ -2,36 +2,54 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Get;
 use App\Repository\PlaceRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: PlaceRepository::class)]
+
+#[ApiResource( operations: [
+    new Get()
+],
+    normalizationContext: ["groups"=>["place:read"],"enable_max_depth"=>"2"],
+    denormalizationContext: ["groups"=>["place:write"]],
+
+)]
 class Place
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['place:read'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['place:read'])]
     private ?string $name = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['place:read'])]
     private ?string $street = null;
 
     #[ORM\Column(length: 255, nullable: true)]
+    #[Groups(['place:read'])]
     private ?string $latitude = null;
 
     #[ORM\Column(length: 255, nullable: true)]
+    #[Groups(['place:read'])]
     private ?string $longitude = null;
 
     #[ORM\ManyToOne(inversedBy: 'places')]
     #[ORM\JoinColumn(nullable: false)]
+    #[Groups(['place:read'])]
     private ?City $city = null;
 
     #[ORM\OneToMany(mappedBy: 'place', targetEntity: Hangout::class)]
+
     private Collection $hangouts;
 
     public function __construct()

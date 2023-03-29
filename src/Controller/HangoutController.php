@@ -3,17 +3,16 @@
 namespace App\Controller;
 
 use App\Entity\Hangout;
-use App\Entity\User;
+
 use App\Form\CreateHangoutType;
+
 use App\Repository\HangoutRepository;
-use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
+
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Security\Http\Attribute\CurrentUser;
-
 #[Route('hangout', name:'hangout_')]
 class HangoutController extends AbstractController
 {
@@ -24,7 +23,9 @@ class HangoutController extends AbstractController
         $hangoutForm = $this->createForm(CreateHangoutType::class, $hangout);
         $hangoutForm->handleRequest($request);
 
+
         if($hangoutForm->isSubmitted() && $hangoutForm->isValid()) {
+
 
             $entityManager->persist($hangout);
             $entityManager->flush();
@@ -36,7 +37,18 @@ class HangoutController extends AbstractController
         }
         return $this->render('hangout/create.html.twig',[
             'hangoutForm'=>$hangoutForm,
+
+
         ]);
+
+
+
+
+
+
+
+
+
     }
     #[Route('/list', name: 'list')]
     public function list(HangoutRepository $hr) {
@@ -56,6 +68,7 @@ class HangoutController extends AbstractController
     #[Route('details/{id}', name: 'details')]
     public function details(int $id, HangoutRepository $hr): Response
 {
+
     $hangout = $hr->find($id);
 
     return $this->render('hangout/details.html.twig', [
@@ -63,36 +76,16 @@ class HangoutController extends AbstractController
     ]);
 }
 
-    #[Route('/goingTo/{idHangout}', name: 'goingTo')]
-    public function goingTo(int $idHangout,
-                            #[CurrentUser] ?user $user,
-                            HangoutRepository $hr,
-                            EntityManagerInterface $emi): Response {
+    #[Route('/goingTo', name: 'goingTo')]
+    public function goingTo() {
 
-        $hangout = $hr->find($idHangout);
-        $hangout->addParticipant($user);
-
-        $emi->flush();
-
-    return $this->render('hangout/details.html.twig', [
-        'hangout'=> $hangout
-    ]);
+    return $this->redirectToRoute('hangout_list', []);
 }
 
-    #[Route('/notGoingAnymore/{idHangout}', name: 'notGoingAnymore')]
-    public function notGoingAnymore (int $idHangout,
-                                     #[CurrentUser] ?user $user,
-                                     HangoutRepository $hr,
-                                     EntityManagerInterface $emi):Response {
+    #[Route('/notGoingAnymore', name: 'notGoingAnymore')]
+    public function notGoingAnymore () {
 
-        $hangout = $hr->find($idHangout);
-        $hangout->removeParticipant($user);
-
-        $emi->flush();
-
-    return $this->render('hangout/details.html.twig', [
-        'hangout'=>$hangout
-    ]);
+    return $this->redirectToRoute('hangout_list', []);
 }
 
 
