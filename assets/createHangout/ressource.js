@@ -12,9 +12,9 @@ const fetchPlace =async(id)=>{
     }
 }
 
-const displayPlace =(id)=>{
-
-    const {street,latitude,longitude,city} = fetchPlace(id)
+const displayPlace =async (id)=>{
+    const {street,latitude,longitude,city} = await fetchPlace(id)
+    console.log(street, longitude, latitude, city)
     const {name,postcode} = city
     const cityNameDiv = document.getElementById('create-form-city')
     const streetDiv = document.getElementById('create-form-street')
@@ -27,4 +27,9 @@ const displayPlace =(id)=>{
     latitudeDiv.textContent = latitude
     longitudeDiv.textContent = longitude
 }
-displayPlace(1)
+displayPlace(10)
+
+const select = document.getElementById('create_hangout_place')
+select.addEventListener("change",()=>{
+    displayPlace(select.value)
+})

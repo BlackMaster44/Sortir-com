@@ -3,18 +3,18 @@
 {% block title %}
 
 {% endblock %}
+{% block javascripts%}
 
+    {{ parent() }}
+    {{ encore_entry_script_tags('create-hangout') }}
+{% endblock %}
 {% block body %}
+
+
     {{ form_start(hangoutForm) }}
 
     {{ form_widget(hangoutForm) }}
 
-
-    <button>Enregistrer</button>
-    <button>Publier</button>
-    <button>Annuler</button>
-
-    {{ form_end((hangoutForm)) }}
 
     <div>
         <div>
@@ -38,6 +38,15 @@
             <div id="create-form-longitude"></div>
         </div>
     </div>
+
+
+    <button>Enregistrer</button>
+    <button>Publier</button>
+    <button>Annuler</button>
+
+    {{ form_end((hangoutForm)) }}
+
+
 
 
 {% endblock %}
