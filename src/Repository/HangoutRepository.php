@@ -6,6 +6,7 @@ use App\Entity\Hangout;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
+
 /**
  * @extends ServiceEntityRepository<Hangout>
  *
@@ -38,6 +39,8 @@ class HangoutRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
+
+
 
 //    /**
 //     * @return Hangout[] Returns an array of Hangout objects
