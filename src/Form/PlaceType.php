@@ -14,9 +14,7 @@ class PlaceType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-
             ->add('street')
-
             ->add('latitude')
             ->add('longitude')
             ->add('city',EntityType::class,[

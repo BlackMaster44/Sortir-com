@@ -1,7 +1,15 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-{{ form(form) }}
+    {{ form_start(form) }}
+    {{ form_end(form) }}
+    {% for site in sites %}
+        <div class="site">
+            <h4>{{ site.name }}</h4>
+            <a href="#"><button>Edit</button></a>
+            <a href="{{ path('site_deleteSite', {'id': site.id}) }}"><button>Delete</button></a>
+        </div>
+    {% endfor %}
 {% endblock %}
 
 {% block title %}
