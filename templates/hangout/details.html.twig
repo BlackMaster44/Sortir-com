@@ -10,6 +10,20 @@
         <p>Place : {{ hangout.place.name }}</p>
         <p>{{ hangout.startTimestamp | date('d/m/y H:i') }}</p>
         <p>Max number of participants : {{ hangout.maxSlots }}</p>
+        <div class="hangout-details-participants-list">
+            {% for person in hangout.participants %}
+                <p>{{ person.firstName }}</p>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div class="hangout-details-participation-buttons">
+        <a href="{{ path('hangout_goingTo', {'idHangout': hangout.id}) }}">
+            <button>Participate</button>
+        </a>
+        <a href="{{ path('hangout_notGoingAnymore', {'idHangout': hangout.id}) }}">
+            <button>Withdraw</button>
+        </a>
     </div>
 {% endblock %}
 
