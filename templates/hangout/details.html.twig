@@ -17,14 +17,16 @@
         </div>
     </div>
 
-    <div class="hangout-details-participation-buttons">
-        <a href="{{ path('hangout_goingTo', {'idHangout': hangout.id}) }}">
-            <button>Participate</button>
-        </a>
-        <a href="{{ path('hangout_notGoingAnymore', {'idHangout': hangout.id}) }}">
-            <button>Withdraw</button>
-        </a>
-    </div>
+    {% if (hangout.startTimestamp | date('Y-m-d') > "now" | date('Y-m-d')) %}
+        <div class="hangout-details-participation-buttons">
+            <a href="{{ path('hangout_goingTo', {'idHangout': hangout.id}) }}">
+                <button>Participate</button>
+            </a>
+            <a href="{{ path('hangout_notGoingAnymore', {'idHangout': hangout.id}) }}">
+                <button>Withdraw</button>
+            </a>
+        </div>
+    {% endif %}
 {% endblock %}
 
 {% block title %}

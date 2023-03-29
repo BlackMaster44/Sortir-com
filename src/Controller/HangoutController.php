@@ -13,6 +13,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Http\Attribute\CurrentUser;
+
 #[Route('hangout', name:'hangout_')]
 class HangoutController extends AbstractController
 {
@@ -76,16 +78,36 @@ class HangoutController extends AbstractController
     ]);
 }
 
-    #[Route('/goingTo', name: 'goingTo')]
-    public function goingTo() {
+    #[Route('/goingTo/{idHangout}', name: 'goingTo')]
+    public function goingTo(int $idHangout,
+                            #[CurrentUser] $user,
+                            HangoutRepository $hr,
+                            EntityManagerInterface $emi) {
 
-    return $this->redirectToRoute('hangout_list', []);
+        $hangout = $hr->find($idHangout);
+        $hangout->addParticipant($user);
+
+        $emi->flush();
+
+    return $this->render('hangout/details.html.twig', [
+        'hangout'=>$hangout
+    ]);
 }
 
-    #[Route('/notGoingAnymore', name: 'notGoingAnymore')]
-    public function notGoingAnymore () {
+    #[Route('/notGoingAnymore/{idHangout}', name: 'notGoingAnymore')]
+    public function notGoingAnymore (int $idHangout,
+                                     #[CurrentUser] $user,
+                                     HangoutRepository $hr,
+                                     EntityManagerInterface $emi) {
 
-    return $this->redirectToRoute('hangout_list', []);
+        $hangout = $hr->find($idHangout);
+        $hangout->removeParticipant($user);
+
+        $emi->flush();
+
+    return $this->render('hangout/details.html.twig', [
+        'hangout'=>$hangout
+    ]);
 }
 
 
