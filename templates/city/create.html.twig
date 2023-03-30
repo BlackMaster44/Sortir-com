@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {{ form_start(cityForm) }}
+
+    {{ form_widget(cityForm) }}
+    <button>Save</button>
+
+    {{ form_end(cityForm) }}
+{% endblock %}
+
+{% block title %}
+    {{ parent() }} | city creation
+{% endblock %}

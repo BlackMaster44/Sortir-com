@@ -15,7 +15,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class SiteController extends AbstractController
 {
     #[Route('/list', name: 'list')]
-    public function index(SiteRepository $sr): Response
+    public function list(SiteRepository $sr): Response
     {
         $sites = $sr->findAll();
 

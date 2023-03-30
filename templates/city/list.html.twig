@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h2>Cities list</h2>
+
+    <div class="sitesContainer">
+        {% for city in cities %}
+            <div class="site">
+                <h4>{{ city.name }}</h4>
+                <a href="{{ path('city_update', {'idCity': city.id}) }}"><button>Edit</button></a>
+                <a href="{{ path('city_delete', {'idCity': city.id}) }}"><button>Delete</button></a>
+            </div>
+        {% endfor %}
+    </div>
+
+    <a href="{{ path('city_create') }}"><button>Add</button></a>
+{% endblock %}
+
+{% block title %}
+    {{ parent() }} | cities list
+{% endblock %}
+
