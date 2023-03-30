@@ -75,7 +75,6 @@ class HangoutRepository extends ServiceEntityRepository
         if ($queryParams->isNotSubscribed) $qb->orWhere('u.id != :userId');
         if ($queryParams->isExpired) $qb->orWhere('h.startTimestamp < CURRENT_TIMESTAMP()');
         $query = $qb->getQuery();
-        var_dump($query->getDQL());
         return $query->getResult();
     }
 
