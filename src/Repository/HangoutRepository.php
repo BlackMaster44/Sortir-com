@@ -64,17 +64,22 @@ class HangoutRepository extends ServiceEntityRepository
         } else {
             $qb->setParameter('to', new \DateTime('2027-01-01'));
         }
-        $qb->andWhere('h.startTimestamp <= :from AND h.startTimestamp <= :to');
+        $qb->andWhere('h.startTimestamp >= :from AND h.startTimestamp <= :to');
         if ($queryParams->searchQuery) {
             $qb->andWhere('h.name LIKE :query');
             $qb->setParameter('query', '%' . $queryParams->searchQuery . '%');
         }
-        if($queryParams->isSubscribed || $queryParams->isNotSubscribed || $queryParams->isOrganizer) $qb->setParameter('userId', $userId);
-        if ($queryParams->isOrganizer) $qb->orWhere('h.creator = :userId');
-        if ($queryParams->isSubscribed) $qb->orWhere('u.id = :userId');
-        if ($queryParams->isNotSubscribed) $qb->orWhere('u.id != :userId');
-        if ($queryParams->isExpired) $qb->orWhere('h.startTimestamp < CURRENT_TIMESTAMP()');
+        if($queryParams->isSubscribed || $queryParams->isNotSubscribed || $queryParams->isOrganizer) $qb->setParameter('userId', $userId); echo "test";
+        if($queryParams->isOrganizer) $qb->andWhere('h.creator = :userId');
+        if($queryParams->isSubscribed)  $qb->andWhere('u.id = :userId');
+        if($queryParams->isNotSubscribed) $qb->andWhere('u.id != :userId');
+        if($queryParams->isExpired){
+            $qb->andWhere('h.startTimestamp < CURRENT_TIMESTAMP()');
+        } else{
+            $qb->andWhere('h.startTimestamp > CURRENT_TIMESTAMP()');
+        }
         $query = $qb->getQuery();
+        var_dump($query->getDQL());
         return $query->getResult();
     }
 
