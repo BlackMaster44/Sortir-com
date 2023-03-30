@@ -14,7 +14,7 @@ class HangoutFilterTypeModel
     public $site;
     #[Assert\Type('string')]
     public $searchQuery;
-    #[Assert\Date]
+    #[Assert\Type(\DateTime::class)]
     public $from;
     #[Assert\Type(\DateTime::class)]
     #[Assert\GreaterThanOrEqual(
@@ -35,7 +35,7 @@ class HangoutFilterTypeModel
 
     public function __construct(EntityManagerInterface $em)
     {
-        $this->site = $em->getRepository(Site::class)->find(3);
+        $this->site = $em->getRepository(Site::class)->findOneBy(['name'=>'Nantes']);
         $this->from = new \DateTime();
     }
 }

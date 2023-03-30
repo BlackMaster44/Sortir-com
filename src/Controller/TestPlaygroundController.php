@@ -24,10 +24,9 @@ public function filterForm(Request $req, EntityManagerInterface $em):Response
     {
         $data = new HangoutFilterTypeModel($em);
         $user = $this->getUser();
-        $data->userId = $user instanceof User ? $user->getId() : 0;
-        var_dump($data->userId);
         $form = $this->createForm(HangoutFilterType::class, $data);
         $form->handleRequest($req);
+        $data->userId = $user instanceof User ? $user->getId() : 0;
         $sites = $em->getRepository(Hangout::class)->filterResults($data);
         var_dump("size of sites ".sizeof($sites));
         return $this->render('test_playground/filter-form.html.twig', ['form'=>$form, 'sites'=>$sites]);

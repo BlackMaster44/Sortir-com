@@ -47,37 +47,38 @@ class HangoutRepository extends ServiceEntityRepository
 
     public function filterResults(HangoutFilterTypeModel $queryParams): array
     {
+        //TODO fix orWhere clauses -> use ifX, expr() groups
         $userId = $queryParams->userId;
         $qb = $this->createQueryBuilder('h');
         $qb->leftJoin('h.participants', 'u');
-//        $qb->leftJoin('h.site', 's');
-//        $qb->andWhere('h.site = :siteId');
-//        $qb->setParameter('siteId', $queryParams->site->getId());
-        $qb->setParameter('userId', $userId);
-//        if ($queryParams->from) {
-//            $qb->setParameter('from', $queryParams->from);
-//        } else {
-//            $qb->setParameter('from', new \DateTime());
-//        }
-//        if ($queryParams->to) {
-//            $qb->setParameter('to', $queryParams->to);
-//        } else {
-//            $qb->setParameter('to', new \DateTime('2027-01-01'));
-//        }
-//        $qb->andWhere('h.startTimestamp <= :from AND h.startTimestamp <= :to');
-//        if ($queryParams->searchQuery) {
-//            $qb->andWhere('h.name LIKE :query');
-//            $qb->setParameter('query', '%' . $queryParams->searchQuery . '%');
-////        }
-//        if ($queryParams->isOrganizer) $qb->orWhere('h.creator = :userId');
+        $qb->leftJoin('h.site', 's');
+        $qb->andWhere('h.site = :siteId');
+        $qb->setParameter('siteId', $queryParams->site->getId());
+        if ($queryParams->from) {
+            $qb->setParameter('from', $queryParams->from);
+        } else {
+            $qb->setParameter('from', new \DateTime());
+        }
+        if ($queryParams->to) {
+            $qb->setParameter('to', $queryParams->to);
+        } else {
+            $qb->setParameter('to', new \DateTime('2027-01-01'));
+        }
+        $qb->andWhere('h.startTimestamp <= :from AND h.startTimestamp <= :to');
+        if ($queryParams->searchQuery) {
+            $qb->andWhere('h.name LIKE :query');
+            $qb->setParameter('query', '%' . $queryParams->searchQuery . '%');
+        }
+        if($queryParams->isSubscribed || $queryParams->isNotSubscribed || $queryParams->isOrganizer) $qb->setParameter('userId', $userId);
+        if ($queryParams->isOrganizer) $qb->orWhere('h.creator = :userId');
         if ($queryParams->isSubscribed) $qb->orWhere('u.id = :userId');
-//        if ($queryParams->isNotSubscribed) $qb->orWhere('u.id != :userId');
-//        if ($queryParams->isExpired) $qb->orWhere('h.startTimestamp < CURRENT_TIMESTAMP()');
+        if ($queryParams->isNotSubscribed) $qb->orWhere('u.id != :userId');
+        if ($queryParams->isExpired) $qb->orWhere('h.startTimestamp < CURRENT_TIMESTAMP()');
         $query = $qb->getQuery();
         var_dump($query->getDQL());
         return $query->getResult();
-
     }
+
 
 
 //    /**
