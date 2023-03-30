@@ -23,7 +23,7 @@
         {% endif %}
         <div class="hangout-details-participants-list">
             {% for person in hangout.participants %}
-                <p>{{ person.firstName }}</p>
+                <a href="{{ path('user_profile', {'id': person.id}) }}">{{ person.firstName }}</a>
             {% endfor %}
         </div>
     </div>
