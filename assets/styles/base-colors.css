@@ -1,6 +1,8 @@
 :root {
-    --color-primary: #919fff;
+    --color-primary: #008af8;
     --color-base: #EEE;
     --color-neutral: #AAA;
     --color-base-text: #333;
+    --color-base-button: #FFF;
+    --color-light-button: #ace4ff;
 }

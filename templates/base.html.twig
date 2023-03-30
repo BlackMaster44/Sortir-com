@@ -16,10 +16,9 @@
     {% endblock %}
 </head>
 <body>
-
     <div id="app">
         <header>
-            <a href="{{ path('hangout_list') }}"><h1>Sortir.com</h1></a>
+            <a href="{{ path('hangout_list') }}"><h1 class="site-logo">Sortir</h1></a>
             {% if app.user %}
                 <p class="greetings">Welcome back {{ app.user.firstName }} !</p>
             {% endif %}

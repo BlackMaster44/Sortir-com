@@ -3,8 +3,6 @@
 namespace App\Form\Model;
 use App\Entity\Site;
 use Doctrine\ORM\EntityManagerInterface;
-use phpDocumentor\Reflection\Types\Boolean;
-use phpDocumentor\Reflection\Types\String_;
 use Symfony\Component\Validator\Constraints as Assert;
 
 class HangoutFilterTypeModel
