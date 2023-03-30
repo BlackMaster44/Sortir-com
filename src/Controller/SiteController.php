@@ -25,7 +25,8 @@ class SiteController extends AbstractController
     }
 
     #[Route('/create', name: 'create')]
-    public function createSite(Request $request, EntityManagerInterface $emi): Response {
+    public function createSite(Request $request,
+                               EntityManagerInterface $emi): Response {
 
         $site = new Site();
         $siteForm = $this->createForm(CreateSiteType::class, $site);
@@ -42,6 +43,28 @@ class SiteController extends AbstractController
 
         return $this->render('site/create.html.twig', [
             'siteForm'=> $siteForm->createView()
+        ]);
+    }
+
+    #[Route('/update/{idSite}', name: 'update')]
+    public function updateSite(Request $request,
+                               int $idSite,
+                               SiteRepository $sr,
+                               EntityManagerInterface $emi): Response {
+
+        $site = $sr->find($idSite);
+        $siteForm = $this->createForm(CreateSiteType::class, $site);
+        $siteForm->handleRequest($request);
+
+        if ($siteForm->isSubmitted() && $siteForm->isValid()) {
+            $emi->flush();
+            $this->addFlash('success', 'Site successfully updated');
+
+            return $this->redirectToRoute('site_list');
+        }
+
+        return $this->render('site/create.html.twig', [
+            'siteForm'=>$siteForm
         ]);
     }
 

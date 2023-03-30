@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div>
+        {{ form_start(placeForm) }}
+        {{ form_widget(placeForm) }}
+        <button>Save</button>
+        {{ form_end(placeForm) }}
+    </div>
+{% endblock %}
+
+{% block title %}
+    {{ parent() }} | place creation
+{% endblock %}
+

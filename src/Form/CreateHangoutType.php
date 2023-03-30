@@ -40,7 +40,7 @@ class CreateHangoutType extends AbstractType
                 'class' => Place::class,
                 'choice_label' => 'name',
             ]);
-            }
+    }
 
 
 
