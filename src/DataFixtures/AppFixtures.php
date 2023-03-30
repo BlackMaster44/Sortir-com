@@ -10,12 +10,14 @@ use App\Entity\State;
 use App\Entity\User;
 use App\Repository\HangoutRepository;
 use App\TypeConstraints\StateConstraints;
+use DateTime;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Persistence\ObjectManager;
 use Faker\Factory;
 use Faker\ORM\Doctrine\Populator;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+use Symfony\Component\Validator\Constraints\Date;
 
 class AppFixtures extends Fixture
 {
@@ -44,11 +46,6 @@ class AppFixtures extends Fixture
         $rennes = new Site();
         $rennes->setName('Rennes');
         $manager->persist($rennes);
-        for($i = 0; $i < sizeof(StateConstraints::wordingState); $i++){
-            $state = new State();
-            $state->setWording(StateConstraints::wordingState[$i]);
-            $manager->persist($state);
-        }
         $manager->flush();
         $populator->addEntity(City::class, 10, ['name'=>function() use ($generator){ return $generator->city();}]);
         $populator->execute();
@@ -69,7 +66,6 @@ class AppFixtures extends Fixture
         $user->setUsername('test');
         $manager->persist($user);
         $manager->flush();
-        $places = $manager->getRepository(Place::class)->findAll();
         $populator->addEntity(User::class, 10, [
             'password' => 'password',
             'site' => function() use ($nantes, $rennes) {
@@ -82,21 +78,28 @@ class AppFixtures extends Fixture
         $populator->execute();
         $manager->flush();
         $users = $manager->getRepository(User::class)->findAll();
-        $states = $manager->getRepository(State::class)->findAll();
-        $populator->addEntity(Hangout::class, 50, [
+        $populator->addEntity(Hangout::class, 500, [
+            'startTimestamp' => function() use ($generator){
+              return $generator->dateTimeBetween('-5 years', '+1 year');
+            },
             'creator' => function() use ($users){return $users[rand(0,9)];},
             'duration'=> new \DateInterval(sprintf('PT%sH%sM', rand(1,3), rand(1,60))),
             'site'=> function() use ($nantes, $rennes) {return rand(1,2)%2 ? $nantes : $rennes;},
-            'state'=>function() use($states) { return $states[rand(0, sizeof(StateConstraints::wordingState)-1)];},
+            'state'=>function() { StateConstraints::wordingState[rand(0, sizeof(StateConstraints::wordingState)-1)];},
             'name'=>function() use($generator) {return implode(" ",$generator->words(3));}
+        ], [
+            function ($hangout) {
+                if($hangout instanceof Hangout){
+                    $date = $hangout->getStartTimestamp();
+                    if($date instanceof DateTime) {
+                    $registerDate = clone $date;
+                    $registerDate->sub(new \DateInterval('P1D'));
+                    $hangout->setLastRegisterDate($registerDate);
+                }
+            }
+            }
         ]);
         $populator->execute();
         $manager->flush();
-        $hangouts = $manager->getRepository(Hangout::class)->findAll();
-//        foreach ($hangouts as $hangout){
-//            for($i = 0; $i < 3; $i++){
-//                $hangout->addParticipant($users[rand(0,9)]);
-//            }
-//        }
     }
 }
