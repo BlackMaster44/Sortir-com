@@ -57,7 +57,9 @@ class HangoutRepository extends ServiceEntityRepository
         if ($queryParams->from) {
             $qb->setParameter('from', $queryParams->from);
         } else {
-            $qb->setParameter('from', new \DateTime());
+            $date = new \DateTime();
+            date_sub($date, new \DateInterval('P30D'));
+            $qb->setParameter('from', $date);
         }
         if ($queryParams->to) {
             $qb->setParameter('to', $queryParams->to);
@@ -69,15 +71,19 @@ class HangoutRepository extends ServiceEntityRepository
             $qb->andWhere('h.name LIKE :query');
             $qb->setParameter('query', '%' . $queryParams->searchQuery . '%');
         }
-        if($queryParams->isSubscribed || $queryParams->isNotSubscribed || $queryParams->isOrganizer) $qb->setParameter('userId', $userId); echo "test";
-        if($queryParams->isOrganizer) $qb->andWhere('h.creator = :userId');
-        if($queryParams->isSubscribed)  $qb->andWhere('u.id = :userId');
-        if($queryParams->isNotSubscribed) $qb->andWhere('u.id != :userId');
+        if($queryParams->isSubscribed || $queryParams->isNotSubscribed || $queryParams->isOrganizer) $qb->setParameter('userId', $userId);
+        $queryGroupOr = $qb->expr()->orX();
+        if($queryParams->isOrganizer) $queryGroupOr->add($qb->expr()->eq('h.creator',':userId'));
+        if($queryParams->isSubscribed)  $queryGroupOr->add($qb->expr()->eq('u.id',':userId'));
+        if($queryParams->isNotSubscribed) $queryGroupOr->add($qb->expr()->neq('u.id',':userId'));
         if($queryParams->isExpired){
-            $qb->andWhere('h.startTimestamp < CURRENT_TIMESTAMP()');
+            $date = new \DateTime();
+            $date = date_sub($date, new \DateInterval('P31D'));
+            $queryGroupOr->add( $qb->expr()->lt('h.startTimestamp',$date->format('Y-m-d')));
         } else{
             $qb->andWhere('h.startTimestamp > CURRENT_TIMESTAMP()');
         }
+        if($queryGroupOr->count() > 0) $qb->andWhere($queryGroupOr);
         $query = $qb->getQuery();
         var_dump($query->getDQL());
         return $query->getResult();

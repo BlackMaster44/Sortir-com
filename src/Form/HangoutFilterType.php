@@ -37,8 +37,12 @@ class HangoutFilterType extends AbstractType
             ->add('searchQuery', SearchType::class, [
                 'required'=>false
             ])
-            ->add('from', DateType::class)
-            ->add('to', DateType::class)
+            ->add('from', DateType::class, [
+                'widget' => 'single_text'
+            ])
+            ->add('to', DateType::class, [
+                'widget' => 'single_text'
+            ])
             ->add('filter', SubmitType::class)
         ;
     }

@@ -16,7 +16,7 @@ class HangoutFilterTypeModel
     public $searchQuery;
     #[Assert\Type(\DateTime::class)]
     public $from;
-    #[Assert\Type(\DateTime::class)]
+    #[Assert\type(\DateTime::class)]
     #[Assert\GreaterThanOrEqual(
         propertyPath: 'from',
         message: '{{ value }} is inferior to {{ compared_value }}'

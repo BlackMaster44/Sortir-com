@@ -85,7 +85,7 @@ class AppFixtures extends Fixture
         $manager->flush();
         $users = $manager->getRepository(User::class)->findAll();
         $states = $manager->getRepository(State::class)->findAll();
-        $populator->addEntity(Hangout::class, 50, [
+        $populator->addEntity(Hangout::class, 500, [
             'startTimestamp' => function() use ($generator){
               return $generator->dateTimeBetween('-5 years', '+1 year');
             },
