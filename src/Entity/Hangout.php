@@ -51,7 +51,7 @@ class Hangout
     private ?Place $place = null;
 
     #[ORM\Column(length: 50)]
-    #[ORM\JoinColumn(nullable: false)]
+    //#[ORM\JoinColumn(nullable: true)]
     private ?string $state = null;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]

@@ -9,20 +9,20 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
-#[ORM\Entity(repositoryClass: StateRepository::class)]
+//#[ORM\Entity(repositoryClass: StateRepository::class)]
 class State
 {
 
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column]
+   // #[ORM\Id]
+   // #[ORM\GeneratedValue]
+   // #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 15)]
-    #[Assert\Choice(choices: StateConstraints::wordingState, message: 'select a valid state')]
+    //#[ORM\Column(length: 15)]
+    //#[Assert\Choice(choices: StateConstraints::wordingState, message: 'select a valid state')]
     private ?string $wording = null;
 
-    #[ORM\OneToMany(mappedBy: 'state', targetEntity: Hangout::class)]
+    //#[ORM\OneToMany(mappedBy: 'state', targetEntity: Hangout::class)]
     private Collection $hangouts;
 
     public function __construct()
