@@ -7,13 +7,13 @@
         {% for site in sites %}
             <div class="site">
                 <h4>{{ site.name }}</h4>
-                <a href="#"><button>Edit</button></a>
+                <a href="{{ path('site_update', {'idSite': site.id}) }}"><button>Edit</button></a>
                 <a href="{{ path('site_deleteSite', {'id': site.id}) }}"><button>Delete</button></a>
             </div>
         {% endfor %}
     </div>
 
-    <a href="{{ path('site_create') }}"><button>ADD</button></a>
+    <a href="{{ path('site_create') }}"><button>Add</button></a>
 {% endblock %}
 
 {% block title %}
