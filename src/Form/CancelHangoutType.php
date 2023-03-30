@@ -2,23 +2,23 @@
 
 namespace App\Form;
 
-use App\Entity\Site;
+use App\Entity\Hangout;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class CreateSiteType extends AbstractType
+class CancelHangoutType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('name');
+            ->add('cancelReason');
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => Site::class,
+            'data_class' => Hangout::class,
         ]);
     }
 }

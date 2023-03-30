@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Hangout;
 
+use App\Form\CancelHangoutType;
 use App\Form\CreateHangoutType;
 
 use App\Repository\HangoutRepository;
@@ -42,14 +43,6 @@ class HangoutController extends AbstractController
 
 
         ]);
-
-
-
-
-
-
-
-
 
     }
     #[Route('/list', name: 'list')]
@@ -111,4 +104,32 @@ class HangoutController extends AbstractController
 }
 
 
+    #[Route('cancel/{idHangout}', name:'cancel')]
+    public function cancel(int $idHangout,
+                           Request $request,
+                           EntityManagerInterface $emi,
+                           HangoutRepository $hr): Response {
+
+        $hangout = $hr->find($idHangout);
+        $cancelHangoutForm = $this->createForm(CancelHangoutType::class, $hangout);
+        $cancelHangoutForm->handleRequest($request);
+
+        if($cancelHangoutForm->isSubmitted() && $cancelHangoutForm->isValid()) {
+            $state = $hangout->getState()->setWording('canceled');
+            $hangout->setState($state);
+            $emi->flush();
+
+            $this->addFlash('success', 'Hangout successfully canceled');
+
+            return $this->render('hangout/details.html.twig', [
+                'hangout'=>$hangout
+            ]);
+        }
+
+        $this->addFlash('success', 'Hangout not canceled');
+
+        return $this->render('hangout/cancel.html.twig', [
+            'cancelHangoutForm'=>$cancelHangoutForm
+        ]);
+    }
 }
