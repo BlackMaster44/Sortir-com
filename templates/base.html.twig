@@ -8,10 +8,6 @@
     <title>{% block title %}Sortir.com{% endblock %}</title>
 
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;1,100&display=swap" rel="stylesheet">
     {% block stylesheets %}
         {{ encore_entry_link_tags('app') }}
     {% endblock %}
@@ -41,8 +37,8 @@
         <main>
             {% block body %}{% endblock %}
         </main>
+        {% include 'inc/footer.html.twig' %}
     </div>
-    {% include 'inc/footer.html.twig' %}
 
 </body>
 </html>
