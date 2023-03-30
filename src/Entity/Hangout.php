@@ -36,7 +36,7 @@ class Hangout
     private ?string $informations = null;
 
     #[ORM\ManyToMany(targetEntity: User::class, mappedBy: 'goingTo')]
-    private Collection $participants;
+    private ?Collection $participants = null;
 
     #[ORM\ManyToOne(inversedBy: 'createdHangouts')]
     #[ORM\JoinColumn(nullable: false)]

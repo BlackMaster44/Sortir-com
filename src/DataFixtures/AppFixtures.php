@@ -80,12 +80,11 @@ class AppFixtures extends Fixture
             }
         ]);
         $populator->execute();
-//        $manager->flush();
+        $manager->flush();
         $users = $manager->getRepository(User::class)->findAll();
         $states = $manager->getRepository(State::class)->findAll();
         $populator->addEntity(Hangout::class, 50, [
             'creator' => $users[rand(0,9)],
-            'participants' => new ArrayCollection([$users[rand(0,9)]]),
             'duration'=> new \DateInterval(sprintf('PT%sH%sM', rand(1,3), rand(1,60))),
             'site'=> rand(1,2)%2 ? $nantes : $rennes,
             'state'=>function() use($states) { return $states[rand(0, sizeof(StateConstraints::wordingState)-1)];},
@@ -93,10 +92,10 @@ class AppFixtures extends Fixture
         ]);
         $populator->execute();
         $manager->flush();
-//        $hangouts = $manager->getRepository(Hangout::class)->findAll();
+        $hangouts = $manager->getRepository(Hangout::class)->findAll();
 //        foreach ($hangouts as $hangout){
 //            for($i = 0; $i < 3; $i++){
-//                $hangout->addParticipant($users[rand(0,20)]);
+//                $hangout->addParticipant($users[rand(0,9)]);
 //            }
 //        }
     }
