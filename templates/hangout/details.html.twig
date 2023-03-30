@@ -11,7 +11,13 @@
         <p>{{ hangout.startTimestamp | date('d/m/y H:i') }}</p>
         <p>Max number of participants : {{ hangout.maxSlots }}</p>
         <p>Free slots left : {{ hangout.maxSlots - (hangout.participants | length) }}</p>
-        <p>State : {{ hangout.state.wording }}</p>
+        <p>
+            {% if (hangout.participants | length) == hangout.maxSlots %}
+                Registration closed
+            {% else %}
+                {{ hangout.state }}
+            {% endif %}
+        </p>
         {% if hangout.cancelReason is not empty %}
             <p>Cancel reasons : {{ hangout.cancelReason }}</p>
         {% endif %}

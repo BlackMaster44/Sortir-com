@@ -50,9 +50,9 @@ class Hangout
     #[ORM\JoinColumn(nullable: false)]
     private ?Place $place = null;
 
-    #[ORM\ManyToOne(inversedBy: 'hangouts')]
+    #[ORM\Column(length: 50)]
     #[ORM\JoinColumn(nullable: false)]
-    private ?State $state = null;
+    private ?string $state = null;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $cancelReason = null;
@@ -203,12 +203,12 @@ class Hangout
         return $this;
     }
 
-    public function getState(): ?State
+    public function getState(): ?string
     {
         return $this->state;
     }
 
-    public function setState(?State $state): self
+    public function setState(?string $state): self
     {
         $this->state = $state;
 

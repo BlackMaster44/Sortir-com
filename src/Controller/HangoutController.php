@@ -115,8 +115,7 @@ class HangoutController extends AbstractController
         $cancelHangoutForm->handleRequest($request);
 
         if($cancelHangoutForm->isSubmitted() && $cancelHangoutForm->isValid()) {
-            $state = $hangout->getState()->setWording('canceled');
-            $hangout->setState($state);
+            $hangout->setState('canceled');
             $emi->flush();
 
             $this->addFlash('success', 'Hangout successfully canceled');
