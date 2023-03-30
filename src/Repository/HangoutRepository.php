@@ -85,7 +85,6 @@ class HangoutRepository extends ServiceEntityRepository
         }
         if($queryGroupOr->count() > 0) $qb->andWhere($queryGroupOr);
         $query = $qb->getQuery();
-        var_dump($query->getDQL());
         return $query->getResult();
     }
 

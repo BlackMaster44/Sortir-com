@@ -2,36 +2,66 @@
 
 {% block body %}
     <h2>Join Us for a Hangout !</h2>
-    <div class="filters">
-        <h3>Filter</h3>
-        <div class="siteFilter">
-            <label for="">Site</label>
-            <select name="" id="">
-                <option value="">option A</option>
-                <option value="">option B</option>
-            </select>
-        </div>
-        <div class="nameFilter">
-            <label for="inputSearch">Search name</label>
-            <input type="search">
-        </div>
+        {{ form_start(form, {'attr':{'class': 'filters'}}) }}
+        <div class="siteFilter">{{ form_row(form.site)}}</div>
+        <div class="nameFilter">{{ form_row(form.searchQuery) }}</div>
         <div class="dateFilter">
-            <label for="">dates</label>
-            <input type="date"> <input type="date">
+            {{ form_row(form.from) }}
+            {{ form_row(form.to) }}
         </div>
         <div class="checkFilters">
-            <div class="check"><input type="checkbox"><label for="">Sorties dont je suis l'organisateur</label></div>
-            <br>
-            <div class="check"><input type="checkbox"><label for="">Sorties auxquelles je suis inscrit</label></div>
-            <br>
-            <div class="check"><input type="checkbox"><label for="">Sorties auxquelles je en suis pas inscrit</label></div>
-            <br>
-            <div class="check"><input type="checkbox"><label for="">Sorties passées</label></div>
+            <div class="check">
+                {{ form_widget(form.isOrganizer) }}
+                {{ form_label(form.isOrganizer) }}
+            </div>
+            <div class="check">
+                {{ form_widget(form.isSubscribed) }}
+                {{ form_label(form.isSubscribed) }}
+            </div>
+            <div class="check">
+                {{ form_widget(form.isNotSubscribed) }}
+                {{ form_label(form.isNotSubscribed) }}
+            </div>
+            <div class="check">
+                {{ form_widget(form.isExpired) }}
+                {{ form_label(form.isExpired) }}
+            </div>
         </div>
         <div class="filterButton">
-            <a href="#"><button>filterButton</button></a>
+            {{ form_row(form.filter) }}
         </div>
-    </div>
+        {{ form_rest(form) }}
+        {{ form_end(form) }}
+{#    <div class="filters">#}
+{#        <h3>Filter</h3>#}
+{#        <div class="siteFilter">#}
+{#            <label for="">Site</label>#}
+{#            <select name="" id="">#}
+{#                <option value="">option A</option>#}
+{#                <option value="">option B</option>#}
+{#            </select>#}
+{#        </div>#}
+{#        <div class="nameFilter">#}
+{#            <label for="inputSearch">Search name</label>#}
+{#            <input type="search">#}
+{#        </div>#}
+{#        <div class="dateFilter">#}
+{#            <label for="">dates</label>#}
+{#            <input type="date"> <input type="date">#}
+{#        </div>#}
+{#        <div class="checkFilters">#}
+{#            <div class="check"><input type="checkbox"><label for="">Sorties dont je suis l'organisateur</label></div>#}
+{#            <br>#}
+{#            <div class="check"><input type="checkbox"><label for="">Sorties auxquelles je suis inscrit</label></div>#}
+{#            <br>#}
+{#            <div class="check"><input type="checkbox"><label for="">Sorties auxquelles je en suis pas inscrit</label></div>#}
+{#            <br>#}
+{#            <div class="check"><input type="checkbox"><label for="">Sorties passées</label></div>#}
+{#        </div>#}
+{#        <div class="filterButton">#}
+{#            <a href="#"><button>filterButton</button></a>#}
+{#        </div>#}
+{#    </div>#}
     <section class="hangoutContainer">
         {% for hangout in hangouts %}
             <div class="hangout">

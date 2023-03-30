@@ -7,6 +7,8 @@ use App\Entity\Hangout;
 use App\Form\CancelHangoutType;
 use App\Form\CreateHangoutType;
 
+use App\Form\HangoutFilterType;
+use App\Form\Model\HangoutFilterTypeModel;
 use App\Repository\HangoutRepository;
 use Doctrine\ORM\EntityManagerInterface;
 
@@ -46,10 +48,14 @@ class HangoutController extends AbstractController
 
     }
     #[Route('/list', name: 'list')]
-    public function list(HangoutRepository $hr) {
-        $hangouts = $hr->findAll();
-
+    public function list(Request $request, #[CurrentUser] $user, EntityManagerInterface $em) {
+        $data = new HangoutFilterTypeModel($em);
+        $form = $this->createForm(HangoutFilterType::class, $data);
+        $form->handleRequest($request);
+        $data->userId = $user->getId();
+        $hangouts = $em->getRepository(Hangout::class)->filterResults($data);
         return $this->render('hangout/list.html.twig', [
+            'form'=>$form,
            'hangouts' => $hangouts
         ]);
     }

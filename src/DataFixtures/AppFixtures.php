@@ -85,7 +85,7 @@ class AppFixtures extends Fixture
             'creator' => function() use ($users){return $users[rand(0,9)];},
             'duration'=> new \DateInterval(sprintf('PT%sH%sM', rand(1,3), rand(1,60))),
             'site'=> function() use ($nantes, $rennes) {return rand(1,2)%2 ? $nantes : $rennes;},
-            'state'=>function() { StateConstraints::wordingState[rand(0, sizeof(StateConstraints::wordingState)-1)];},
+            'state'=>function() { return StateConstraints::wordingState[rand(0, sizeof(StateConstraints::wordingState)-1)];},
             'name'=>function() use($generator) {return implode(" ",$generator->words(3));}
         ], [
             function ($hangout) {

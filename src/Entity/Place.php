@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\Post;
 use App\Repository\PlaceRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -13,7 +14,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
 #[ORM\Entity(repositoryClass: PlaceRepository::class)]
 
 #[ApiResource( operations: [
-    new Get()
+    new Get(),
 ],
     normalizationContext: ["groups"=>["place:read"],"enable_max_depth"=>"2"],
     denormalizationContext: ["groups"=>["place:write"]],
