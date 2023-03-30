@@ -1,7 +1,19 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h2>fdhjiodfhko</h2>
+    <h2>Places list</h2>
+
+    <div class="sitesContainer">
+        {% for place in places %}
+            <div class="site">
+                <h4>Place Name</h4>
+                <a href="{{ path('place_update', {'idPlace': place.id}) }}"><button>Edit</button></a>
+                <a href="{{ path('place_delete', {'idPlace': place.id}) }}"><button>Delete</button></a>
+            </div>
+        {% endfor %}
+    </div>
+
+    <a href="{{ path('place_create') }}"><button>Add</button></a>
 {% endblock %}
 
 {% block title %}
