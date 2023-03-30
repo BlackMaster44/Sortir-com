@@ -40,9 +40,17 @@
     </div>
 
 
-    <button>Enregistrer</button>
+   <div>
+       <input type="submit" value="Enregistrer" formaction="{{ path('hangout_create') }}">
+   </div>
+
     <button>Publier</button>
-    <button>Annuler</button>
+
+    <div>
+        <input type="submit" value="Annuler" formaction="{{ path('home') }}">
+    </div>
+
+
 
     {{ form_end((hangoutForm)) }}
 

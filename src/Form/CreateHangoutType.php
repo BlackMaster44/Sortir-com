@@ -11,6 +11,8 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateIntervalType;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
@@ -24,8 +26,8 @@ class CreateHangoutType extends AbstractType
 
         $builder
             ->add('name')
-            ->add('startTimestamp')
-            ->add('lastRegisterDate')
+            ->add('startTimestamp',DateType::class)
+            ->add('lastRegisterDate',DateType::class)
             ->add('maxSlots')
             ->add('duration', DateIntervalType::class, [
                 'widget' => 'integer',
