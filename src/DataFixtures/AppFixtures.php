@@ -10,6 +10,7 @@ use App\Entity\State;
 use App\Entity\User;
 use App\Repository\HangoutRepository;
 use App\TypeConstraints\StateConstraints;
+use DateTime;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Persistence\ObjectManager;
@@ -94,11 +95,16 @@ class AppFixtures extends Fixture
             'state'=>function() use($states) { return $states[rand(0, sizeof(StateConstraints::wordingState)-1)];},
             'name'=>function() use($generator) {return implode(" ",$generator->words(3));}
         ], [
-//            function ($hangout) use ($generator) {
-//                if($hangout instanceof Hangout){
-//                    $hangout->setLastRegisterDate(new \DateTime($hangout->getStartTimestamp()->getTimestamp()));
-//                }
-//            }
+            function ($hangout) {
+                if($hangout instanceof Hangout){
+                    $date = $hangout->getStartTimestamp();
+                    if($date instanceof DateTime) {
+                    $registerDate = clone $date;
+                    $registerDate->sub(new \DateInterval('P1D'));
+                    $hangout->setLastRegisterDate($registerDate);
+                }
+            }
+            }
         ]);
         $populator->execute();
         $manager->flush();
