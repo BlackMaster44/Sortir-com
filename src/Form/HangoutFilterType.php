@@ -41,7 +41,8 @@ class HangoutFilterType extends AbstractType
                 'widget' => 'single_text'
             ])
             ->add('to', DateType::class, [
-                'widget' => 'single_text'
+                'widget' => 'single_text',
+                'required' => false
             ])
             ->add('filter', SubmitType::class)
         ;
