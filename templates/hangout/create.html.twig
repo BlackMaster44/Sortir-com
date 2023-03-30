@@ -1,21 +1,16 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-
 {% endblock %}
-{% block javascripts%}
 
+{% block javascripts%}
     {{ parent() }}
     {{ encore_entry_script_tags('create-hangout') }}
 {% endblock %}
+
 {% block body %}
-
-
     {{ form_start(hangoutForm) }}
-
     {{ form_widget(hangoutForm) }}
-
-
     <div>
         <div>
             <div>City</div>
@@ -38,24 +33,11 @@
             <div id="create-form-longitude"></div>
         </div>
     </div>
-
-
    <div>
-       <input type="submit" value="Enregistrer" formaction="{{ path('hangout_create') }}">
    </div>
-
     <button>Publier</button>
-
     <div>
-        <input type="submit" value="Annuler" formaction="{{ path('home') }}">
     </div>
-
-
-
     {{ form_end((hangoutForm)) }}
-
-
-
-
 {% endblock %}
 
