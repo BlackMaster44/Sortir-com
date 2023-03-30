@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div>
+        {{ form_start(cancelHangoutForm) }}
+
+        {{ form_widget(cancelHangoutForm) }}
+        <button>OK</button>
+
+        {{ form_end(cancelHangoutForm) }}
+    </div>
+{% endblock %}
+
+{% block title %}
+    {{ parent() }} | hangout cancelling
+{% endblock %}

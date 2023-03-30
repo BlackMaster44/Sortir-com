@@ -54,6 +54,9 @@ class Hangout
     #[ORM\JoinColumn(nullable: false)]
     private ?State $state = null;
 
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    private ?string $cancelReason = null;
+
 
     public function __construct()
     {
@@ -208,6 +211,18 @@ class Hangout
     public function setState(?State $state): self
     {
         $this->state = $state;
+
+        return $this;
+    }
+
+    public function getCancelReason(): ?string
+    {
+        return $this->cancelReason;
+    }
+
+    public function setCancelReason(?string $cancelReason): self
+    {
+        $this->cancelReason = $cancelReason;
 
         return $this;
     }

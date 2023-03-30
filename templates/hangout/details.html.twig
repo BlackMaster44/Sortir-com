@@ -10,6 +10,11 @@
         <p>Place : {{ hangout.place.name }}</p>
         <p>{{ hangout.startTimestamp | date('d/m/y H:i') }}</p>
         <p>Max number of participants : {{ hangout.maxSlots }}</p>
+        <p>Free slots left : {{ hangout.maxSlots - (hangout.participants | length) }}</p>
+        <p>State : {{ hangout.state.wording }}</p>
+        {% if hangout.cancelReason is not empty %}
+            <p>Cancel reasons : {{ hangout.cancelReason }}</p>
+        {% endif %}
         <div class="hangout-details-participants-list">
             {% for person in hangout.participants %}
                 <p>{{ person.firstName }}</p>
@@ -26,7 +31,7 @@
                 <button>Withdraw</button>
             </a>
             {% if hangout.creator.id == app.user.id %}
-                <a href="#">
+                <a href="{{ path('hangout_cancel', {'idHangout': hangout.id}) }}">
                     <button>Cancel</button>
                 </a>
             {% endif %}
