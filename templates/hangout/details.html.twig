@@ -18,13 +18,18 @@
     </div>
 
     {% if (hangout.startTimestamp | date('U') > "now" | date('U')) %}
-        <div class="hangout-details-participation-buttons">
+        <div class="hangout-details-buttons">
             <a href="{{ path('hangout_goingTo', {'idHangout': hangout.id}) }}">
                 <button>Participate</button>
             </a>
             <a href="{{ path('hangout_notGoingAnymore', {'idHangout': hangout.id}) }}">
                 <button>Withdraw</button>
             </a>
+            {% if hangout.creator.id == app.user.id %}
+                <a href="#">
+                    <button>Cancel</button>
+                </a>
+            {% endif %}
         </div>
     {% endif %}
 {% endblock %}
