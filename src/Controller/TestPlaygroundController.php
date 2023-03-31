@@ -37,4 +37,10 @@ class TestPlaygroundController extends AbstractController
     {
         return $this->render('test_playground/buttons.html.twig');
     }
+
+    #[Route('/alerts', name: '_alerts')]
+    public function alerts():Response
+    {
+        return $this->render('test_playground/alert.html.twig');
+    }
 }

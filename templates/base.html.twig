@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>{% block title %}Sortir.com{% endblock %}</title>
 
-    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+{#    <link rel="stylesheet" href="{{ asset('css/app.css') }}">#}
     {% block stylesheets %}
         {{ encore_entry_link_tags('app') }}
     {% endblock %}
@@ -16,15 +16,15 @@
     {% endblock %}
 </head>
 <body>
-    <div id="app">
-        <header>
-            <a href="{{ path('hangout_list') }}"><h1 class="site-logo">Sortir</h1></a>
-            {% if app.user %}
-                <p class="greetings">Welcome back {{ app.user.firstName }} !</p>
-            {% endif %}
-            {% include 'inc/nav.html.twig' %}
-        </header>
-
+<header>
+    <a href="{{ path('hangout_list') }}"><h1 class="site-logo">Sortir</h1></a>
+    {% if app.user %}
+    {% endif %}
+    <button class="button menu-button">Menu</button>
+    {% include 'inc/nav.html.twig' %}
+</header>
+<div id="app">
+    <div class="flash-messages">
         {% for label, messages in app.flashes %}
             {% for message in  messages %}
                 <div class="flash-{{ label }}">
@@ -32,12 +32,11 @@
                 </div>
             {% endfor %}
         {% endfor %}
-
+    </div>
         <main>
             {% block body %}{% endblock %}
         </main>
         {% include 'inc/footer.html.twig' %}
     </div>
-
 </body>
 </html>
