@@ -38,7 +38,7 @@ class PlaceController extends AbstractController
             $emi->persist($place);
             $emi->flush();
 
-            $this->addFlash('success', 'Place successfully added');
+            $this->addFlash('success flash', 'Place successfully added');
 
             return $this->redirectToRoute('place_list');
         }
@@ -60,7 +60,7 @@ class PlaceController extends AbstractController
 
         if($placeForm->isSubmitted() && $placeForm->isValid()) {
             $emi->flush();
-            $this->addFlash('success', 'Place successfully updated');
+            $this->addFlash('success flash', 'Place successfully updated');
 
             return $this->redirectToRoute('place_list');
         }
