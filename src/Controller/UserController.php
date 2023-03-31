@@ -9,6 +9,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 #[Route('/user', name: 'user_')]
@@ -28,12 +29,18 @@ class UserController extends AbstractController
 
     #[Route('/create', name: 'create')]
     public function create(Request $request,
+                           UserPasswordHasherInterface $passwordHasher,
                            EntityManagerInterface $emi) {
 
+        $plaintextPassword = 'password';
+
         $user = new User();
+        $hashedPassword = $passwordHasher->hashPassword($user, $plaintextPassword);
+
         $userForm = $this->createForm(UserCreateType::class, $user);
         $userForm->handleRequest($request);
-        $user->setPassword('Pa$$w0rd');
+
+        $user->setPassword($hashedPassword);
         $user->setActive(1);
         $user->setAdministrator(0);
 
