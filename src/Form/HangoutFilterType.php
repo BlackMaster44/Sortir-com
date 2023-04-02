@@ -44,7 +44,9 @@ class HangoutFilterType extends AbstractType
                 'widget' => 'single_text',
                 'required' => false
             ])
-            ->add('filter', SubmitType::class)
+            ->add('filter', SubmitType::class, [
+                'attr'=>['class'=>'button']
+            ])
         ;
     }
 

@@ -1,0 +1,20 @@
+<div class="hangout">
+    <a href="{{ path('hangout_details', {'id': hangout.id}) }}">
+        <div class="hangout-img">
+            <img src="{{ asset('img/default-hangout-256.png') }}" alt="default hangout"/>
+        </div>
+        <div class="hangout-text">
+            <p class="hangout-site">{{ hangout.site.name }}</p>
+            <p class="hangout-start-timestamp">{{ hangout.startTimestamp | date('d/m/y H:i') }}</p>
+            <p class="hangout-capacity">
+                <span class="hangout-participants">
+                    {{ hangout.participants | length }}
+                </span>/
+                <span class="hangout-total-slots">
+                  {{ hangout.maxSlots }}
+                </span>
+            </p>
+            <p class="hangout-name">{{ hangout.name }}</p>
+        </div>
+    </a>
+</div>
