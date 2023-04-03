@@ -1,10 +1,9 @@
 <nav>
     <ul>
-        <li><a href="{{ path('admin') }}">Admin</a></li>
+        <li><a href="{{ path('admin') }}" target="_blank">Admin</a></li>
         <li><a href="{{ path('city_list') }}"><p>Cities</p></a></li>
         <li><a href="{{ path('place_list') }}"><p>Places</p></a></li>
         <li><a href="{{ path('site_list') }}"><p>Sites</p></a></li>
-        <li><a href="{{ path('hangout_list') }}"><p>Home</p></a></li>
         <li><a href="{{ path('test_home') }}"><p>Test</p></a></li>
         <li><a href="{{ path('user_create') }}">Users</a></li>
         {% if app.user %}
