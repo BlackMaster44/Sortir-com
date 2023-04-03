@@ -30,7 +30,9 @@ class UserPasswordChangeType extends AbstractType
                     ]
                 ]
             )
-            ->add('Modifier', SubmitType::class)
+            ->add('Modifier', SubmitType::class, [
+                "attr"=>["class"=>"button"]
+            ])
         ;
     }
 
@@ -38,7 +40,7 @@ class UserPasswordChangeType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => User::class,
-            'attr'=>['class' => 'user-form']
+            'attr'=>['class'=>'user-password-form']
         ]);
     }
 }

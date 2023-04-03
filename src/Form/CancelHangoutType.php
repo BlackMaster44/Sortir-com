@@ -19,6 +19,7 @@ class CancelHangoutType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Hangout::class,
-        ]);
+            'attr' =>['class' => 'hangout-cancel-form']
+            ]);
     }
 }

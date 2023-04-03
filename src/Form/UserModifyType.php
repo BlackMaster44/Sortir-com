@@ -34,15 +34,16 @@ class UserModifyType extends AbstractType
                 'class'=>Site::class,
                 'choices' =>$sites,
                 'choice_label' => 'name'])
-            ->add('modifier', SubmitType::class)
+            ->add('modifier', SubmitType::class, [
+                "attr"=>["class"=>"button"]
+            ])
         ;
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => User::class,
-            'attr' =>['class' => 'user-form']
+            'data_class' => User::class
         ]);
     }
 }

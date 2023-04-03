@@ -53,7 +53,8 @@ class HangoutFilterType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' =>HangoutFilterTypeModel::class
+            'data_class' =>HangoutFilterTypeModel::class,
+            'attr' =>['class' => 'hangout-filter-form']
         ]);
     }
 }

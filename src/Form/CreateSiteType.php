@@ -19,6 +19,7 @@ class CreateSiteType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Site::class,
+            'attr' =>['class' => 'site-create-form']
         ]);
     }
 }

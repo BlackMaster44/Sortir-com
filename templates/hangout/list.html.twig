@@ -3,13 +3,14 @@
 {% block body %}
     <h2>Join Us for a Hangout !</h2>
         {{ form_start(form, {'attr':{'class': 'filters'}}) }}
-        <div class="siteFilter">{{ form_row(form.site)}}</div>
+    <div class="col-1"><div class="siteFilter">{{ form_row(form.site)}}</div>
         <div class="nameFilter">{{ form_row(form.searchQuery) }}</div>
         <div class="dateFilter">
             {{ form_row(form.from) }}
             {{ form_row(form.to) }}
         </div>
-        <div class="checkFilters">
+    </div>
+    <div class="col-2"><div class="checkFilters">
             <div class="check">
                 {{ form_widget(form.isOrganizer) }}
                 {{ form_label(form.isOrganizer) }}
@@ -27,10 +28,16 @@
                 {{ form_label(form.isExpired) }}
             </div>
         </div>
+    </div>
+    <div class="col-3">
         <div class="filterButton">
             {{ form_row(form.filter) }}
         </div>
         {{ form_rest(form) }}
+    </div>
+
+
+
         {{ form_end(form) }}
 
     <section class="hangoutContainer">
