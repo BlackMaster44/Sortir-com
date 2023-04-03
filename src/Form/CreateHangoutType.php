@@ -42,7 +42,10 @@ class CreateHangoutType extends AbstractType
                 'class' => Place::class,
                 'choice_label' => 'name',
             ])
-            ->add('Enregistrer', SubmitType::class, [
+            ->add('publish', SubmitType::class, [
+                'attr'=>['class' =>'button']
+            ])
+            ->add('save', SubmitType::class, [
                 'attr'=>['class'=>'button']
             ])
         ;

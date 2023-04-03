@@ -11,6 +11,7 @@ use App\Form\CreateHangoutType;
 use App\Form\HangoutFilterType;
 use App\Form\Model\HangoutFilterTypeModel;
 use App\Repository\HangoutRepository;
+use App\Services\HangoutHandler;
 use App\TypeConstraints\StateConstraints;
 use Doctrine\ORM\EntityManagerInterface;
 
@@ -24,7 +25,7 @@ use Symfony\Component\Security\Http\Attribute\CurrentUser;
 class HangoutController extends AbstractController
 {
     #[Route('/create', name: 'create')]
-    public function createHangout(Request $request, EntityManagerInterface $entityManager,#[CurrentUser] $user): Response
+    public function createHangout(HangoutHandler $handler, Request $request, EntityManagerInterface $entityManager,#[CurrentUser] $user): Response
     {
         $hangout = new Hangout();
         $hangout->setState(StateConstraints::wordingState[0]);
@@ -35,9 +36,9 @@ class HangoutController extends AbstractController
         $hangoutForm = $this->createForm(CreateHangoutType::class, $hangout);
         $hangoutForm->handleRequest($request);
         if($hangoutForm->isSubmitted() && $hangoutForm->isValid()) {
-            $entityManager->persist($hangout);
-            $entityManager->flush();
-            $this->addFlash('success flash', 'Hangout added !!!');
+            $action = $hangoutForm->get('publish')->isClicked() ? 'published' : 'saved';
+            $handler->save($hangout, $action);
+            $this->addFlash('success flash', 'Hangout '.$action.' !!!');
             return $this->redirectToRoute('hangout_list');
         }
         return $this->render('hangout/create.html.twig',[

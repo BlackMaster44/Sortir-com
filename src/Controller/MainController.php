@@ -11,8 +11,6 @@ class MainController extends AbstractController
     #[Route('/', name: 'home')]
     public function index(): Response
     {
-        return $this->redirectToRoute('hangout_list', [
-            'controller_name' => 'MainController',
-        ]);
+        return $this->redirectToRoute('hangout_list');
     }
 }

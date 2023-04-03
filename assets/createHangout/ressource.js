@@ -29,3 +29,10 @@ const select = document.getElementById('create_hangout_place')
 select.addEventListener("change",()=>{
     displayPlace(select.value)
 })
+
+const cancelButton = document.querySelector('.cancel-hangout');
+cancelButton.addEventListener('click', () => {
+    if(window.confirm('cancel hangout creation ?')){
+        window.location.href = `${window.location.origin}/hangout/list`
+    }
+})
