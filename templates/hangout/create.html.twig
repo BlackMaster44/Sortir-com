@@ -11,6 +11,7 @@
 {% block body %}
     {{ form_start(hangoutForm) }}
     {{ form_widget(hangoutForm) }}
+    {{ form_end((hangoutForm)) }}
     <div>
         <div>
             <div>City</div>
@@ -33,11 +34,5 @@
             <div id="create-form-longitude"></div>
         </div>
     </div>
-   <div>
-   </div>
-    <button>Publier</button>
-    <div>
-    </div>
-    {{ form_end((hangoutForm)) }}
 {% endblock %}
 
