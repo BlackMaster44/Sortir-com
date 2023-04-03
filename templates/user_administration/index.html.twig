@@ -41,6 +41,13 @@
                 {{ form_widget(form.site) }}
             </div>
         </div>
+        <div>
+            {{ form_label(form.imageUrl) }}
+            <div>
+                {{ form_errors(form.imageUrl) }}
+                {{ form_widget(form.imageUrl) }}
+            </div>
+        </div>
     </div>
 {{ form_end(form)}}
 {% endblock %}

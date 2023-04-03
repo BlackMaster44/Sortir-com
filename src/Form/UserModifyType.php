@@ -9,9 +9,11 @@ use Doctrine\Persistence\ObjectManager;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\File;
 
 class UserModifyType extends AbstractType
 {
@@ -34,6 +36,21 @@ class UserModifyType extends AbstractType
                 'class'=>Site::class,
                 'choices' =>$sites,
                 'choice_label' => 'name'])
+            ->add('imageUrl', FileType::class, [
+                'label'=>"upload profile pic",
+                'mapped'=>false,
+                'required'=>false,
+                'constraints'=>[
+                    new File([
+                        'maxSize'=>'2048k',
+                        'mimeTypes'=>[
+                            'image/jpeg',
+                            'image/png'
+                        ],
+                        'mimeTypesMessage' => 'Please upload a valid png/jpg image'
+                    ])
+                ]
+            ])
             ->add('modifier', SubmitType::class, [
                 "attr"=>["class"=>"button"]
             ])
@@ -43,7 +60,8 @@ class UserModifyType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => User::class
+            'data_class' => User::class,
+            'attr'=>['class'=>'user-modify-form']
         ]);
     }
 }

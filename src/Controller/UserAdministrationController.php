@@ -5,12 +5,16 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Form\UserModifyType;
 use App\Form\UserPasswordChangeType;
+use App\Services\FileUploader;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Http\Attribute\CurrentUser;
+use Symfony\Component\String\Slugger\SluggerInterface;
+
 #[Route('/user/admin', name: 'user')]
 class UserAdministrationController extends AbstractController
 {
@@ -20,12 +24,18 @@ class UserAdministrationController extends AbstractController
         return $this->render('user_administration/view.html.twig');
     }
     #[Route('/modify', name: '_modify')]
-    public function modify(Request $request, EntityManagerInterface $em): Response
+    public function modify(Request $request, EntityManagerInterface $em, FileUploader $fileUploader, #[CurrentUser] $user): Response
     {
-        $user = $this->getUser();
         $form = $this->createForm(UserModifyType::class, $user);
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()){
+            $profilePic = $form->get('imageUrl')->getData();
+            if($profilePic){
+                $filePath = $fileUploader->upload($profilePic);
+                if($user instanceof User){
+                    $user->setImageUrl($filePath);
+                }
+            }
             $user = $form->getData();
             $em->persist($user);
             $em->flush();

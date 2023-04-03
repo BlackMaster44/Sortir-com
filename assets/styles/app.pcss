@@ -152,3 +152,35 @@ header{
         }
     }
 }
+
+.profile-pic-navbar{
+    >a{
+        &:hover p {
+            color: black;
+        }
+        >p{
+            border-radius: 10px;
+            border: solid var(--color-primary) 2px;
+            background: var(--color-base);
+            padding: 0.1em;
+            position: relative;
+            z-index: 1;
+        }
+        position: relative;
+        >div {
+            border: solid var(--color-primary) 4px;
+            z-index: 0;
+            position: absolute;
+            margin: 0.5em;
+            overflow: hidden;
+            border-radius: 50%;
+            width: 4em;
+            height: 4em;
+            > img {
+                width: inherit;
+                height: 100%;
+                object-fit: cover;
+            }
+        }
+    }
+}
