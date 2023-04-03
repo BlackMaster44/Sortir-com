@@ -14,6 +14,7 @@ import './styles/flash-messages.pcss'
 import './styles/base-colors.css'
 import './menuBar/menuBar'
 import './styles/hangout-card.pcss'
+import './styles/forms.pcss'
 
 // start the Stimulus application
 // import './bootstrap';
