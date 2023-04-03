@@ -3,84 +3,89 @@
     flex-direction: column;
     align-items: center;
     gap: 1rem;
-    >.hangout {
-        overflow: hidden;
-        height: 20em;
-        width: 30em;
-        display: flex;
-        border: solid black 2px;
-        @media screen and (min-width: 600px) {
-            width: 35em;
-            height: 12em;
+}
+.hangout {
+    overflow: hidden;
+    height: 20em;
+    width: 30em;
+    display: flex;
+    border: solid black 2px;
+    @media screen and (min-width: 600px) {
+        width: 80%;
+        height: 12em;
+    }
+    > a {
+        text-decoration: none;
+        color: var(--color-base-text);
+        &:hover .hangout-img::before {
+            opacity: 0.3;
         }
-        > a {
-            text-decoration: none;
-            color: var(--color-base-text);
-            &:hover .hangout-img::before {
-                opacity: 0.3;
-            }
+        width: 100%;
+        display: flex;
+        flex-flow: column nowrap;
+        @media screen and (min-width: 600px) {
+            flex-flow: row nowrap;
+        }
+        > .hangout-img {
+            position: relative;
+            z-index: 0;
             width: 100%;
-            display: flex;
-            flex-flow: column nowrap;
-            @media screen and (min-width: 600px) {
-                flex-flow: row nowrap;
-            }
-            > .hangout-img {
+            height: 100%;
+            > img {
                 position: relative;
                 z-index: 0;
+                object-fit: contain;
                 width: 100%;
-                height: 100%;
-                > img {
-                    position: relative;
-                    z-index: 0;
-                    object-fit: contain;
-                    width: 100%;
-                }
-                &::before {
-                    opacity: 0.7;
-                    position: absolute;
-                    z-index: 1;
-                    width: inherit;
-                    height: inherit;
-                    background-color: black;
-                    content: "";
-                    @media screen and (min-width: 600px) {
-                        content: none;
-                    }
-                }
                 @media screen and (min-width: 600px) {
-                    position: static;
-                    width: 40%;
+                    object-fit: scale-down;
+                    height: 100%;
                 }
             }
-            > .hangout-text {
-                > * {
-                    margin: 0;
-                    padding: 0;
-                }
-                gap: 1em;
-                margin: auto;
-                flex-shrink: 0;
-                flex-direction: column;
-                justify-content: center;
-                align-items: center;
-                box-shadow: 0 1em 2em 0 rgba(0, 0, 0, 0.7);
-                width: 80%;
-                position: relative;
-                bottom: 15em;
-                z-index: 2;
-                height: 12em;
-                background: var(--color-base);
-                display: flex;
+            &::before {
+                opacity: 0.7;
+                position: absolute;
+                z-index: 1;
+                width: inherit;
+                height: inherit;
+                background-color: black;
+                content: "";
                 @media screen and (min-width: 600px) {
-                    height: auto;
-                    margin: 0;
-                    flex-grow: 1;
-                    width: auto;
-                    position: static;
-                    box-shadow: none;
-                    bottom: unset;
+                    content: none;
                 }
+            }
+            @media screen and (min-width: 600px) {
+                position: static;
+                width: 40%;
+                border: dashed green 2px;
+            }
+        }
+        > .hangout-text {
+            > * {
+                margin: 0;
+                padding: 0;
+            }
+            gap: 1em;
+            margin: auto;
+            flex-shrink: 0;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 1em 2em 0 rgba(0, 0, 0, 0.7);
+            width: 80%;
+            position: relative;
+            bottom: 15em;
+            z-index: 2;
+            height: 12em;
+            background: var(--color-base);
+            display: flex;
+            @media screen and (min-width: 600px) {
+                height: auto;
+                margin: 0;
+                flex-grow: 1;
+                width: auto;
+                position: static;
+                box-shadow: none;
+                bottom: unset;
             }
         }
     }
