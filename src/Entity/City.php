@@ -24,7 +24,7 @@ class City
     #[Groups(['place:read'])]
     private ?string $postcode = null;
 
-    #[ORM\OneToMany(mappedBy: 'city', targetEntity: Place::class)]
+    #[ORM\OneToMany(mappedBy: 'city', targetEntity: Place::class,cascade: ['remove'])]
     private Collection $places;
 
     public function __construct()
