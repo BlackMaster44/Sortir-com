@@ -9,28 +9,29 @@
 {% endblock %}
 
 {% block body %}
+    <h3>Créer une sortie</h3>
     {{ form_start(hangoutForm, {'attr': {'class': 'hangout-create-form'}}) }}
     {{ form_widget(hangoutForm) }}
     {{ form_end((hangoutForm)) }}
-    <div>
+    <div class="autofill-site-fields">
         <div>
-            <div>City</div>
+            <div><h4 class="form-title-fetch">City</h4></div>
             <div id="create-form-city"></div>
         </div>
         <div>
-            <div>Street</div>
+            <div><h4 class="form-title-fetch">Street</h4></div>
             <div id="create-form-street"></div>
         </div>
         <div>
-            <div>Postcode</div>
+            <div><h4 class="form-title-fetch">Postcode</h4></div>
             <div id="create-form-postcode"></div>
         </div>
         <div>
-            <div>Latitude</div>
+            <div><h4 class="form-title-fetch">Latitude</h4></div>
             <div id="create-form-latitude"></div>
         </div>
         <div>
-            <div>Longitude</div>
+            <div><h4 class="form-title-fetch">Longitude</h4></div>
             <div id="create-form-longitude"></div>
         </div>
     </div>

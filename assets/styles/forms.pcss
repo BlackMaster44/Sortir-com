@@ -1,44 +1,162 @@
-form {
+form{
     display: flex;
     flex-direction: column;
     align-items: center;
     min-width : 100%;
-    border: dashed red 2px;
-}
-#create_hangout{
-    width: 80%;
-    display: flex;
-    flex-flow: column nowrap;
-    >div {
-        border: dashed green 1px;
-        width: 100%;
+    gap: 0.5em;
+    >div{
+        width: 80%;
         display: flex;
-        flex-direction: row;
-        justify-content: space-between;
+        flex-flow: column nowrap;
+        gap: 0.5em;
         >div{
-            flex-basis: 60%;
-            >table {
-                border: dashed red 2px;
-                border-collapse: collapse;
-                border-spacing: 0;
-                width: 100%;
-                & tr, td, th{
-                     width: 100%;
-                    margin: 0;
-                    padding: 0;
-                }
-                & input{
+            width: 100%;
+            display: flex;
+            flex-flow: column nowrap;
+            justify-content: space-between;
+            @media screen and (min-width: 600px) {
+                flex-flow: row nowrap;
+            }
+            >label{
+                flex-basis: 40%;
+                flex-grow: 1;
+            }
+            >div{
+                >input, select{
                     width: 100%;
                 }
+                @media screen and (min-width: 600px) {
+                    flex-basis: 60%;
+                }
+            }
+            & input, textarea, select {
+                margin-left: 0;
+                padding-left: 0;
+                border: solid gray 1px;
+                font-size: 1.2em;
+                height: 1.5em;
+                @media screen and (min-width: 600px) {
+                    width: 60%;
+                    font-size: 1em;
+                }
+            }
+            & textarea {
+                resize: none;
+                height: 5em;
             }
         }
-        > input, textarea, select {
-            flex-basis: 60%;
-            font-size: 1.5em;
-            height: 1.2em;
+    }
+}
+#create_hangout{
+    @media screen and (min-width: 600px){
+        width: 60%;
+    }
+    >div {
+        >div{
+            flex-basis: 100%;
             @media screen and (min-width: 600px) {
-                font-size: 1em;
+                flex-basis: 60%;
+            }
+            >table{
+                display: flex;
+                flex-direction: column;
+                justify-content: space-around;
+                >thead, tbody{
+                    >tr{
+                        display: flex;
+                        justify-content: space-around;
+                    }
+                }
+                & input{
+                width: 80%;
+                }
             }
         }
+    }
+}
+.filters{
+    gap: 10px;
+    @media screen and (min-width: 600px) {
+        width: 80%;
+        margin: auto;
+        justify-content: center;
+        min-width: 80%;
+        flex-flow: row nowrap;
+    }
+    >.col-3{
+        display: flex;
+        >*{
+            justify-content: center;
+        }
+        flex-basis: 10%;
+    }
+    .col-1{
+        & input, select{
+            flex-basis: 60%;
+        }
+    }
+    >.col-1,.col-2 {
+        display: flex;
+        flex-direction: column;
+        @media screen and (min-width: 600px) {
+            height: 100%;
+            flex-basis: 45%;
+            flex-grow: 1;
+        }
+        >div {
+            > div {
+                justify-content: space-between;
+                width: 100%;
+                display: flex;
+                flex-flow: column nowrap;
+                @media screen and (min-width: 600px) {
+                    flex-flow: row nowrap;
+                    flex-grow: 1;
+                }
+            }
+        }
+        >.dateFilter{
+            flex-flow: column nowrap;
+            gap: 0.5em;
+        }
+        .checkFilters{
+            @media screen and (min-width: 600px) {
+                flex-flow: column nowrap;
+            }
+            >div{
+                align-items: center;
+                justify-content: space-around;
+                display: flex;
+                flex-direction: row-reverse;
+
+                >label{
+                    flex-basis: 80%;
+                }
+                >input{
+                    flex-basis: 20%;
+                }
+            }
+        }
+    }
+}
+
+.autofill-site-fields{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    >div{
+        >div{
+            >.form-title-fetch{
+                padding: 0;
+                margin: 0;
+            }
+        }
+        width: 80%;
+    }
+}
+.user-modify-form, .user-password-form{
+    >div{
+        width: 30%;
     }
 }
