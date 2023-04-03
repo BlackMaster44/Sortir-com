@@ -34,7 +34,7 @@ class CreateHangoutType extends AbstractType
                 'with_years' => false,
                 'with_months' => false,
                 'with_days' => false,
-                'with_hours' => false,
+                'with_hours' => true,
                 'with_minutes' => true,
             ])
             ->add('informations', TextareaType::class)
