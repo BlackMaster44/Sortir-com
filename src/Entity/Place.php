@@ -40,16 +40,17 @@ class Place
     #[Groups(['place:read'])]
     private ?string $latitude = null;
 
+
     #[ORM\Column(length: 255, nullable: true)]
     #[Groups(['place:read'])]
     private ?string $longitude = null;
 
-    #[ORM\ManyToOne(inversedBy: 'places')]
+    #[ORM\ManyToOne(cascade: ['remove'], inversedBy: 'places')]
     #[ORM\JoinColumn(nullable: false)]
     #[Groups(['place:read'])]
     private ?City $city = null;
 
-    #[ORM\OneToMany(mappedBy: 'place', targetEntity: Hangout::class)]
+    #[ORM\OneToMany(mappedBy: 'place', targetEntity: Hangout::class,cascade: ['remove'])]
 
     private Collection $hangouts;
 

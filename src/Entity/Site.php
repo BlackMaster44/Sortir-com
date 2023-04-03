@@ -6,6 +6,7 @@ use App\Repository\SiteRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use function Symfony\Component\String\u;
 
 #[ORM\Entity(repositoryClass: SiteRepository::class)]
 class Site
@@ -18,9 +19,9 @@ class Site
     #[ORM\Column(length: 255)]
     private ?string $name = null;
 
-    #[ORM\OneToMany(mappedBy: 'site', targetEntity: User::class)]
+    #[ORM\OneToMany(mappedBy: 'site', targetEntity: User::class,cascade: ['remove'])]
     private Collection $users;
-    #[ORM\OneToMany(mappedBy: 'site', targetEntity: Hangout::class)]
+    #[ORM\OneToMany(mappedBy: 'site', targetEntity: Hangout::class,cascade: ['remove'])]
     private Collection $hostedHangouts;
 
     public function __construct()
@@ -70,13 +71,18 @@ class Site
     {
         if ($this->users->removeElement($user)) {
             // set the owning side to null (unless already changed)
-            if ($user->getSite() === $this) {
-                $user->setSite(null);
+            foreach ( $user as $this->users ){
+                if ($user->getSite() === $this) {
+                    $user->setSite(null);
+                }
+
             }
+
         }
 
         return $this;
     }
+
 
     /**
      * @return Collection<int, Hangout>

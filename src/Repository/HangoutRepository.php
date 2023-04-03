@@ -7,9 +7,7 @@ use App\Entity\User;
 use App\Form\HangoutFilterType;
 use App\Form\Model\HangoutFilterTypeModel;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\Persistence\ManagerRegistry;
-use Symfony\Component\Validator\Constraints\Date;
 
 
 /**
