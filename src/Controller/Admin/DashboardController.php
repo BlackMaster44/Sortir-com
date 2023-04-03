@@ -2,6 +2,9 @@
 
 namespace App\Controller\Admin;
 
+use App\Entity\Hangout;
+use App\Entity\User;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
@@ -35,7 +38,16 @@ class DashboardController extends AbstractDashboardController
 
     public function configureMenuItems(): iterable
     {
-        yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
-        // yield MenuItem::linkToCrud('The Label', 'fas fa-list', EntityClass::class);
+        yield MenuItem::section('Users');
+        yield MenuItem::subMenu('Action', 'fas fa-bars')->setSubItems([
+            MenuItem::linkToCrud('Create User', 'fas fa-plus', User::class)->setAction(Crud::PAGE_NEW),
+            MenuItem::linkToCrud('Show users', 'fas fa-eye', User::class)
+        ]);
+
+        yield MenuItem::section('Hangouts');
+        yield MenuItem::subMenu('Action', 'fas fa-bars')->setSubItems([
+            MenuItem::linkToCrud('Create Hangout', 'fas fa-plus', Hangout::class)->setAction(Crud::PAGE_NEW),
+            MenuItem::linkToCrud('Show hangouts', 'fas fa-eye', Hangout::class)
+        ]);
     }
 }
