@@ -30,6 +30,7 @@ class UserCreateType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => User::class,
+            'attr' =>['class' => 'user-create-form']
         ]);
     }
 }

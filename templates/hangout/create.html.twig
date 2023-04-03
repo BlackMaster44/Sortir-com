@@ -9,7 +9,7 @@
 {% endblock %}
 
 {% block body %}
-    {{ form_start(hangoutForm) }}
+    {{ form_start(hangoutForm, {'attr': {'class': 'hangout-create-form'}}) }}
     {{ form_widget(hangoutForm) }}
     {{ form_end((hangoutForm)) }}
     <div>

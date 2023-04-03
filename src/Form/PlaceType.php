@@ -29,6 +29,7 @@ class PlaceType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Place::class,
+            'attr' =>['class' => 'place-create-form']
         ]);
     }
 }
