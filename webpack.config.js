@@ -77,9 +77,11 @@ Encore
         host: 'localhost',
         port: 3000,
         proxy: process.env.PROXY,
-        injectCss: true
+        injectCss: true,
+        cors: true
     },{
-        reload: true
+        reload: true,
+        notify: false
     }))
 ;
 

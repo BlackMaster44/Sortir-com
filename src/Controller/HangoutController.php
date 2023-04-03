@@ -37,7 +37,7 @@ class HangoutController extends AbstractController
         if($hangoutForm->isSubmitted() && $hangoutForm->isValid()) {
             $entityManager->persist($hangout);
             $entityManager->flush();
-            $this->addFlash('success', 'Hangout added!!!');
+            $this->addFlash('success flash', 'Hangout added !!!');
             return $this->redirectToRoute('hangout_list');
         }
         return $this->render('hangout/create.html.twig',[
@@ -121,14 +121,14 @@ class HangoutController extends AbstractController
             $hangout->setState('canceled');
             $emi->flush();
 
-            $this->addFlash('success', 'Hangout successfully canceled');
+            $this->addFlash('success flash', 'Hangout successfully canceled');
 
             return $this->render('hangout/details.html.twig', [
                 'hangout'=>$hangout
             ]);
         }
 
-        $this->addFlash('success', 'Hangout not canceled');
+        $this->addFlash('notice flash', 'Hangout not canceled');
 
         return $this->render('hangout/cancel.html.twig', [
             'cancelHangoutForm'=>$cancelHangoutForm

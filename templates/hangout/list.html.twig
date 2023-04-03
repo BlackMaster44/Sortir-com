@@ -35,14 +35,7 @@
 
     <section class="hangoutContainer">
         {% for hangout in hangouts %}
-            <div class="hangout">
-                <a href="{{ path('hangout_details', {'id': hangout.id}) }}">
-                    <p>{{ hangout.site.name }}</p>
-                    <p>{{ hangout.startTimestamp | date('d/m/y H:i') }}</p>
-                    <p>{{ hangout.participants | length }} / {{ hangout.maxSlots }}</p>
-                    <p>{{ hangout.name }}</p>
-                </a>
-            </div>
+            {% include 'components/hangout.html.twig' %}
         {% endfor %}
         <a href="{{ path('hangout_create') }}"><button class="createHangoutButton">Create</button></a>
     </section>

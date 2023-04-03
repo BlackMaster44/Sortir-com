@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    {{ form_start(userCreationForm) }}
+
+    {{ form_widget(userCreationForm) }}
+    <button>Create</button>
+    {{ form_end(userCreationForm) }}
+
+{% endblock %}
+
+{% block title %}
+    {{ parent() }} | user creation
+{% endblock %}

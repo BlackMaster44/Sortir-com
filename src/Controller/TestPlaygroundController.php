@@ -20,7 +20,7 @@ class TestPlaygroundController extends AbstractController
         return $this->render('test_playground/index.html.twig');
     }
     #[Route('/filter-form', name:'_filter-form')]
-public function filterForm(Request $req, EntityManagerInterface $em):Response
+    public function filterForm(Request $req, EntityManagerInterface $em):Response
     {
         $data = new HangoutFilterTypeModel($em);
         $user = $this->getUser();
@@ -30,5 +30,17 @@ public function filterForm(Request $req, EntityManagerInterface $em):Response
         $sites = $em->getRepository(Hangout::class)->filterResults($data);
         var_dump("size of sites ".sizeof($sites));
         return $this->render('test_playground/filter-form.html.twig', ['form'=>$form, 'sites'=>$sites]);
+    }
+
+    #[Route('/buttons', name: '_buttons')]
+    public function buttons(Request $req): Response
+    {
+        return $this->render('test_playground/buttons.html.twig');
+    }
+
+    #[Route('/alerts', name: '_alerts')]
+    public function alerts():Response
+    {
+        return $this->render('test_playground/alert.html.twig');
     }
 }

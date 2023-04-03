@@ -37,7 +37,7 @@ class CityController extends AbstractController
             $emi->persist($city);
             $emi->flush();
 
-            $this->addFlash('success', 'City successfully added');
+            $this->addFlash('success flash', 'City successfully added');
 
             return $this->redirectToRoute('city_list');
         }
@@ -59,7 +59,7 @@ class CityController extends AbstractController
 
         if($cityForm->isSubmitted() && $cityForm->isValid()) {
             $emi->flush();
-            $this->addFlash('success', 'City successfully updated');
+            $this->addFlash('success flash', 'City successfully updated');
 
             return $this->redirectToRoute('city_list');
         }

@@ -37,7 +37,7 @@ class SiteController extends AbstractController
             $emi->persist($site);
             $emi->flush();
 
-            $this->addFlash('success', 'Site successfully added');
+            $this->addFlash('success flash', 'Site successfully added');
 
             return $this->redirectToRoute('site_list');
         }
@@ -59,7 +59,7 @@ class SiteController extends AbstractController
 
         if ($siteForm->isSubmitted() && $siteForm->isValid()) {
             $emi->flush();
-            $this->addFlash('success', 'Site successfully updated');
+            $this->addFlash('success flash', 'Site successfully updated');
 
             return $this->redirectToRoute('site_list');
         }

@@ -1,11 +1,45 @@
-button{
-    font-size: 1.2rem;
-    border: none;
-    padding: 15px 20px;
+.button{
+    font-size: 0.9em;
+    padding: 1.5em 2em;
     border-radius: 5px;
     background: var(--color-primary);
-    color: var(--color-base-text);
+    font-weight: bold;
+    color: var(--color-base-button);
+    border: none;
+    left: 0;
+    box-shadow:
+            inset 3px 0 0 -1px rgb(1, 67, 121),
+            inset 0 -3px 0 0 rgb(0, 67, 121),
+            inset -3px 3px 0 0 rgb(128, 196, 251),
+            inset -1px 2px 0 0 rgb(1,67,121),
+            0 4px 4px -3px rgba(0,0,0,0.7);
     &:hover{
+        background-color: #0189f7;
         cursor: pointer;
+        text-shadow: #83ecff 0 0 3px;
+        box-shadow:
+            inset 3px 0 0 -1px rgb(1, 67, 121),
+            inset 0 -5px 0 0 rgb(0, 67, 121),
+            inset -2px 2px 0 0 rgb(228, 250, 255),
+            inset -1px 2px 0 0 rgb(1,67,121),
+            0 6px 6px -3px rgba(0,0,0,0.7);
     }
+    &:active{
+        box-shadow:
+            inset 3px 0 0 -1px rgb(1, 67, 121),
+            inset 0 5px 0 0 rgb(0, 67, 121),
+            inset 2px -2px 0 0 rgb(228, 250, 255),
+            inset 1px -2px 0 0 rgb(1,67,121),
+            inset 0 7px 6px -3px rgba(0,0,0,0.7);
+    }
+}
+
+.button-clicked-active.button-clicked-active{
+    background: #00bcff;
+    box-shadow:
+            inset 3px 0 0 -1px rgb(1, 67, 121),
+            inset 0 5px 0 0 rgb(0, 67, 121),
+            inset 2px -2px 0 0 rgb(228, 250, 255),
+            inset 1px -2px 0 0 rgb(1,67,121),
+            inset 0 7px 6px -3px rgba(0,0,0,0.7);
 }
