@@ -50,7 +50,11 @@ class AppFixtures extends Fixture
         $populator->addEntity(City::class, 10, ['name'=>function() use ($generator){ return $generator->city();}]);
         $populator->execute();
         $cities = $manager->getRepository(City::class)->findAll();
-        $populator->addEntity(Place::class, 50,[], [
+        $populator->addEntity(Place::class, 50,[
+            "name"=>function() use ($generator){
+            return $generator->streetAddress();
+            }
+        ], [
             function(Place $place) use ($cities){
                 $place->setCity($cities[rand(0,9)]);
             }
