@@ -45,7 +45,6 @@ class HangoutRepository extends ServiceEntityRepository
 
     public function filterResults(HangoutFilterTypeModel $queryParams): array
     {
-        //TODO fix orWhere clauses -> use ifX, expr() groups
         $userId = $queryParams->userId;
         $qb = $this->createQueryBuilder('h');
         $qb->leftJoin('h.participants', 'u');

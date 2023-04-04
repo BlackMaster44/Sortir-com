@@ -13,7 +13,6 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 
 class HangoutCrudController extends AbstractCrudController
 {
-
     public static function getEntityFqcn(): string
     {
         return Hangout::class;
@@ -27,6 +26,7 @@ class HangoutCrudController extends AbstractCrudController
             TextField::new('name'),
             DateTimeField::new('startTimeStamp'),
             DateTimeField::new('lastregisterDate'),
+            IntervalField::new('duration'),
             NumberField::new('maxSlots'),
             ArrayField::new('participants'),
             AssociationField::new('site'),

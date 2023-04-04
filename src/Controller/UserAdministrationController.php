@@ -31,7 +31,7 @@ class UserAdministrationController extends AbstractController
         if($form->isSubmitted() && $form->isValid()){
             $profilePic = $form->get('imageUrl')->getData();
             if($profilePic){
-                $filePath = $fileUploader->upload($profilePic);
+                $filePath = $fileUploader->uploadUserImage($profilePic);
                 if($user instanceof User){
                     $user->setImageUrl($filePath);
                 }

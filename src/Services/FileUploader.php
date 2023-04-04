@@ -11,24 +11,54 @@ class FileUploader
 
     public function __construct(
         private SluggerInterface $slugger,
-        private $targetDirectory,
+        private $userImgDirectory,
+        private $csvDirectory
     ){}
 
     public function upload(UploadedFile $file): string
     {
         $origFileName = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
         $safeFileName = $this->slugger->slug($origFileName);
-        $newFileName = $safeFileName.'-'.uniqid().'.'.$file->guessExtension();
+        $extension = $file->guessExtension();
+        $newFileName = $safeFileName.'-'.uniqid().'.'.$extension;
+        if($extension === 'csv'){
+            $this->storeCsv($file, $newFileName);
+        }
+        if($extension === 'jpg' || $extension === 'png'){
+            $this->storeUserImg($file, $newFileName);
+        }
+        return $newFileName;
+    }
+    private function storeCsv($file, $fileName): void
+    {
         try{
-            $file->move($this->getTargetDirectory(), $newFileName);
+            $file->move($this->getCsvDirectory(), $fileName);
         } catch (FileException $e){
             var_dump($e);
             die();
         }
-        return $newFileName;
     }
-    public function getTargetDirectory(): string
+    private function storeUserImg(UploadedFile $file, string $fileName): void
     {
-        return $this->targetDirectory;
+        try{
+            $file->move($this->getUserImgDirectory(), $fileName);
+        } catch (FileException $e){
+            var_dump($e);
+            die();
+        }
     }
+
+    public function getUserImgDirectory(): string
+    {
+        return $this->userImgDirectory;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCsvDirectory():string
+    {
+        return $this->csvDirectory;
+    }
+
 }
