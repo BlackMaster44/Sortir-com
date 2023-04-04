@@ -38,15 +38,15 @@ class Hangout
     private ?Collection $participants = null;
 
     #[ORM\ManyToOne(inversedBy: 'createdHangouts')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(nullable: false, onDelete: "CASCADE")]
     private ?User $creator = null;
 
     #[ORM\ManyToOne(inversedBy: 'hostedHangouts')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(nullable: false, onDelete: "CASCADE")]
     private ?Site $site = null;
 
     #[ORM\ManyToOne(inversedBy: 'hangouts')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(nullable: false, onDelete: "CASCADE")]
     private ?Place $place = null;
 
     #[ORM\Column(length: 50)]
