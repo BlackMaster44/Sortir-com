@@ -38,15 +38,15 @@ class Hangout
     private ?Collection $participants = null;
 
     #[ORM\ManyToOne(inversedBy: 'createdHangouts')]
-    #[ORM\JoinColumn(nullable: false,onDelete: 'cascade')]
+    #[ORM\JoinColumn(nullable: false, onDelete: "CASCADE")]
     private ?User $creator = null;
 
     #[ORM\ManyToOne(inversedBy: 'hostedHangouts')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(nullable: false, onDelete: "CASCADE")]
     private ?Site $site = null;
 
-    #[ORM\ManyToOne( inversedBy: 'hangouts')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\ManyToOne(inversedBy: 'hangouts')]
+    #[ORM\JoinColumn(nullable: false, onDelete: "CASCADE")]
     private ?Place $place = null;
 
     #[ORM\Column(length: 50)]
@@ -55,6 +55,9 @@ class Hangout
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $cancelReason = null;
+
+    #[ORM\Column]
+    private ?bool $isPublished = null;
 
 
     public function __construct()
@@ -222,6 +225,22 @@ class Hangout
     public function setCancelReason(?string $cancelReason): self
     {
         $this->cancelReason = $cancelReason;
+
+        return $this;
+    }
+
+    public function __toString() {
+        return $this->name;
+    }
+
+    public function isIsPublished(): ?bool
+    {
+        return $this->isPublished;
+    }
+
+    public function setIsPublished(bool $isPublished): self
+    {
+        $this->isPublished = $isPublished;
 
         return $this;
     }

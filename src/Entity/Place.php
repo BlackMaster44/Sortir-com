@@ -40,13 +40,12 @@ class Place
     #[Groups(['place:read'])]
     private ?string $latitude = null;
 
-
     #[ORM\Column(length: 255, nullable: true)]
     #[Groups(['place:read'])]
     private ?string $longitude = null;
 
-    #[ORM\ManyToOne(cascade: ['remove'], inversedBy: 'places')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\ManyToOne(inversedBy: 'places')]
+    #[ORM\JoinColumn(nullable: false, onDelete: "CASCADE")]
     #[Groups(['place:read'])]
     private ?City $city = null;
 

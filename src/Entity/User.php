@@ -30,7 +30,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $password = null;
 
     #[ORM\ManyToOne(inversedBy: 'users')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(nullable: false, onDelete: "CASCADE")]
     private ?Site $site = null;
 
     #[ORM\ManyToMany(targetEntity: Hangout::class, inversedBy: 'participants')]
@@ -52,7 +52,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?bool $active = true;
 
     #[ORM\Column]
-    private ?bool $administrator = false;
+    private bool $administrator = false;
 
     #[ORM\Column(length: 50, unique: true)]
     private ?string $username = null;

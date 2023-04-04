@@ -1,11 +1,12 @@
 <nav>
     <ul>
-        <li><a href="{{ path('admin') }}" target="_blank">Admin</a></li>
+        {% if app.user %}
+            {% if app.user.administrator %}
+                <li><a href="{{ path('admin') }}" target="_blank">Admin</a></li>
+            {% endif %}
+        {% endif %}
         <li><a href="{{ path('city_list') }}"><p>Cities</p></a></li>
         <li><a href="{{ path('place_list') }}"><p>Places</p></a></li>
-        <li><a href="{{ path('site_list') }}"><p>Sites</p></a></li>
-        <li><a href="{{ path('test_home') }}"><p>Test</p></a></li>
-        <li><a href="{{ path('user_create') }}">Users</a></li>
         {% if app.user %}
             <li class="profile-pic-navbar">
                 <a href="{{ path('user_view') }}">

@@ -27,7 +27,6 @@ class Site
     public function __construct()
     {
         $this->users = new ArrayCollection();
-        $this->hangout = new ArrayCollection();
         $this->hostedHangouts = new ArrayCollection();
     }
 

@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Form\Model\HangoutFilterTypeModel;
 use App\Form\Type\SiteType;
+use DateTime;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
@@ -38,7 +39,11 @@ class HangoutFilterType extends AbstractType
                 'required'=>false
             ])
             ->add('from', DateType::class, [
-                'widget' => 'single_text'
+                'widget' => 'single_text',
+                'required' =>false,
+                'placeholder'=> function () {
+                    $date = new DateTime();
+                }
             ])
             ->add('to', DateType::class, [
                 'widget' => 'single_text',

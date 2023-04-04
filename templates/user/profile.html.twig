@@ -3,6 +3,12 @@
 {% block body %}
     <div class="user-display">
         <div>
+            <div>Profile pic:</div><div>
+                <img src=
+                     "{{asset(user.imageUrl is empty ?'img/Default_pfp.jpg':'img/'~user.imageUrl)}}" alt="profile-pic"/>
+            </div>
+        </div>
+        <div>
             <div>Email:</div><div>{{ user.email }}</div>
         </div>
         <div>
