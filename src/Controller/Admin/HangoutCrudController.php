@@ -23,13 +23,13 @@ class HangoutCrudController extends AbstractCrudController
     {
         return [
             IdField::new('id')->hideOnForm(),
-            TextField::new('creator'),
+            AssociationField::new('creator'),
             TextField::new('name'),
             DateTimeField::new('startTimeStamp'),
             DateTimeField::new('lastregisterDate'),
             IntervalField::new('duration'),
             NumberField::new('maxSlots'),
-            ArrayField::new('participants'),
+            AssociationField::new('participants'),
             AssociationField::new('site'),
             AssociationField::new('place'),
             TextField::new('informations'),

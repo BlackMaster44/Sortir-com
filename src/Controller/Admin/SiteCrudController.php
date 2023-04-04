@@ -5,7 +5,7 @@ namespace App\Controller\Admin;
 use App\Entity\Site;
 use Doctrine\ORM\EntityManagerInterface;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
-use EasyCorp\Bundle\EasyAdminBundle\Field\ArrayField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 
@@ -21,9 +21,17 @@ class SiteCrudController extends AbstractCrudController
         return [
             IdField::new('id')->hideOnForm(),
             TextField::new('name'),
-            ArrayField::new('users')->onlyOnForms(),
-            ArrayField::new('hostedHangouts')->onlyOnForms()
+            AssociationField::new('users')->onlyOnForms(),
+            AssociationField::new('hostedHangouts')->onlyOnForms()
         ];
+    }
+
+    public function updateEntity(EntityManagerInterface $entityManager, $entityInstance): void
+    {
+        if(!$entityInstance instanceof Site) return;
+
+
+        parent::updateEntity($entityManager, $entityInstance);
     }
 
     public function deleteEntity(EntityManagerInterface $entityManager, $entityInstance): void
