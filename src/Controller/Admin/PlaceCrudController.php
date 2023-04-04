@@ -6,6 +6,7 @@ use App\Entity\Place;
 use Doctrine\ORM\EntityManagerInterface;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ArrayField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 
@@ -24,8 +25,8 @@ class PlaceCrudController extends AbstractCrudController
             TextField::new('street'),
             TextField::new('latitude'),
             TextField::new('longitude'),
-            TextField::new('city'),
-            ArrayField::new('hangouts')
+            AssociationField::new('city'),
+            AssociationField::new('hangouts')
         ];
     }
 
