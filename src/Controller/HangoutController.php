@@ -4,12 +4,14 @@ namespace App\Controller;
 
 use App\Entity\Hangout;
 
+use App\Entity\Place;
 use App\Entity\User;
 use App\Form\CancelHangoutType;
 use App\Form\CreateHangoutType;
 
 use App\Form\HangoutFilterType;
 use App\Form\Model\HangoutFilterTypeModel;
+use App\Form\PlaceType;
 use App\Repository\HangoutRepository;
 use App\Services\HangoutHandler;
 use App\TypeConstraints\StateConstraints;
@@ -25,8 +27,9 @@ use Symfony\Component\Security\Http\Attribute\CurrentUser;
 class HangoutController extends AbstractController
 {
     #[Route('/create', name: 'create')]
-    public function createHangout(HangoutHandler $handler, Request $request, EntityManagerInterface $entityManager,#[CurrentUser] $user): Response
+    public function createHangout(HangoutHandler $handler, Request $request,#[CurrentUser] $user, EntityManagerInterface $em): Response
     {
+        $place = new Place();
         $hangout = new Hangout();
         $hangout->setState(StateConstraints::wordingState[0]);
         if($user instanceof User){
@@ -34,8 +37,13 @@ class HangoutController extends AbstractController
             $hangout->setSite($user->getSite());
         }
         $hangoutForm = $this->createForm(CreateHangoutType::class, $hangout);
+        $placeForm = $this->createForm(PlaceType::class, $place);
+        $placeForm->handleRequest($request);
         $hangoutForm->handleRequest($request);
-        if($hangoutForm->isSubmitted() && $hangoutForm->isValid()) {
+        if($placeForm->isSubmitted() && $placeForm->isValid()){
+            $em->persist($place);
+            $em->flush();
+        }else if($hangoutForm->isSubmitted() && $hangoutForm->isValid()) {
             $action = $hangoutForm->get('publish')->isClicked() ? 'published' : 'saved';
             $handler->save($hangout, $action);
             $this->addFlash('success flash', 'Hangout '.$action.' !!!');
@@ -43,6 +51,7 @@ class HangoutController extends AbstractController
         }
         return $this->render('hangout/create.html.twig',[
             'hangoutForm'=>$hangoutForm,
+            'placeForm' => $placeForm
         ]);
     }
     #[Route('/list', name: 'list')]
