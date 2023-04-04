@@ -8,6 +8,10 @@
         width: 600px;
         justify-content: space-between;
         >div{
+            >img{
+                width: 200px;
+                object-fit: scale-down;
+            }
             padding: 1rem 0;
             display: flex;
             flex-basis: 50%;
@@ -30,7 +34,7 @@
             }
         }
     }
-    >:nth-child(odd){
+    >:nth-child(even){
         background-color: lightblue;
     }
     >:nth-last-child(1){

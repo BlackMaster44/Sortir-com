@@ -3,6 +3,12 @@
 {% block body %}
     <div class="user-display">
         <div>
+            <div>Profile pic:</div><div>
+                <img src=
+                     "{{asset(app.user.imageUrl is empty ?'img/Default_pfp.jpg':'img/'~app.user.imageUrl)}}" alt="profile-pic"/>
+            </div>
+        </div>
+        <div>
             <div>Email:</div><div>{{ app.user.email }}</div>
         </div>
         <div>
@@ -19,8 +25,8 @@
         </div>
 
         <div>
-        <a href="{{ path('user_modify') }}"><button class="button">Modifier</button></a>
-        <a href="{{ path('user_password') }}"><button class="button">Modifier mot de passe...</button></a>
+            <a href="{{ path('user_modify') }}"><button class="button">Modifier</button></a>
+            <a href="{{ path('user_password') }}"><button class="button">Modifier mot de passe...</button></a>
         </div>
     </div>
 {% endblock %}
@@ -28,4 +34,3 @@
 {% block title %}
 {{ app.user.firstname }}
 {% endblock %}
-

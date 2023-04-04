@@ -52,7 +52,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?bool $active = true;
 
     #[ORM\Column]
-    private ?bool $administrator = false;
+    private bool $administrator = false;
 
     #[ORM\Column(length: 50, unique: true)]
     private ?string $username = null;

@@ -82,6 +82,7 @@ class AppFixtures extends Fixture
         $user->setLastName('Bonbeurre');
         $user->setPhone('0000000000');
         $user->setUsername('test');
+        $user->setAdministrator(true);
         $manager->persist($user);
         $manager->flush();
         $populator->addEntity(User::class, 10, [
@@ -89,7 +90,8 @@ class AppFixtures extends Fixture
             'site' => function() use ($nantes, $rennes) {
                 return rand(1,2) % 2 ? $nantes : $rennes;
             },
-            'imageUrl'=> null
+            'imageUrl'=> null,
+            'administrator'=>false
             ] ,[ function(User $user) {
                 $user->setPassword($this->hasher->hashPassword($user, 'password'));
             }

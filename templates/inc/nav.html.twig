@@ -1,7 +1,9 @@
 <nav>
     <ul>
-        {% if app.user.administrator == true %}
-            <li><a href="{{ path('admin') }}" target="_blank">Admin</a></li>
+        {% if app.user %}
+            {% if app.user.administrator %}
+                <li><a href="{{ path('admin') }}" target="_blank">Admin</a></li>
+            {% endif %}
         {% endif %}
         <li><a href="{{ path('city_list') }}"><p>Cities</p></a></li>
         <li><a href="{{ path('place_list') }}"><p>Places</p></a></li>
