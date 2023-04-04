@@ -154,20 +154,28 @@ header{
 }
 .form-buttons{
     display: flex;
-    flex-flow: row nowrap;
+    @media screen and (min-width: 600px) {
+        flex-flow: row nowrap;
+        >div{
+            >button{
+                height: 4em;
+                width: 17em;
+            }
+            flex-basis: 0;
+            flex-grow: 1;
+            display: flex;
+            width: 20%;
+            justify-content: center;
+        }
+    }
     justify-content: center;
     align-items: center;
     gap: 1em;
     >div{
-        display: flex;
         >button{
-            height: 4em;
-            width: 17em;
+            width: 100%;
         }
-        flex-basis: 0;
-        flex-grow: 1;
-        width: 20%;
-        justify-content: center;
+        width: 100%;
     }
 }
 
