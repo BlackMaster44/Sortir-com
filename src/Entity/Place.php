@@ -49,7 +49,7 @@ class Place
     #[Groups(['place:read'])]
     private ?City $city = null;
 
-    #[ORM\OneToMany(mappedBy: 'place', targetEntity: Hangout::class)]
+    #[ORM\OneToMany(mappedBy: 'place', targetEntity: Hangout::class,cascade: ['remove'])]
 
     private Collection $hangouts;
 
@@ -150,9 +150,5 @@ class Place
         }
 
         return $this;
-    }
-
-    public function __toString() {
-        return $this->name;
     }
 }

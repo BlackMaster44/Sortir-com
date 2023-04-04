@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Site;
+use App\Entity\User;
 use App\Form\CreateSiteType;
 use App\Repository\SiteRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -75,6 +76,8 @@ class SiteController extends AbstractController
                                EntityManagerInterface $emi): Response
     {
         $site = $sr->find($id);
+
+
             $emi->remove($site);
             $emi->flush();
 
