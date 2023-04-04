@@ -14,7 +14,6 @@
             inset -1px 2px 0 0 rgb(1,67,121),
             0 4px 4px -3px rgba(0,0,0,0.7);
     &:hover{
-        background-color: #0189f7;
         cursor: pointer;
         text-shadow: #83ecff 0 0 3px;
         box-shadow:
@@ -32,6 +31,9 @@
             inset 1px -2px 0 0 rgb(1,67,121),
             inset 0 7px 6px -3px rgba(0,0,0,0.7);
     }
+    &:disabled{
+        background-color: grey;
+    }
 }
 
 .button-clicked-active.button-clicked-active{
@@ -42,4 +44,12 @@
             inset 2px -2px 0 0 rgb(228, 250, 255),
             inset 1px -2px 0 0 rgb(1,67,121),
             inset 0 7px 6px -3px rgba(0,0,0,0.7);
+}
+
+.button-green{
+    background-color: #28bc5a;
+
+}
+.button-red{
+    background-color: #ff3c22;
 }

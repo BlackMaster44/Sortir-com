@@ -152,6 +152,24 @@ header{
         }
     }
 }
+.form-buttons{
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+    align-items: center;
+    gap: 1em;
+    >div{
+        display: flex;
+        >button{
+            height: 4em;
+            width: 17em;
+        }
+        flex-basis: 0;
+        flex-grow: 1;
+        width: 20%;
+        justify-content: center;
+    }
+}
 
 .profile-pic-navbar{
     >a{
