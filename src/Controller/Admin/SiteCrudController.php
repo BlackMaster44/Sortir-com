@@ -26,14 +26,6 @@ class SiteCrudController extends AbstractCrudController
         ];
     }
 
-    public function updateEntity(EntityManagerInterface $entityManager, $entityInstance): void
-    {
-        if(!$entityInstance instanceof Site) return;
-
-
-        parent::updateEntity($entityManager, $entityInstance);
-    }
-
     public function deleteEntity(EntityManagerInterface $entityManager, $entityInstance): void
     {
         if(!$entityInstance instanceof  Site) return;
