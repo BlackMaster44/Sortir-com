@@ -6,6 +6,7 @@ use App\Entity\City;
 use App\Entity\Place;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -22,6 +23,10 @@ class PlaceType extends AbstractType
             ->add('city',EntityType::class,[
                 'class'=>City::class,
                 'choice_label' => 'name',
+            ])
+            ->add('submit', SubmitType::class, [
+                'label'=>'submit place',
+                'attr'=>['class'=>'button place-form button-green']
             ]);
     }
 
@@ -29,7 +34,6 @@ class PlaceType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Place::class,
-            'attr' =>['class' => 'place-create-form']
-        ]);
+            ]);
     }
 }

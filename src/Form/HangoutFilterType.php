@@ -40,10 +40,7 @@ class HangoutFilterType extends AbstractType
             ])
             ->add('from', DateType::class, [
                 'widget' => 'single_text',
-                'required' =>false,
-                'placeholder'=> function () {
-                    $date = new DateTime();
-                }
+                'required' =>false
             ])
             ->add('to', DateType::class, [
                 'widget' => 'single_text',
