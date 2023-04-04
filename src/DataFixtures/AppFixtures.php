@@ -16,6 +16,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Persistence\ObjectManager;
 use Faker\Factory;
 use Faker\ORM\Doctrine\Populator;
+use Faker\Provider\Address;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Validator\Constraints\Date;
 
@@ -37,9 +38,6 @@ class AppFixtures extends Fixture
     {
         $generator = Factory::create();
         $populator = new Populator($generator, $manager);
-
-        // $product = new Product();
-        // $manager->persist($product);
         $nantes = new Site();
         $nantes->setName('Nantes');
         $manager->persist($nantes);
@@ -47,12 +45,28 @@ class AppFixtures extends Fixture
         $rennes->setName('Rennes');
         $manager->persist($rennes);
         $manager->flush();
-        $populator->addEntity(City::class, 10, ['name'=>function() use ($generator){ return $generator->city();}]);
+        $populator->addEntity(City::class, 10, [
+            'name'=>function() use ($generator){
+                return $generator->city();
+            },
+            'postcode' => function(){
+                return Address::postcode();
+            }
+        ]);
         $populator->execute();
         $cities = $manager->getRepository(City::class)->findAll();
         $populator->addEntity(Place::class, 50,[
             "name"=>function() use ($generator){
-            return $generator->streetAddress();
+                return $generator->streetName();
+            },
+            'street'=>function() use ($generator){
+                return $generator->streetAddress();
+            },
+            'latitude'=>function() use ($generator){
+                return $generator->latitude();
+            },
+            'longitude'=>function() use ($generator){
+                return $generator->longitude();
             }
         ], [
             function(Place $place) use ($cities){
@@ -74,7 +88,8 @@ class AppFixtures extends Fixture
             'password' => 'password',
             'site' => function() use ($nantes, $rennes) {
                 return rand(1,2) % 2 ? $nantes : $rennes;
-            }
+            },
+            'imageUrl'=> null
             ] ,[ function(User $user) {
                 $user->setPassword($this->hasher->hashPassword($user, 'password'));
             }
@@ -90,10 +105,15 @@ class AppFixtures extends Fixture
             'duration'=> new \DateInterval(sprintf('PT%sH%sM', rand(1,3), rand(1,60))),
             'site'=> function() use ($nantes, $rennes) {return rand(1,2)%2 ? $nantes : $rennes;},
             'state'=>function() { return StateConstraints::wordingState[rand(0, sizeof(StateConstraints::wordingState)-1)];},
-            'name'=>function() use($generator) {return implode(" ",$generator->words(3));}
+            'name'=>function() use($generator) {return $generator->realText(30, 1);},
+            'informations'=>function() use ($generator) { return $generator->realText(3000, 1);},
+            'cancelReason' => null
         ], [
-            function ($hangout) {
+            function ($hangout) use ($generator) {
                 if($hangout instanceof Hangout){
+                    if($hangout->getState() === 'canceled'){
+                        $hangout->setCancelReason($generator->realText(50, 1));
+                    }
                     $date = $hangout->getStartTimestamp();
                     if($date instanceof DateTime) {
                     $registerDate = clone $date;

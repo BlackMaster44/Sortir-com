@@ -56,6 +56,9 @@ class Hangout
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $cancelReason = null;
 
+    #[ORM\Column]
+    private ?bool $isPublished = null;
+
 
     public function __construct()
     {
@@ -228,5 +231,17 @@ class Hangout
 
     public function __toString() {
         return $this->name;
+    }
+
+    public function isIsPublished(): ?bool
+    {
+        return $this->isPublished;
+    }
+
+    public function setIsPublished(bool $isPublished): self
+    {
+        $this->isPublished = $isPublished;
+
+        return $this;
     }
 }
