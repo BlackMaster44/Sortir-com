@@ -1,7 +1,11 @@
 {% extends 'base.html.twig' %}
-
+{% block javascripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('filter') }}
+{% endblock %}
 {% block body %}
     <h2>Join Us for a Hangout !</h2>
+    <button class="filter-collapse">Filters &#x25BC;</button>
     <div class="filters">
         {{ form_start(form, {'attr':{'class': 'filters'}}) }}
         <div class="col-1"><div class="siteFilter">{{ form_row(form.site)}}</div>

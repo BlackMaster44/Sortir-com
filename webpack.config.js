@@ -24,6 +24,7 @@ Encore
     .addEntry('app', './assets/app.js')
     .addEntry('create-hangout', './assets/createHangout/ressource.js')
     .addEntry('map', './assets/map/map.js')
+    .addEntry('filter', './assets/main/filter-collapse.js')
 
     // enables the Symfony UX Stimulus bridge (used in assets/bootstrap.js)
     // .enableStimulusBridge('./assets/controllers.json')
