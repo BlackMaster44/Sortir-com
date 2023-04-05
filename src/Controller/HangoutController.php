@@ -41,6 +41,8 @@ class HangoutController extends AbstractController
         $placeForm->handleRequest($request);
         $hangoutForm->handleRequest($request);
         if($placeForm->isSubmitted() && $placeForm->isValid()){
+            $place->setLatitude($placeForm->get('map')->get('latitude')->getData());
+            $place->setLongitude($placeForm->get('map')->get('longitude')->getData());
             $em->persist($place);
             $em->flush();
         }else if($hangoutForm->isSubmitted() && $hangoutForm->isValid()) {

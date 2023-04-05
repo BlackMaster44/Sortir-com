@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Hangout;
 use App\Entity\User;
 use App\Form\HangoutFilterType;
+use App\Form\MapTestType;
 use App\Form\Model\HangoutFilterTypeModel;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -42,5 +43,13 @@ class TestPlaygroundController extends AbstractController
     public function alerts():Response
     {
         return $this->render('test_playground/alert.html.twig');
+    }
+    #[Route('/map', name: '_map')]
+    public function map(Request $request):Response
+    {
+        $form = $this->createForm(MapTestType::class);
+        $form->handleRequest($request);
+        $form->get('map')->get('latitude')->setData('10');
+        return $this->render('test_playground/map.html.twig', ['form'=>$form]);
     }
 }
