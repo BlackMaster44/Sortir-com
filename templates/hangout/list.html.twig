@@ -2,41 +2,43 @@
 
 {% block body %}
     <h2>Join Us for a Hangout !</h2>
+    <div class="filters">
         {{ form_start(form, {'attr':{'class': 'filters'}}) }}
-    <div class="col-1"><div class="siteFilter">{{ form_row(form.site)}}</div>
-        <div class="nameFilter">{{ form_row(form.searchQuery) }}</div>
-        <div class="dateFilter">
-            {{ form_row(form.from) }}
-            {{ form_row(form.to) }}
-        </div>
-    </div>
-    <div class="col-2"><div class="checkFilters">
-            <div class="check">
-                {{ form_widget(form.isOrganizer) }}
-                {{ form_label(form.isOrganizer) }}
-            </div>
-            <div class="check">
-                {{ form_widget(form.isSubscribed) }}
-                {{ form_label(form.isSubscribed) }}
-            </div>
-            <div class="check">
-                {{ form_widget(form.isNotSubscribed) }}
-                {{ form_label(form.isNotSubscribed) }}
-            </div>
-            <div class="check">
-                {{ form_widget(form.isExpired) }}
-                {{ form_label(form.isExpired) }}
+        <div class="col-1"><div class="siteFilter">{{ form_row(form.site)}}</div>
+            <div class="nameFilter">{{ form_row(form.searchQuery) }}</div>
+            <div class="dateFilter">
+                {{ form_row(form.from) }}
+                {{ form_row(form.to) }}
             </div>
         </div>
-    </div>
+        <div class="col-2"><div class="checkFilters">
+                <div class="check">
+                    {{ form_widget(form.isOrganizer) }}
+                    {{ form_label(form.isOrganizer) }}
+                </div>
+                <div class="check">
+                    {{ form_widget(form.isSubscribed) }}
+                    {{ form_label(form.isSubscribed) }}
+                </div>
+                <div class="check">
+                    {{ form_widget(form.isNotSubscribed) }}
+                    {{ form_label(form.isNotSubscribed) }}
+                </div>
+                <div class="check">
+                    {{ form_widget(form.isExpired) }}
+                    {{ form_label(form.isExpired) }}
+                </div>
+            </div>
+        </div>
 
-    <div class="col-3">
-        <div class="filterButton">
-            {{ form_row(form.filter) }}
+        <div class="col-3">
+            <div class="filterButton">
+                {{ form_row(form.filter) }}
+            </div>
+            {{ form_rest(form) }}
         </div>
-        {{ form_rest(form) }}
-    </div>
         {{ form_end(form) }}
+    </div>
 
     <section class="hangoutContainer">
         <a href="{{ path('hangout_create') }}"><button class="createHangoutButton button">Create</button></a>
