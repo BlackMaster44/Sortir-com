@@ -36,16 +36,13 @@
         </div>
         {{ form_rest(form) }}
     </div>
-
-
-
         {{ form_end(form) }}
 
     <section class="hangoutContainer">
+        <a href="{{ path('hangout_create') }}"><button class="createHangoutButton button">Create</button></a>
         {% for hangout in hangouts %}
             {% include 'components/hangout.html.twig' %}
         {% endfor %}
-        <a href="{{ path('hangout_create') }}"><button class="createHangoutButton">Create</button></a>
     </section>
 {% endblock %}
 

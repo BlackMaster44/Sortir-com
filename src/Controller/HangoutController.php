@@ -63,6 +63,7 @@ class HangoutController extends AbstractController
         $form->handleRequest($request);
         $data->userId = $user->getId();
         $hangouts = $em->getRepository(Hangout::class)->filterResults($data);
+        usort($hangouts, fn(Hangout $a, Hangout $b)=> $a->getStartTimestamp() < $b->getStartTimestamp() ? 1 : -1);
         return $this->render('hangout/list.html.twig', [
             'form'=>$form,
            'hangouts' => $hangouts
