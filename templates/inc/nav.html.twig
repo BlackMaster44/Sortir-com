@@ -2,7 +2,7 @@
     <ul>
         {% if app.user %}
             {% if app.user.administrator %}
-                <li><a href="{{ path('admin') }}" target="_blank">Admin</a></li>
+                <li><a href="{{ path('admin') }}" target="_blank"><p>Admin</p></a></li>
             {% endif %}
         {% endif %}
         <li><a href="{{ path('city_list') }}"><p>Cities</p></a></li>
@@ -20,7 +20,7 @@
                 <p>Profile</p>
                 </a>
             </li>
-            <li><a href="{{ path('app_logout') }}">Logout</a></li>
+            <li><a href="{{ path('app_logout') }}"><p>Logout</p></a></li>
         {% else %}
             <li><a href="{{ path('app_login') }}">Login</a></li>
             <li><a href="#">Register</a></li>

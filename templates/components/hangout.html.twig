@@ -4,21 +4,21 @@
             <img src="{{ asset('img/default-hangout-256.png') }}" alt="default hangout"/>
         </div>
         <div class="hangout-text">
-            <p class="hangout-site">{{ hangout.site.name }}</p>
-            <p class="hangout-start-timestamp">{{ hangout.startTimestamp | date('d/m/y H:i') }}</p>
+            <h3 class="hangout-name">{{ hangout.name }}</h3>
+            <p class="hangout-site"><i class="fa-solid fa-house"></i> {{ hangout.site.name }}</p>
+            <p class="hangout-start-timestamp"><i class="fa-solid fa-calendar-days"></i> {{ hangout.startTimestamp | date('d/m/y H:i') }}</p>
             <p class="hangout-capacity">
-                <span class="hangout-participants">
+                <i class="fa-solid fa-user"></i> <span class="hangout-participants">
                     {{ hangout.participants | length }}
                 </span>/
                 <span class="hangout-total-slots">
                   {{ hangout.maxSlots }}
                 </span>
             </p>
-            <p class="hangout-name">{{ hangout.name }}</p>
         </div>
     </a>
     <div class="users-going">
-        <p>Going:
+        <p><i class="fa-solid fa-users"></i> Going:
         {% for person in hangout.participants %}
             <a href="{{ path('user_profile', {'id': person.id}) }}">{{ person.firstName }}</a>
         {% endfor %}

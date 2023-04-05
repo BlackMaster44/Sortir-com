@@ -20,9 +20,15 @@
         min-width: 35em;
         align-items: flex-end;
     }
-    >div{
-        color: var(--color-base-text);
+    >.users-going{
+        color: var(--color-secondary-text);
         >p{
+            >i{
+                color: var(--color-base-text);
+            }
+            >a{
+                color: var(--color-primary);
+            }
             @media screen and (max-width: 600px) {
                 width: 80%;
                 margin: auto;
@@ -37,8 +43,8 @@
         }
         position: absolute;
         @media screen and (min-width: 600px) {
-            left: 50%;
-            margin-bottom: 1em;
+            left: 16.8em;
+            margin-bottom: 0;
         }
     }
     > a {
@@ -46,6 +52,7 @@
         text-decoration: none;
         color: var(--color-base-text);
         &:hover .hangout-img::before {
+
             opacity: 0.3;
         }
         width: 100%;
@@ -87,6 +94,12 @@
             }
         }
         > .hangout-text {
+            >p{
+                >i{
+                    color: var(--color-base-text);
+                }
+                color: var(--color-secondary-text);
+            }
             > * {
                 margin: 0;
                 padding: 0;
@@ -94,7 +107,6 @@
             gap: 1em;
             flex-shrink: 0;
             flex-direction: column;
-            align-items: center;
             box-shadow: 0 1em 2em 0 rgba(0, 0, 0, 0.7);
             width: 80%;
             position: relative;
@@ -103,7 +115,10 @@
             height: 12em;
             background: white;
             display: flex;
+            text-align: center;
             @media screen and (min-width: 600px) {
+                text-align: left;
+                padding: 1em 0 0 2em;
                 height: auto;
                 margin: 0;
                 flex-grow: 1;
