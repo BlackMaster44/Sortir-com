@@ -5,8 +5,6 @@
                 <li><a href="{{ path('admin') }}" target="_blank">Admin</a></li>
             {% endif %}
         {% endif %}
-        <li><a href="{{ path('city_list') }}"><p>Cities</p></a></li>
-        <li><a href="{{ path('place_list') }}"><p>Places</p></a></li>
         {% if app.user %}
             <li class="profile-pic-navbar">
                 <a href="{{ path('user_view') }}">
@@ -17,7 +15,6 @@
                     <img src="{{ asset('img/Default_pfp.jpg') }}" alt="profile picture"/>
                     {% endif %}
                 </div>
-                <p>Profile</p>
                 </a>
             </li>
             <li><a href="{{ path('app_logout') }}">Logout</a></li>

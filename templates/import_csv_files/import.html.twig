@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+
+{% endblock %}
+
+{% block body %}
+    {% if app.user %}
+    {% if app.user.administrator %}
+
+    {{ form_start(form) }}
+
+    {{ form_widget(form) }}
+
+    <button class="btn btn-primary" type="submit">Importer</button>
+
+    {{ form_end(form) }}
+    {% endif %}
+    {% endif %}
+
+
+{% endblock %}
+

@@ -15,6 +15,7 @@ class SecurityController extends AbstractController
          if ($this->getUser()) {
              $this->addFlash('notice flash', sprintf('welcome back %s', $this->getUser()->getUserIdentifier()));
              return $this->redirectToRoute('home');
+
          }
 
         // get the login error if there is one

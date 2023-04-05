@@ -2,11 +2,13 @@
 
 namespace App\Controller\Admin;
 
+use App\Controller\ImportCsvFilesController;
 use App\Entity\City;
 use App\Entity\Hangout;
 use App\Entity\Place;
 use App\Entity\Site;
 use App\Entity\User;
+use App\Form\ImportType;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
@@ -44,8 +46,7 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::section('Users');
         yield MenuItem::subMenu('Action', 'fas fa-bars')->setSubItems([
             MenuItem::linkToCrud('Create User', 'fas fa-plus', User::class)->setAction(Crud::PAGE_NEW),
-            MenuItem::linkToCrud('Create csvUser', 'fas fa-plus', User::class)
-                ->setController(User2CrudController::class)->setAction(Crud::PAGE_EDIT),
+            MenuItem::linkToRoute('Import CSV', 'fas fa-plus', 'csv_import_admin_import'),
             MenuItem::linkToCrud('Show users', 'fas fa-eye', User::class)
         ]);
 

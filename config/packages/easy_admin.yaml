@@ -1,0 +1,6 @@
+# config/packages/easy_admin.yaml
+
+easy_admin:
+  dashboard:
+    menu:
+      - { label: 'Import CSV', route: 'csv_import_admin_import' }
