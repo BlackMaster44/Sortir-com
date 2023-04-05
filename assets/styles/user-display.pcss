@@ -5,8 +5,12 @@
     align-items: center;
     >div{
         display: flex;
-        width: 600px;
-        justify-content: space-between;
+        width: 100%;
+        justify-content: space-around;
+        @media screen and (min-width: 600px) {
+            width: 600px;
+            justify-content: space-between;
+        }
         >div{
             >img{
                 width: 200px;
