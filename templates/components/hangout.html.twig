@@ -17,4 +17,11 @@
             <p class="hangout-name">{{ hangout.name }}</p>
         </div>
     </a>
+    <div class="users-going">
+        <p>Going:
+        {% for person in hangout.participants %}
+            <a href="{{ path('user_profile', {'id': person.id}) }}">{{ person.firstName }}</a>
+        {% endfor %}
+        </p>
+    </div>
 </div>
