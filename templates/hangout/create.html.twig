@@ -2,10 +2,14 @@
 
 {% block title %}
 {% endblock %}
-
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="{{ asset('/css/leaflet.css') }}" rel="stylesheet"/>
+{% endblock %}
 {% block javascripts%}
     {{ parent() }}
     {{ encore_entry_script_tags('create-hangout') }}
+    {{ encore_entry_script_tags('map') }}
 {% endblock %}
 
 {% block body %}
@@ -36,8 +40,7 @@
         <div>
         {{ form_row(placeForm.name) }}
         {{ form_row(placeForm.street) }}
-        {{ form_row(placeForm.latitude) }}
-        {{ form_row(placeForm.longitude) }}
+        {{ form_row(placeForm.map) }}
         {{ form_row(placeForm.city) }}
         {{ form_row(placeForm.submit) }}
         {{ form_end(placeForm) }}
@@ -56,14 +59,14 @@
             <div><h4 class="form-title-fetch">Postcode</h4></div>
             <div id="create-form-postcode"></div>
         </div>
-        <div>
-            <div><h4 class="form-title-fetch">Latitude</h4></div>
-            <div id="create-form-latitude"></div>
-        </div>
-        <div>
-            <div><h4 class="form-title-fetch">Longitude</h4></div>
-            <div id="create-form-longitude"></div>
-        </div>
+        <div id="map">
+{#            <div><h4 class="form-title-fetch">Latitude</h4></div>#}
+{#            <div id="create-form-latitude"></div>#}
+{#        </div>#}
+{#        <div>#}
+{#            <div><h4 class="form-title-fetch">Longitude</h4></div>#}
+{#            <div id="create-form-longitude"></div>#}
+{#        </div>#}
     </div>
 {% endblock %}
 
