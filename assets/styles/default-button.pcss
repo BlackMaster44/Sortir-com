@@ -1,34 +1,32 @@
 .button{
+    text-decoration: none;
     font-size: 0.9em;
     padding: 1.5em 2em;
     border-radius: 5px;
     background: var(--color-primary);
     font-weight: bold;
-    color: var(--color-base-button);
+    color: var(--color-base-text);
     border: none;
     left: 0;
     box-shadow:
-            inset 3px 0 0 -1px rgb(1, 67, 121),
-            inset 0 -3px 0 0 rgb(0, 67, 121),
-            inset -3px 3px 0 0 rgb(128, 196, 251),
-            inset -1px 2px 0 0 rgb(1,67,121),
+            inset 3px 0 0 -1px rgba(0, 0, 0, 0.5),
+            inset 0 -3px 0 0 rgba(0, 0, 0, 0.5),
+            inset -3px 3px 0 0 rgba(255, 255, 255, 0.5),
             0 4px 4px -3px rgba(0,0,0,0.7);
     &:hover{
+        text-decoration: none;
         cursor: pointer;
-        text-shadow: #83ecff 0 0 3px;
         box-shadow:
-            inset 3px 0 0 -1px rgb(1, 67, 121),
-            inset 0 -5px 0 0 rgb(0, 67, 121),
-            inset -2px 2px 0 0 rgb(228, 250, 255),
-            inset -1px 2px 0 0 rgb(1,67,121),
-            0 6px 6px -3px rgba(0,0,0,0.7);
+            inset 3px 0 0 -1px rgba(0, 0, 0, 0.5),
+            inset 0 -5px 0 0 rgba(0, 0, 0, 0.5),
+            inset -2px 2px 0 0 rgba(255, 255, 255, 0.7)
     }
     &:active{
         box-shadow:
-            inset 3px 0 0 -1px rgb(1, 67, 121),
-            inset 0 5px 0 0 rgb(0, 67, 121),
+            inset 3px 0 0 -1px rgba(0, 0, 0, 0.5),
+            inset 0 5px 0 0 rgba(0, 0, 0, 0.5),
             inset 2px -2px 0 0 rgb(228, 250, 255),
-            inset 1px -2px 0 0 rgb(1,67,121),
+            inset 1px -2px 0 0 rgba(0, 0, 0, 0.5),
             inset 0 7px 6px -3px rgba(0,0,0,0.7);
     }
     &:disabled{
