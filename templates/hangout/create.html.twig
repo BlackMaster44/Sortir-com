@@ -40,7 +40,9 @@
         <div>
         {{ form_row(placeForm.name) }}
         {{ form_row(placeForm.street) }}
-        {{ form_row(placeForm.map) }}
+            <div class="map-container">
+            {{ form_row(placeForm.map) }}
+            </div>
         {{ form_row(placeForm.city) }}
         {{ form_row(placeForm.submit) }}
         {{ form_end(placeForm) }}

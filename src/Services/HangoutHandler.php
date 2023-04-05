@@ -17,9 +17,11 @@ class HangoutHandler
     {
         if ($action === 'saved') {
             $hangout->setState(StateConstraints::CREATED);
+            $hangout->setIsPublished(false);
         }
         if($action === 'published') {
             $hangout->setState(StateConstraints::REG_OPEN);
+            $hangout->setIsPublished(true);
         }
         $this->manager->persist($hangout);
         $this->manager->flush($hangout);
