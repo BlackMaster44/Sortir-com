@@ -1,3 +1,4 @@
+//>>>>>>>>>LEAFLET>>>>>>>>>
 import * as L from 'leaflet'
 const id = 1
 const iconUrl = `http://${window.location.host}/img/leafletIcons/marker-icon.png`;
@@ -19,6 +20,8 @@ L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
     maxZoom: 19,
     attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
 }).addTo(map);
+
+//<<<<<<<<<LEAFLET<<<<<<<<<
 const fetchPlace =async(id)=>{
     try {
         const response = await fetch(`${window.location.origin}/api/places/${id}`)
@@ -35,16 +38,14 @@ const displayPlace =async (id)=>{
     const cityNameDiv = document.getElementById('create-form-city')
     const streetDiv = document.getElementById('create-form-street')
     const postcodeDiv = document.getElementById('create-form-postcode')
+    //LEAFLET
     map.setView([latitude, longitude],13);
     marker.remove();
     marker.setLatLng([latitude, longitude]).addTo(map);
-    // const latitudeDiv = document.getElementById('create-form-latitude')
-    // const longitudeDiv = document.getElementById('create-form-longitude')
+    //END LEAFLET
     cityNameDiv.textContent = name
     streetDiv.textContent = street
     postcodeDiv.textContent = postcode
-    // latitudeDiv.textContent = latitude
-    // longitudeDiv.textContent = longitude
 }
 
 const select = document.getElementById('create_hangout_place')
@@ -71,10 +72,11 @@ createPlaceForm.forEach(c => c.style.display = 'none');
 placeButton.addEventListener('click', event => {
     placeRow.style.display = placeRow.style.display === 'none'?'flex':'none';
     createPlaceForm.forEach(c=>c.style.display = c.style.display==='none' ? 'flex' : 'none');
-
     autofillFields.style.display = autofillFields.style.display==='none'?'flex':'none';
     [publishButton, saveButton].forEach(b=>b.disabled=b.disabled !== true);
     placeButton.textContent = placeButton.textContent === 'Add Place...'?'Cancel Place creation':'Add Place...';
+    //LEAFLET
     const map = document.querySelector('#map');
     map.style.display = map.style.display === 'none' ? 'flex' : 'none';
+    //END LEAFLET
 })
