@@ -94,10 +94,13 @@ class HangoutController extends AbstractController
                             EntityManagerInterface $emi) {
 
         $hangout = $hr->find($idHangout);
-        $hangout->addParticipant($user);
-
-        $emi->flush();
-
+        if($hangout->getState() != StateConstraints::REG_OPEN) {
+            $this->addFlash('error', 'Can\'t subscribe to an event that is not open');
+        }else {
+            $hangout->addParticipant($user);
+            $emi->flush();
+            $this->addFlash('success', 'subscribed to event '.$hangout->getName());
+        }
     return $this->render('hangout/details.html.twig', [
         'hangout'=>$hangout
     ]);
@@ -110,10 +113,13 @@ class HangoutController extends AbstractController
                                      EntityManagerInterface $emi) {
 
         $hangout = $hr->find($idHangout);
-        $hangout->removeParticipant($user);
-
-        $emi->flush();
-
+        if($hangout->getState() != StateConstraints::REG_OPEN){
+            $this->addFlash('error', 'Can\'t unsubscribe from an event that is not open');
+        }else{
+            $hangout->removeParticipant($user);
+            $emi->flush();
+            $this->addFlash('success', 'unsubscribed from event '.$hangout->getName());
+        }
     return $this->render('hangout/details.html.twig', [
         'hangout'=>$hangout
     ]);
