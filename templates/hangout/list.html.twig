@@ -5,7 +5,6 @@
 {% endblock %}
 {% block body %}
     <h2>Join Us for a Hangout !</h2>
-    <button class="filter-collapse">Filters &#x25BC;</button>
     <div class="filters">
         {{ form_start(form, {'attr':{'class': 'filters'}}) }}
         <div class="col-1"><div class="siteFilter">{{ form_row(form.site)}}</div>
@@ -43,7 +42,7 @@
         </div>
         {{ form_end(form) }}
     </div>
-
+    <button class="filter-collapse">Filters &#x25BC;</button>
     <section class="hangoutContainer">
         <a href="{{ path('hangout_create') }}"><button class="createHangoutButton button">Create</button></a>
         {% for hangout in hangouts %}

@@ -77,8 +77,15 @@ class HangoutRepository extends ServiceEntityRepository
         if($queryParams->isSubscribed || $queryParams->isNotSubscribed || $queryParams->isOrganizer) $qb->setParameter('userId', $userId);
         //declare a grouped condition / orX
         $queryGroupOr = $qb->expr()->orX();
+        $queryGroupAndCreated = $qb->expr()->andX();
         //add filters conditionally to group such as $isOrganizer || $isSubscribed || $isNotSubscribed || $isExpired
-        if($queryParams->isOrganizer) $queryGroupOr->add($qb->expr()->eq('h.creator',':userId'));
+        $queryGroupOr->add($qb->expr()->notLike('h.state', $qb->expr()->literal('created')));
+        if($queryParams->isOrganizer) {
+            $queryGroupOr->add($qb->expr()->eq('h.creator',':userId'));
+            $queryGroupAndCreated->add($qb->expr()->eq('h.state', $qb->expr()->literal('created')));
+            $queryGroupAndCreated->add($qb->expr()->eq('h.creator', ':userId'));
+            $queryGroupOr->add($queryGroupAndCreated);
+        }
         if($queryParams->isSubscribed)  $queryGroupOr->add($qb->expr()->eq('u.id',':userId'));
         if($queryParams->isNotSubscribed) $queryGroupOr->add($qb->expr()->neq('u.id',':userId'));
         // allows displaying Hangouts where start date > (now - 30 days)

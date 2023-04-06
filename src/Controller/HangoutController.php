@@ -70,18 +70,14 @@ class HangoutController extends AbstractController
         ]);
     }
 
-    #[Route('/filter', name: 'filter')]
-    public function filter(): Response {
-
-        return $this->redirectToRoute('hangout_list', []);
-    }
-
     #[Route('details/{id}', name: 'details')]
     public function details(int $id, HangoutRepository $hr): Response
 {
-
     $hangout = $hr->find($id);
-
+    if(!$hangout->isIsPublished()){
+        $this->addFlash('error', 'unauthorized');
+        $this->redirectToRoute('hangout_list');
+    }
     return $this->render('hangout/details.html.twig', [
         'hangout' => $hangout
     ]);
