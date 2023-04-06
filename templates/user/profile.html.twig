@@ -3,9 +3,15 @@
 {% block body %}
     <div class="user-display">
         <div>
-            <div>Profile pic:</div><div>
+            <div>Profile pic:</div>
+            <div>
+                {% if user.imageUrl is empty %}
                 <img src=
-                     "{{asset(user.imageUrl is empty ?'img/Default_pfp.jpg':'img/'~user.imageUrl)}}" alt="profile-pic"/>
+                     "{{asset('img/Default_pfp.jpg')}}" alt="profile-pic"/>
+                {% else %}
+                <img src=
+                     "{{asset('uploads/userImages/'~user.imageUrl)}}" alt="profile-pic"/>
+                {% endif %}
             </div>
         </div>
         <div>
