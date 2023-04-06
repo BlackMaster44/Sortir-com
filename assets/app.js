@@ -16,6 +16,7 @@ import './menuBar/menuBar'
 import './styles/hangout-card.pcss'
 import './styles/forms.pcss'
 import './styles/map.pcss'
+import './styles/detailHangout.pcss'
 
 // start the Stimulus application
 // import './bootstrap';
