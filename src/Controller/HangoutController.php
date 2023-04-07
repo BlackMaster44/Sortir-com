@@ -64,12 +64,23 @@ class HangoutController extends AbstractController
     }
     #[Route('/list', name: 'list')]
     public function list(Request $request, #[CurrentUser] $user, EntityManagerInterface $em) {
+        if($user instanceof User){
+            $user = $em->getRepository(User::class)->find($user->getId());
+        }
+        $defaultData = new HangoutFilterTypeModel($em);
+        $defaultData->user = $user;
         $data = new HangoutFilterTypeModel($em);
+        $data->user = $user;
         $form = $this->createForm(HangoutFilterType::class, $data);
         $form->handleRequest($request);
-        $data->userId = $user->getId();
-        $hangouts = $em->getRepository(Hangout::class)->filterResults($data);
-        usort($hangouts, fn(Hangout $a, Hangout $b)=> $a->getStartTimestamp() < $b->getStartTimestamp() ? 1 : -1);
+        $hangouts = null;
+        if($form->isSubmitted() && $form->isValid()){
+            $hangouts = $em->getRepository(Hangout::class)->filterResults($data);
+            usort($hangouts, fn(Hangout $a, Hangout $b)=> $a->getStartTimestamp() < $b->getStartTimestamp() ? 1 : -1);
+        }else{
+            $hangouts = $em->getRepository(Hangout::class)->filterResults($defaultData);
+        }
+//        $hangouts = $em->getRepository(Hangout::class)->findByExampleField($user);
         return $this->render('hangout/list.html.twig', [
             'form'=>$form,
            'hangouts' => $hangouts

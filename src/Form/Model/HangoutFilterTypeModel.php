@@ -2,8 +2,10 @@
 
 namespace App\Form\Model;
 use App\Entity\Site;
+use App\Entity\User;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
 
@@ -26,13 +28,13 @@ class HangoutFilterTypeModel
     #[Assert\Type('string')]
     public ?string $searchQuery = null;
     /**
-     * @var DateTime $from Low limiter: no hangouts starting before this date will be shown.
+     * @var ?DateTime $from Low limiter: no hangouts starting before this date will be shown.
      * Defaults to empty - no low clamp.
      * If empty, set to NOW in Repository.
      * Cannot be higher than $to.0
      */
     #[Assert\Type(DateTime::class)]
-    public DateTime $from;
+    public ?DateTime $from = null;
     /**
      * @var ?DateTime $to High limiter: no hangouts ending after this date will be shown.
      * defaults to empty - no high clamp.
@@ -72,15 +74,11 @@ class HangoutFilterTypeModel
      */
     #[Assert\Type('boolean')]
     public bool $isExpired = false;
-    /**
-     * @var int $userId The current user ID. Not optimal, used as a query param in the repository. TODO fetch it from Directory directly ?
-     */
-    #[Assert\Type('integer')]
-    public int $userId = 0;
+
+    public User $user;
 
     public function __construct(EntityManagerInterface $em)
     {
         $this->site = $em->getRepository(Site::class)->findOneBy(['name'=>'Nantes']);
-        $this->from = new DateTime();
     }
 }
