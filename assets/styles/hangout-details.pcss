@@ -1,0 +1,123 @@
+main{
+    justify-content: center;
+    >.info-container{
+        >.head-info{
+            position: relative;
+            >h1{
+                font-size: 2.5em;
+            }
+            background-color: white;
+            padding: 1em;
+            @media screen and (min-width: 600px) {
+                padding: 1em 5em;
+            }
+            z-index: 10;
+            box-shadow: 0 40px 0 -38px var(--color-delimiter), 0 3px 10px -3px rgba(0,0,0,0.3) ;
+        }
+        >.hangout-details{
+            display: flex;
+            flex-flow: column-reverse nowrap;
+            @media screen and (min-width: 600px){
+                flex-flow: row nowrap;
+            }
+            >.main-info-block{
+                background: var(--color-tertiary);
+                @media screen and (min-width: 600px){
+                    width: 50em;
+                }
+                padding: 0.5em 2em;
+            }
+            >.side-info{
+                >.side-info-text {
+                    padding: 1em 0 0 0;
+                    display: flex;
+                    @media screen and (min-width: 600px) {
+                        border-left: solid 2px var(--color-delimiter);
+                        flex-flow: column nowrap;
+                        padding: 1em 2em 0 1em;
+                        min-width: 200px;
+                        width: 10em;
+                    }
+
+                    > div {
+                        align-items: center;
+                        display: flex;
+                        @media screen and (min-width: 600px){
+                            padding: 0.5em 0;
+                        }
+                        > p, a {
+                            flex-basis: 25%;
+                            display: flex;
+                            justify-content: center;
+                            padding: 1em 0.1em;
+                            @media screen and (min-width: 600px){
+                                padding: 0 1em;
+                                justify-content: flex-start;
+                            }
+                            margin: 0;
+                        }
+                    }
+
+                    > * {
+                        display: flex;
+                        flex-flow: column nowrap;
+                        @media screen and (min-width: 600px) {
+                            flex-flow: row nowrap;
+                        }
+                        justify-content: flex-start;
+                    }
+
+                    > p {
+                        &:nth-child(1) {
+                            padding-left: 10px;
+                        }
+                    }
+
+                    > .hangout-details-participants-list {
+                        > i {
+                            padding-top: 0.5em;
+                            height: 100%;
+                            align-items: flex-start;
+                            display: flex;
+                            justify-content: flex-start;
+                        }
+
+                        > ul {
+                            margin: 0;
+                            padding: 0;
+                            list-style: none;
+
+                            > li {
+                                padding: 0 1em;
+                                text-decoration: none;
+
+                                > a {
+                                    padding: 0;
+                                }
+                            }
+                        }
+                    }
+                }
+                > .hangout-details-buttons {
+                    display: flex;
+                    flex-flow: column nowrap;
+                    gap: 1em;
+                    padding: 0;
+                    align-items: flex-start;
+
+                    > a {
+                        width: 100%;
+                        margin: 0;
+                        padding: 0;
+
+                        > button {
+                            margin: 0;
+                            width: 100%;
+                        }
+                    }
+                }
+
+            }
+        }
+    }
+}

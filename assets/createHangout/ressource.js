@@ -1,6 +1,5 @@
 //>>>>>>>>>LEAFLET>>>>>>>>>
 import * as L from 'leaflet'
-const id = 1
 const iconUrl = `http://${window.location.host}/img/leafletIcons/marker-icon.png`;
 const shadowUrl = `http://${window.location.host}/img/leafletIcons/marker-shadow.png`;
 const iconDefault = L.icon({
@@ -21,6 +20,16 @@ L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
 }).addTo(map);
 
+//...fetch from api, then ...
+
+// map.setView([latitude, longitude],13);
+// marker.remove();
+// marker.setLatLng([latitude, longitude]).addTo(map);
+setInterval(function () {
+    map.invalidateSize();
+}, 100);
+
+
 //<<<<<<<<<LEAFLET<<<<<<<<<
 const fetchPlace =async(id)=>{
     try {
@@ -39,7 +48,7 @@ const displayPlace =async (id)=>{
     const streetDiv = document.getElementById('create-form-street')
     const postcodeDiv = document.getElementById('create-form-postcode')
     //LEAFLET
-    map.setView([latitude, longitude],13);
+    map.setView([latitude, longitude],7);
     marker.remove();
     marker.setLatLng([latitude, longitude]).addTo(map);
     //END LEAFLET

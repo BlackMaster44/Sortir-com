@@ -27,7 +27,11 @@ use Symfony\Component\Security\Http\Attribute\CurrentUser;
 class HangoutController extends AbstractController
 {
     #[Route('/create', name: 'create')]
-    public function createHangout(HangoutHandler $handler, Request $request,#[CurrentUser] $user, EntityManagerInterface $em): Response
+    public function createHangout(
+        HangoutHandler $handler,
+        Request $request,
+        #[CurrentUser] $user,
+        EntityManagerInterface $em): Response
     {
         $place = new Place();
         $hangout = new Hangout();
@@ -41,10 +45,12 @@ class HangoutController extends AbstractController
         $placeForm->handleRequest($request);
         $hangoutForm->handleRequest($request);
         if($placeForm->isSubmitted() && $placeForm->isValid()){
+            //LEAFLET SETUP
             $place->setLatitude($placeForm->get('map')->get('latitude')->getData());
             $place->setLongitude($placeForm->get('map')->get('longitude')->getData());
             $em->persist($place);
             $em->flush();
+            return $this->redirectToRoute('hangout_create');
         }else if($hangoutForm->isSubmitted() && $hangoutForm->isValid()) {
             $action = $hangoutForm->get('publish')->isClicked() ? 'published' : 'saved';
             $handler->save($hangout, $action);
@@ -71,12 +77,12 @@ class HangoutController extends AbstractController
     }
 
     #[Route('details/{id}', name: 'details')]
-    public function details(int $id, HangoutRepository $hr): Response
+    public function details(int $id, HangoutRepository $hr, #[CurrentUser] $user): Response
 {
     $hangout = $hr->find($id);
-    if(!$hangout->isIsPublished()){
+    if(!$hangout->getState() == StateConstraints::CREATED && $hangout->getCreator() != $user){
         $this->addFlash('error', 'unauthorized');
-        $this->redirectToRoute('hangout_list');
+        return $this->redirectToRoute('hangout_list');
     }
     return $this->render('hangout/details.html.twig', [
         'hangout' => $hangout

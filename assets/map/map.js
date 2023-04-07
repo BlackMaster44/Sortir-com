@@ -37,6 +37,7 @@ map.on('click', (e) => {
 setInterval(function () {
     map.invalidateSize();
 }, 100);
+
 map.setView([latitude.value, longitude.value], 13);
 [latitude, longitude].forEach(l => l.addEventListener('input', (e)=>{
     e.target.className='latitude' ? latDyn = e.target.value : lngDyn = e.target.value

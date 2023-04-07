@@ -18,6 +18,9 @@
         "webpack-cli": "^4.10.0",
         "webpack-notifier": "^1.15.0"
     },
+    "browserslist": [
+       "defaults"
+    ],
     "license": "UNLICENSED",
     "private": true,
     "scripts": {

@@ -17,14 +17,11 @@ class MapType extends AbstractType
                 'attr'=>['class'=>'longitude']
             ]);
     }
-
     public function getBlockPrefix(): string
     {
         return 'map';
     }
 
-
     public function configureOptions(OptionsResolver $resolver)
-    {
-    }
+    {}
 }

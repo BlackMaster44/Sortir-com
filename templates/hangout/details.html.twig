@@ -1,50 +1,58 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h2>{{ hangout.name }}</h2>
-
-    <div class="hangoutDetails">
-        <p>{{ hangout.informations }}</p>
-        <p>Creator : <a href="{{ path('user_profile', {'id': hangout.creator.id}) }}">{{ hangout.creator.firstName }}</a></p>
-        <p>Site : {{ hangout.site.name }}</p>
-        <p>Place : {{ hangout.place.name }}</p>
-        <p>{{ hangout.startTimestamp | date('d/m/y H:i') }}</p>
-        <p>Max number of participants : {{ hangout.maxSlots }}</p>
-        <p>Free slots left : {{ hangout.maxSlots - (hangout.participants | length) }}</p>
-        <p>
-            {% if (hangout.participants | length) == hangout.maxSlots %}
-                Registration closed
-            {% else %}
-                {{ hangout.state }}
-            {% endif %}
-        </p>
-        {% if hangout.cancelReason is not empty %}
-            <p>Cancel reasons : {{ hangout.cancelReason }}</p>
-        {% endif %}
-        <div class="hangout-details-participants-list">
-            {% for person in hangout.participants %}
-                <a href="{{ path('user_profile', {'id': person.id}) }}">{{ person.firstName }}</a>
-            {% endfor %}
+    <div class="info-container">
+        <div class="head-info">
+            <h1>{{ hangout.name }}</h1>
+            <p><i class="fa-solid fa-ticket"></i> {{ hangout.maxSlots - (hangout.participants | length) }}</p>
+            <p><i class="fa-solid fa-map-location-dot"></i> {{ hangout.place.name }}</p>
+            <p><i class="fa-solid fa-house"></i> {{ hangout.site.name }}</p>
         </div>
-    </div>
-
-    {% if (hangout.startTimestamp | date('U') > "now" | date('U')) %}
-        {% if hangout.state != 'canceled' %}
-            <div class="hangout-details-buttons">
-                <a href="{{ path('hangout_goingTo', {'idHangout': hangout.id}) }}">
-                    <button>Participate</button>
-                </a>
-                <a href="{{ path('hangout_notGoingAnymore', {'idHangout': hangout.id}) }}">
-                    <button>Withdraw</button>
-                </a>
-                {% if hangout.creator.id == app.user.id %}
-                    <a href="{{ path('hangout_cancel', {'idHangout': hangout.id}) }}">
-                        <button>Cancel</button>
+        <div class="hangout-details">
+            <div class="main-info-block">
+                <p>{{ hangout.informations }}</p>
+            </div>
+            <div class="side-info">
+                <div class="side-info-text">
+                    <div class="creator"><i class="fa-solid fa-pen-to-square"></i><a href="{{ path('user_profile', {'id': hangout.creator.id}) }}">{{ hangout.creator.firstName }}</a></div>
+                    <div class="start-time"><i class="fa-regular fa-calendar"></i><p>{{ hangout.startTimestamp | date('d/m/y H:i') }}</p></div>
+                    {{ hangout.state | status }}
+                    {% if hangout.cancelReason is not empty %}
+                    <p>Cancel reasons : {{ hangout.cancelReason }}</p>
+                    {% endif %}
+                    <div class="hangout-details-participants-list">
+                        <i class="fa-solid fa-users"></i>
+                        <ul>
+                        {% for person in hangout.participants %}
+                            <li><a href="{{ path('user_profile', {'id': person.id}) }}">{{ person.firstName }}</a></li>
+                        {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+                {% if (hangout.startTimestamp | date('U') > "now" | date('U')) %}
+                {% if hangout.state == 'reg_open' %}
+                <div class="hangout-details-buttons">
+                    {% if app.user not in hangout.participants %}
+                    <a href="{{ path('hangout_goingTo', {'idHangout': hangout.id}) }}">
+                        <button class="button">Participate</button>
                     </a>
+                    {% endif %}
+                    {% if app.user in hangout.participants %}
+                    <a href="{{ path('hangout_notGoingAnymore', {'idHangout': hangout.id}) }}">
+                        <button class="button">Withdraw</button>
+                    </a>
+                    {% endif %}
+                    {% if hangout.creator.id == app.user.id %}
+                    <a href="{{ path('hangout_cancel', {'idHangout': hangout.id}) }}">
+                        <button class="button">Cancel</button>
+                    </a>
+                </div>
+                {% endif %}
+                {% endif %}
                 {% endif %}
             </div>
-        {% endif %}
-    {% endif %}
+        </div>
+    </div>
 {% endblock %}
 
 {% block title %}

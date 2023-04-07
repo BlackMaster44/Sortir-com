@@ -3,14 +3,10 @@
 namespace App\Repository;
 
 use App\Entity\Hangout;
-use App\Entity\User;
-use App\Form\HangoutFilterType;
 use App\Form\Model\HangoutFilterTypeModel;
+use App\TypeConstraints\StateConstraints;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\Persistence\ManagerRegistry;
-use phpDocumentor\Reflection\Types\Integer;
-use Symfony\Component\Validator\Constraints\Date;
 
 
 /**
@@ -79,10 +75,10 @@ class HangoutRepository extends ServiceEntityRepository
         $queryGroupOr = $qb->expr()->orX();
         $queryGroupAndCreated = $qb->expr()->andX();
         //add filters conditionally to group such as $isOrganizer || $isSubscribed || $isNotSubscribed || $isExpired
-        $queryGroupOr->add($qb->expr()->notLike('h.state', $qb->expr()->literal('created')));
+        $queryGroupOr->add($qb->expr()->notLike('h.state', $qb->expr()->literal(StateConstraints::CREATED)));
         if($queryParams->isOrganizer) {
             $queryGroupOr->add($qb->expr()->eq('h.creator',':userId'));
-            $queryGroupAndCreated->add($qb->expr()->eq('h.state', $qb->expr()->literal('created')));
+            $queryGroupAndCreated->add($qb->expr()->eq('h.state', $qb->expr()->literal(StateConstraints::CREATED)));
             $queryGroupAndCreated->add($qb->expr()->eq('h.creator', ':userId'));
             $queryGroupOr->add($queryGroupAndCreated);
         }

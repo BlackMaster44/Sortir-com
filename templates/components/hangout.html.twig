@@ -7,6 +7,7 @@
             <h3 class="hangout-name">{{ hangout.name }}</h3>
             <p class="hangout-site"><i class="fa-solid fa-house"></i> {{ hangout.site.name }}</p>
             <p class="hangout-start-timestamp"><i class="fa-solid fa-calendar-days"></i> {{ hangout.startTimestamp | date('d/m/y H:i') }}</p>
+            {{ hangout.state | status }}
             <p class="hangout-capacity">
                 <i class="fa-solid fa-user"></i> <span class="hangout-participants">
                     {{ hangout.participants | length }}

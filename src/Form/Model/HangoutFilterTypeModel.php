@@ -13,7 +13,6 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class HangoutFilterTypeModel
 {
-
     /**
      * @var Site $site Site entity linked to the hangouts you want to display.
      */
